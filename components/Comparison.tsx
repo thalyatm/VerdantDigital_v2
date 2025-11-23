@@ -11,7 +11,10 @@ const iconMap: Record<string, React.ReactNode> = {
 
 const Comparison: React.FC = () => {
   return (
-    <section className="py-24 bg-brand-black relative border-b border-brand-border scroll-mt-24" id="comparison">
+    <section className="py-24 bg-transparent relative scroll-mt-24" id="comparison">
+      {/* Animated Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
           
@@ -22,32 +25,28 @@ const Comparison: React.FC = () => {
             </div>
             
             <h2 className="text-3xl lg:text-4xl font-display font-bold text-white mb-6">
-              You're a pro at what you do. <br/>
-              <span className="text-brand-muted">But is your website working?</span>
+              You're a pro at your trade. <br/>
+              <span className="text-brand-muted">But is your website costing you jobs?</span>
             </h2>
-            
-            <p className="text-brand-muted text-sm lg:text-base leading-relaxed mb-10">
-              You’re too busy on site to deal with website changes. You just want someone who understands tradies. Currently, your website is just sitting there instead of working for you.
-            </p>
 
-            <div className="space-y-8 mt-auto">
+            <div className="space-y-8 mt-4">
               <div className="flex gap-4">
                 <div className="w-10 h-10 bg-brand-black rounded-full flex items-center justify-center flex-shrink-0 text-red-500 border border-brand-border shadow-lg">
                   <TrendingDown size={18} />
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-white mb-1">Low Enquiries</h3>
-                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">Traffic hitting your site but leaving without calling? You're leaving money on the table every single day.</p>
+                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">Your phone should be ringing. Instead, visitors land on your site, can't find your number, and call your competitor instead. Every day without a proper lead system is money walking out the door.</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
                  <div className="w-10 h-10 bg-brand-black rounded-full flex items-center justify-center flex-shrink-0 text-red-500 border border-brand-border shadow-lg">
-                  <Clock size={18} />
+                  <Settings size={18} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white mb-1">Time Wasted</h3>
-                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">Tried DIY builders? Dealing with "web guys" who don't reply? Stick to the tools and let us handle the tech.</p>
+                  <h3 className="text-base font-bold text-white mb-1">Locked Out of Your Own Site</h3>
+                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">Need to add photos from yesterday's job? That'll be $150 and a 3-day wait. Your "web guy" has you held hostage. You should own your online presence—not rent it.</p>
                 </div>
               </div>
 
@@ -56,8 +55,18 @@ const Comparison: React.FC = () => {
                   <AlertTriangle size={18} />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white mb-1">Website Looks Old</h3>
-                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">First impressions count. If your site looks like it was built in 2010, customers assume your business is outdated too.</p>
+                  <h3 className="text-base font-bold text-white mb-1">Looks Like 2010, Feels Like Amateur Hour</h3>
+                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">Customers judge you in 3 seconds. If your website screams "outdated," they assume your work does too. Even if you're the best in town, they'll never know.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                 <div className="w-10 h-10 bg-brand-black rounded-full flex items-center justify-center flex-shrink-0 text-red-500 border border-brand-border shadow-lg">
+                  <Clock size={18} />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white mb-1">Zero Traffic = Zero Leads</h3>
+                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">You spent $2,000 on a website that gets 4 visitors a month. A beautiful site nobody sees is just an expensive digital brochure gathering dust.</p>
                 </div>
               </div>
             </div>
@@ -72,25 +81,49 @@ const Comparison: React.FC = () => {
             </div>
 
             <h2 className="text-3xl lg:text-4xl font-display font-black text-white mb-6">
-              BUILT JUST FOR <br/> <span className="text-brand-accent">TRADIES.</span>
+              BUILT FOR TRADIES WHO <br/> <span className="text-brand-accent">WANT LEADS, NOT EXCUSES.</span>
             </h2>
-            
-            <p className="text-brand-muted text-sm lg:text-base leading-relaxed mb-10 border-l-2 border-brand-accent pl-4">
-              Website + lead-system in one. We handle the tech so you can handle the jobs.
-            </p>
 
-            <div className="space-y-8 mt-auto relative z-10">
-               {BENEFITS.map((benefit, index) => (
-                 <div key={index} className="flex gap-4 group">
-                    <div className="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 text-brand-accent border border-brand-accent/20 group-hover:scale-110 transition-transform">
-                      {iconMap[benefit.iconName]}
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-white mb-1">{benefit.title}</h3>
-                      <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">{benefit.description}</p>
-                    </div>
-                 </div>
-               ))}
+            <div className="space-y-8 mt-4 relative z-10">
+              <div className="flex gap-4 group">
+                <div className="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 text-brand-accent border border-brand-accent/20 group-hover:scale-110 transition-transform">
+                  <Smartphone size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white mb-1">Every Element Built to Convert</h3>
+                  <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">Giant click-to-call buttons. Quote forms above the fold. Mobile-first design because 80% of your customers search on their phone while they're standing in front of the problem you solve.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 group">
+                <div className="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 text-brand-accent border border-brand-accent/20 group-hover:scale-110 transition-transform">
+                  <ClockIcon size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white mb-1">Live in 7 Days</h3>
+                  <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">No 12-week waits. No "we're still working on it." You'll be taking calls from your new site within a week. Fast doesn't mean sloppy—it means we know what works.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 group">
+                <div className="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 text-brand-accent border border-brand-accent/20 group-hover:scale-110 transition-transform">
+                  <Settings size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white mb-1">You're in Control (Finally)</h3>
+                  <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">Update photos, add testimonials, change your service area—all without calling us. But when you need help? We're Australian-based and respond in under 4 hours.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 group">
+                <div className="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 text-brand-accent border border-brand-accent/20 group-hover:scale-110 transition-transform">
+                  <TrendingUp size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white mb-1">Built to Grow With You</h3>
+                  <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">Start with the foundation. Add Google Ads when you're ready to scale. Need a booking system in 6 months? We've got you. This isn't a "set and forget" – it's a partnership.</p>
+                </div>
+              </div>
             </div>
           </div>
 

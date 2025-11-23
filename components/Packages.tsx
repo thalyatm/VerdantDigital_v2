@@ -19,7 +19,7 @@ const Packages: React.FC = () => {
               
               {/* Badge */}
               <div className="bg-brand-accent text-brand-black text-xs font-extrabold uppercase tracking-widest py-3 text-center">
-                MOST POPULAR FOR TRADIES
+                DECEMBER INTAKE - 3 SPOTS REMAINING
               </div>
 
               <div className="p-8 md:p-12">
@@ -32,50 +32,76 @@ const Packages: React.FC = () => {
 
                 {/* Pricing */}
                 <div className="flex flex-col items-center mb-10 text-center">
-                   <div className="relative mb-1">
-                      <span className="text-gray-500 text-xl font-bold">$1299</span>
+                   {/* Valued At Strikethrough */}
+                   <div className="relative mb-3">
+                      <span className="text-gray-500 text-xl font-bold">VALUED AT $2,500</span>
                       <div className="absolute top-1/2 left-0 w-full h-0.5 bg-red-500 rotate-[-10deg]"></div>
                    </div>
+
                    <div className="flex items-baseline gap-2">
                      <span className="text-3xl text-brand-accent font-bold">$</span>
                      <span className="text-8xl font-display font-black text-white tracking-tighter">299</span>
                    </div>
-                   <span className="text-xs font-bold text-brand-muted uppercase tracking-widest mb-6">Initial Build Cost</span>
-                   
-                   <div className="flex items-center gap-3 bg-brand-surface px-8 py-4 rounded-xl border border-brand-border w-full justify-center shadow-inner mb-6">
+                   <span className="text-xs font-bold text-brand-muted uppercase tracking-widest mb-2">Setup</span>
+
+                   <div className="flex items-center gap-3 bg-brand-surface px-8 py-4 rounded-xl border border-brand-border w-full justify-center shadow-inner mb-3">
                       <span className="text-2xl font-bold text-white">+ $99</span>
                       <span className="text-sm text-brand-muted font-medium opacity-80">/ month</span>
                    </div>
 
+                   {/* What's Included in Monthly */}
+                   <div className="bg-brand-black/50 rounded-xl p-4 mb-6 border border-brand-accent/20">
+                      <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-3">What's Included for $99/mo:</h4>
+                      <div className="space-y-2">
+                         {[
+                            "Hosting & security (worth $50/mo)",
+                            "Unlimited updates & edits",
+                            "Mobile optimisation",
+                            "Lead tracking dashboard",
+                            "Monthly performance report",
+                            "Priority support (respond within 4 hours)"
+                         ].map((item, i) => (
+                            <div key={i} className="flex gap-2 items-start">
+                               <div className="mt-0.5 bg-brand-accent rounded-full p-0.5 shrink-0">
+                                  <Check size={9} className="text-brand-black stroke-[4]" />
+                               </div>
+                               <span className="text-xs text-gray-300 leading-tight">{item}</span>
+                            </div>
+                         ))}
+                      </div>
+                   </div>
+
                    {/* Contract Details - Made Prominent */}
-                   <div className="bg-brand-accent/10 border border-brand-accent/20 rounded-lg p-3 w-full">
-                     <div className="flex items-center justify-center gap-2 text-brand-accent font-bold uppercase text-[11px] tracking-widest mb-1">
+                   <div className="bg-brand-accent/10 border border-brand-accent/20 rounded-lg p-4 w-full mb-6">
+                     <div className="flex items-center justify-center gap-2 text-brand-accent font-bold uppercase text-[11px] tracking-widest mb-2">
                        <Info size={14} />
-                       Contract Terms
+                       Partnership Terms
                      </div>
-                     <p className="text-white text-sm font-medium">
-                       24 Month Contract • Cancel Anytime After
+                     <p className="text-white text-sm font-medium mb-2">
+                       24-Month Partnership • Then Up to You
+                     </p>
+                     <p className="text-brand-muted text-xs leading-relaxed">
+                       After 24 months: Your site is yours. Continue with us for $50/mo (hosting & security only), or move it wherever you want.
                      </p>
                    </div>
                 </div>
 
                 {/* Features */}
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-3 mb-10">
                   {[
-                    "Custom High-Convert Website",
-                    "Mobile & Tablet Optimized",
-                    "Google Business Setup",
-                    "Basic Local SEO",
-                    "Contact Form & Quote Integration",
-                    "Hosting & Domain Included",
-                    "Unlimited Content Updates",
-                    "Live in 7 Days or Less"
+                    "Mobile-optimised website",
+                    "Google-friendly structure (we handle all the SEO basics)",
+                    "Click-to-call buttons on every page",
+                    "Quote request forms that work on all devices",
+                    "Photo gallery for your best jobs",
+                    "Service area mapping for local SEO",
+                    "Monthly analytics report (see where leads come from)"
                   ].map((feature, i) => (
-                    <li key={i} className="flex items-start gap-4">
+                    <li key={i} className="flex items-start gap-3">
                       <div className="mt-0.5 bg-brand-accent/10 p-1 rounded-full text-brand-accent flex-shrink-0">
-                        <Check size={14} strokeWidth={3} />
+                        <Check size={12} strokeWidth={3} />
                       </div>
-                      <span className="text-gray-300 text-sm font-medium">{feature}</span>
+                      <span className="text-gray-300 text-sm font-medium leading-tight">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -83,12 +109,8 @@ const Packages: React.FC = () => {
                 {/* CTA */}
                 <a href="#enquire" className="w-full bg-brand-accent hover:bg-white text-brand-black font-bold text-lg py-5 rounded-xl shadow-[0_4px_20px_rgba(0,255,157,0.4)] hover:shadow-[0_6px_30px_rgba(0,255,157,0.6)] transition-all transform hover:-translate-y-1 uppercase tracking-wider flex items-center justify-center gap-3 group">
                   <Zap size={20} className="fill-current group-hover:scale-110 transition-transform" />
-                  SECURE THIS PRICE
+                  GET STARTED
                 </a>
-                
-                <div className="mt-6 flex justify-center items-center gap-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                   <ShieldCheck size={16} className="text-brand-accent"/> 30-Day Satisfaction Guarantee
-                </div>
 
               </div>
             </div>

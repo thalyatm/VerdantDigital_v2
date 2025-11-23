@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import StartProjectModal from './components/StartProjectModal';
 
 // Tradie Components
 import Hero from './components/Hero';
 import Comparison from './components/Comparison';
-import ContentGenerator from './components/ContentGenerator';
 // import Packages from './components/Packages'; // Removed as per request to move deal to hero
 import Workflow from './components/Workflow';
 import Faq from './components/Faq';
@@ -25,6 +25,7 @@ type ViewType = 'agency' | 'tradie' | 'enquire';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewType>('agency');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Handle Scroll Animations
   useEffect(() => {
@@ -78,38 +79,48 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-brand-black text-white selection:bg-brand-accent selection:text-brand-black">
-      <Header currentView={view} onNavigate={handleNavigate} />
-      
+      <Header currentView={view} onNavigate={handleNavigate} onOpenModal={() => setIsModalOpen(true)} />
+
       <main className="flex-grow">
         {view === 'agency' && (
           <>
             <MainHero />
-            <MainExpertise />
             <MainPhilosophy />
+            <MainExpertise />
             <MainPortfolio />
             <MainContact />
           </>
         )}
 
         {view === 'tradie' && (
-          <>
-            <Hero />
-            {/* Packages section removed - Pricing now in Hero */}
-            <Comparison />
-            <Workflow />
-            <CtaSection />
-            <Faq />
-            <ContentGenerator />
-            <MainContact />
-          </>
+          <div className="relative">
+            {/* Background Grid & Noise */}
+            <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+            <div className="fixed inset-0 bg-grid-pattern bg-[size:50px_50px] opacity-[0.1] pointer-events-none"></div>
+
+            {/* Neon Glows */}
+            <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="fixed bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <div className="relative z-10">
+              <Hero onOpenModal={() => setIsModalOpen(true)} />
+              {/* Packages section removed - Pricing now in Hero */}
+              <Comparison />
+              <Workflow onOpenModal={() => setIsModalOpen(true)} />
+              <CtaSection onOpenModal={() => setIsModalOpen(true)} />
+              <Faq />
+              <MainContact />
+            </div>
+          </div>
         )}
 
         {view === 'enquire' && (
           <EnquiryPage />
         )}
       </main>
-      
+
       <Footer />
+      <StartProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };

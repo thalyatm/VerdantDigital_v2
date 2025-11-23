@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Hammer, ChevronDown } from 'lucide-react';
-import StartProjectModal from './StartProjectModal';
 
 interface HeaderProps {
   currentView: 'agency' | 'tradie' | 'enquire';
   onNavigate: (view: 'agency' | 'tradie' | 'enquire', hash?: string) => void;
+  onOpenModal: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
+const Header: React.FC<HeaderProps> = ({ currentView, onNavigate, onOpenModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [mobileIndustryOpen, setMobileIndustryOpen] = useState(false);
 
   useEffect(() => {
@@ -28,7 +27,6 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
     { name: 'The Deal', action: () => handleNavClick('tradie', 'pricing') },
     { name: 'Why Us', action: () => handleNavClick('tradie', 'comparison') },
     { name: 'Process', action: () => handleNavClick('tradie', 'process') },
-    { name: 'AI Tools', action: () => handleNavClick('tradie', 'content-generator') },
   ];
 
   const renderNavLink = (name: string, isActive: boolean, action: () => void) => (
@@ -48,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
 
   return (
     <>
-      <header 
+      <header
         className={`fixed w-full top-0 z-50 transition-all duration-300 ${
           scrolled || currentView === 'enquire' ? 'bg-brand-black/90 backdrop-blur-lg border-b border-brand-surface' : 'bg-transparent'
         }`}
@@ -60,16 +58,16 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
               className="flex-shrink-0 cursor-pointer group"
               onClick={() => handleNavClick('agency')}
             >
-              <div className="flex items-stretch border-4 border-white bg-black shadow-[0_0_25px_rgba(0,255,157,0.15)] transform group-hover:scale-105 transition-transform duration-300">
-                <div className="bg-[#00FF9D] flex items-center px-5 py-3 border-r-0">
-                  <span className="font-display font-black text-2xl tracking-tighter text-black leading-none">
+              <div className="flex items-stretch border-3 border-white bg-black shadow-[0_0_20px_rgba(0,255,157,0.15)] transform group-hover:scale-105 transition-transform duration-300">
+                <div className="bg-[#00FF9D] flex items-center px-4 py-2 border-r-0">
+                  <span className="font-display font-black text-xl tracking-tighter text-black leading-none">
                     VERDANT
                   </span>
                 </div>
-                <div className="bg-white flex items-center px-5 py-3 relative overflow-hidden">
+                <div className="bg-white flex items-center px-4 py-2 relative overflow-hidden">
                    {/* Subtle shine effect on the white part */}
                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-gray-100 opacity-50"></div>
-                  <span className="font-display font-black text-2xl tracking-tighter text-black leading-none relative z-10 drop-shadow-sm">
+                  <span className="font-display font-black text-xl tracking-tighter text-black leading-none relative z-10 drop-shadow-sm">
                     DIGITAL
                   </span>
                 </div>
@@ -113,8 +111,8 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                   Enquire
                 </button>
               ) : (
-                <button 
-                  onClick={() => setIsModalOpen(true)} 
+                <button
+                  onClick={onOpenModal}
                   className="flex items-center gap-2 bg-brand-accent hover:brightness-110 text-brand-black font-bold py-3 px-6 rounded shadow-[0_4px_12px_rgba(0,255,157,0.3)] transition-all transform hover:-translate-y-0.5 uppercase tracking-wide text-sm ml-4"
                 >
                   Start Project
@@ -196,8 +194,8 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                   Enquire
                 </button>
               ) : (
-                <button 
-                  onClick={() => { setIsMenuOpen(false); setIsModalOpen(true); }} 
+                <button
+                  onClick={() => { setIsMenuOpen(false); onOpenModal(); }}
                   className="w-full text-center bg-brand-accent text-brand-black font-bold py-5 rounded-lg mt-8 shadow-[0_0_20px_rgba(0,255,157,0.2)] text-lg flex items-center justify-center gap-2 uppercase"
                 >
                   Start Project
@@ -208,8 +206,6 @@ const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
           </div>
         )}
       </header>
-
-      <StartProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };

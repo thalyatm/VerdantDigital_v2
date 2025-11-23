@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-4 text-[10px] font-mono uppercase tracking-wider text-gray-500 text-center md:text-right items-center">
              <p>&copy; {new Date().getFullYear()} Verdant Digital Agency.</p>
              <p className="hidden md:block text-brand-border">|</p>
-             <p>Melbourne, Australia</p>
+             <p>Brisbane, Australia</p>
           </div>
         </div>
       </div>

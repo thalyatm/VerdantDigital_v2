@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, Clock, MapPin, MessageSquare } from 'lucide-react';
 
 const MainContact: React.FC = () => {
@@ -7,21 +7,50 @@ const MainContact: React.FC = () => {
     business: '',
     email: '',
     phone: '',
-    industry: ''
+    industry: '',
+    message: ''
   });
+
+  useEffect(() => {
+    const handlePrefill = () => {
+      const message = sessionStorage.getItem('prefillMessage');
+      const industry = sessionStorage.getItem('prefillIndustry');
+
+      if (message || industry) {
+        setFormState(prev => ({
+          ...prev,
+          message: message || prev.message,
+          industry: industry || prev.industry
+        }));
+
+        // Clear from session storage
+        sessionStorage.removeItem('prefillMessage');
+        sessionStorage.removeItem('prefillIndustry');
+      }
+    };
+
+    window.addEventListener('prefillForm', handlePrefill);
+    return () => window.removeEventListener('prefillForm', handlePrefill);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert('Thanks for your enquiry! We will be in touch shortly.');
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   return (
-    <section id="enquire" className="py-20 bg-brand-surface border-t border-brand-border scroll-mt-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="enquire" className="pt-20 pb-10 bg-brand-black relative scroll-mt-24">
+      {/* Animated Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
+
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 bg-grid-pattern bg-[size:60px_60px] opacity-[0.05] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-24 items-start">
           
           {/* Left Side - Content */}
@@ -30,12 +59,12 @@ const MainContact: React.FC = () => {
               GET IN TOUCH
             </div>
             
-            <h2 className="text-3xl md:text-5xl font-display font-black text-white mb-6 leading-tight">
-              Let's Build <br/><span className="text-brand-accent">Something Great.</span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-white mb-6 leading-tight uppercase max-w-6xl" style={{letterSpacing: '0.02em'}}>
+              Ready to Build <br/><span className="animate-text-starspeed inline-block">Something That Works?</span>
             </h2>
             
             <p className="text-brand-muted text-base lg:text-lg mb-10 leading-relaxed">
-              Ready to take your business online? Fill out the form and we'll get back to you within 24 hours.
+              Fill out the form and we'll get back to you within 24 hours.
             </p>
 
             <div className="space-y-6 mb-10">
@@ -69,34 +98,36 @@ const MainContact: React.FC = () => {
             </div>
 
             <div className="pt-8 border-t border-brand-border/50">
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Questions?</p>
-              <a href="mailto:hello@verdantdigital.com.au" className="text-xs font-bold text-white hover:text-brand-accent transition-colors font-display">
+              <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">Questions?</p>
+              <a href="mailto:hello@verdantdigital.com.au" className="text-sm font-bold text-white hover:text-brand-accent transition-colors font-display">
                 hello@verdantdigital.com.au
               </a>
             </div>
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-brand-black border border-brand-border p-6 md:p-8 rounded-2xl shadow-2xl h-fit w-full mt-0 md:mt-52">
+          <div className="bg-brand-black border border-brand-border p-6 md:p-8 rounded-2xl shadow-2xl h-fit w-full mt-0 md:mt-12">
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Name</label>
-                <input 
-                  type="text" name="name" required
-                  value={formState.name} onChange={handleChange}
-                  className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
-                  placeholder="John Doe"
-                />
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Name</label>
+                  <input
+                    type="text" name="name" required
+                    value={formState.name} onChange={handleChange}
+                    className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
+                    placeholder="John Doe"
+                  />
+                </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Business Name</label>
-                <input 
-                  type="text" name="business" required
-                  value={formState.business} onChange={handleChange}
-                  className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
-                  placeholder="Acme Inc."
-                />
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Business Name</label>
+                  <input
+                    type="text" name="business" required
+                    value={formState.business} onChange={handleChange}
+                    className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
+                    placeholder="Acme Inc."
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -112,7 +143,7 @@ const MainContact: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                    <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Phone</label>
-                  <input 
+                  <input
                     type="tel" name="phone"
                     value={formState.phone} onChange={handleChange}
                     className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
@@ -121,8 +152,8 @@ const MainContact: React.FC = () => {
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Industry</label>
-                  <select 
-                    name="industry" 
+                  <select
+                    name="industry"
                     value={formState.industry} onChange={handleChange}
                     className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all h-[46px] text-sm"
                   >
@@ -134,6 +165,17 @@ const MainContact: React.FC = () => {
                     <option value="Other">Other</option>
                   </select>
                 </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Message (Optional)</label>
+                <textarea
+                  name="message"
+                  value={formState.message} onChange={handleChange}
+                  className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm resize-none"
+                  placeholder="Tell us about your project..."
+                  rows={4}
+                />
               </div>
 
               <button 

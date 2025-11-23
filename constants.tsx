@@ -51,16 +51,32 @@ export const PACKAGES: PackageItem[] = [
 
 export const FAQS: FaqItem[] = [
   {
-    question: "I’m not tech savvy, can I still manage the site?",
+    question: "I'm not tech savvy, can I still manage the site?",
     answer: "Absolutely. We build on user-friendly platforms. If you can use Facebook, you can update your site. Plus, with our monthly support, you can just text us photos or changes and we handle it for you."
   },
   {
-    question: "How long will it take and what’s the cost?",
-    answer: "Our streamlined builds launch in 4-6 weeks (or faster if you have your content ready). Pricing starts at $299 upfront for the build, with a simple monthly fee for hosting and support."
+    question: "How long will it take and what's the cost?",
+    answer: "Our streamlined builds launch in 7 days (or faster if you have your content ready). Pricing starts at $299 upfront for the build, with a simple monthly fee for hosting and support."
+  },
+  {
+    question: "Will I need to advertise or will Google find me naturally?",
+    answer: "Both work, but at different speeds. Organic Google rankings take 3-6 months to build momentum—it's free but slow. Paid advertising gets you leads within days but costs money ongoing. Most tradies start with just the website, see how quote requests come in organically, then add advertising around month 2-3 when they want to scale faster. The choice is yours—we're profitable either way."
   },
   {
     question: "Will this get me more jobs or just look better?",
     answer: "Both. A professional look builds trust, but our layouts are designed for conversion. We place 'Call Now' buttons and quote forms where they matter most to turn visitors into paying jobs."
+  },
+  {
+    question: "Why not just use Wix/Squarespace?",
+    answer: "DIY builders aren't optimised for tradie lead generation. Our sites are built specifically for local service businesses—with click-to-call, quote forms, and Google My Business integration out of the box."
+  },
+  {
+    question: "What if I already have a website?",
+    answer: "We can migrate your content or start fresh. Most tradies who switch to us see 2-3x more quote requests within 60 days."
+  },
+  {
+    question: "Do you do the writing/photos for me?",
+    answer: "Yes. We write all your content (About, Services, etc.). You just provide rough notes. For photos, we source stock or use your job site photos—your choice."
   },
   {
     question: "What happens after launch?",
@@ -100,11 +116,11 @@ export const BENEFITS: BenefitItem[] = [
   },
   {
     title: "Fast Turnaround",
-    description: "We get you live quickly so you don't miss the next job. Our process is streamlined to get your business online in 4-6 weeks.",
+    description: "We get you live quickly so you don't miss the next job. Our process is streamlined to get your business online in 7 days.",
     iconName: "Clock"
   },
   {
-    title: "Trade-Friendly Backend",
+    title: "Dead Simple Updates",
     description: "You or your admin can easily update jobs and photos without a degree in computer science. It's drag-and-drop simple.",
     iconName: "Settings"
   },
@@ -118,17 +134,17 @@ export const BENEFITS: BenefitItem[] = [
 export const WORKFLOW: WorkflowStep[] = [
   {
     step: 1,
-    title: "Quick Kickoff Chat",
-    description: "A 15-minute call to get your details. We handle the writing, photos, and structure."
+    title: "Day 1: Quick Discovery Call",
+    description: "15 minutes. We capture your services, locations, and vibe."
   },
   {
-    step: 4,
-    title: "Review Draft",
-    description: "We send you a full link. You tell us what to tweak. We don't stop until you're happy."
+    step: 2,
+    title: "Day 2-5: We Build, You Review",
+    description: "You get a staging link. Request changes. We iterate until it's perfect."
   },
   {
-    step: 7,
-    title: "Launch",
-    description: "We flip the switch. Your business is live, indexed by Google, and ready for quotes."
+    step: 3,
+    title: "Day 6-7: Launch & Optimise",
+    description: "Go live. We handle Google indexing, speed optimisation, and lead tracking setup."
   }
 ];

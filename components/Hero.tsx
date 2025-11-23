@@ -1,148 +1,226 @@
 import React from 'react';
 import { ArrowRight, PhoneCall, Check } from 'lucide-react';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onOpenModal: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
   return (
-    <section className="relative bg-brand-black pt-40 pb-24 lg:pt-56 lg:pb-40 overflow-hidden">
-      {/* Background Grid & Noise */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
-      <div className="absolute inset-0 bg-grid-pattern bg-[size:50px_50px] opacity-[0.1] pointer-events-none"></div>
-      
-      {/* Neon Glows */}
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <>
+      <section className="relative bg-transparent pt-48 pb-32 lg:pt-64 lg:pb-40 overflow-hidden">
+        {/* Animated Divider */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-16 items-center">
-          
-          {/* Text Content */}
-          <div className="lg:col-span-7 text-center lg:text-left reveal">
-            
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded bg-brand-surface/50 border border-brand-accent/20 text-brand-accent text-xs font-bold uppercase tracking-widest mb-8 hover:border-brand-accent/50 transition-colors cursor-default backdrop-blur-sm">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-accent"></span>
-              </span>
-              Accepting New Clients
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white leading-[1] mb-8 tracking-tight">
-              WEBSITES THAT HELP<br/> AUSSIE TRADIES <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent via-white to-brand-accent text-glow">
-                GET MORE LEADS.
-              </span>
-            </h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero Content - Full Width */}
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center reveal">
 
-            <p className="text-lg md:text-xl text-brand-muted mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-              Not just a pretty face. Built for tradies. Optimised for growth. <span className="text-white font-medium">Launch in 4-6 weeks.</span>
-            </p>
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded bg-brand-surface/50 border border-brand-accent/20 text-brand-accent text-xs font-bold uppercase tracking-widest mb-8 hover:border-brand-accent/50 transition-colors cursor-default backdrop-blur-sm">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-accent"></span>
+                </span>
+                Accepting New Clients
+              </div>
 
-            {/* Pricing Card - Directly in Hero */}
-            <div className="bg-brand-surface/60 backdrop-blur-lg border-2 border-brand-accent rounded-2xl p-6 md:p-8 max-w-lg mx-auto lg:mx-0 shadow-[0_0_50px_rgba(0,255,157,0.15)] text-left transform hover:scale-[1.01] transition-all duration-300 group relative overflow-hidden">
-               <div className="absolute top-0 right-0 bg-brand-accent text-brand-black text-[10px] font-black uppercase tracking-widest py-1 px-3 rounded-bl-lg">
-                  Limited Offer
-               </div>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[0.85] mb-8" style={{fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.01em'}}>
+                WEBSITES THAT TURN<br/>
+                <span className="animate-text-starspeed inline-block">
+                  CLICKS INTO JOBS.
+                </span>
+              </h1>
 
-               <div className="flex items-end gap-2 mb-3">
-                  <span className="text-5xl font-display font-black text-white tracking-tighter leading-none">$299</span>
-                  <div className="flex flex-col justify-end pb-1">
-                     <span className="text-brand-accent font-bold text-xs uppercase tracking-widest leading-none mb-0.5">setup</span>
+              {/* Key Benefits List */}
+              <div className="space-y-3 mb-0 max-w-2xl mx-auto">
+                {[
+                  "Mobile-first design (87% of your leads are on phones)",
+                  "Google My Business integration",
+                  "Quote forms that actually work",
+                  "Launch in 7 days, guaranteed"
+                ].map((benefit, i) => (
+                  <div key={i} className="flex gap-3 items-start justify-center lg:justify-center">
+                    <div className="mt-1 bg-brand-accent rounded-full p-0.5 shrink-0">
+                      <Check size={12} className="text-brand-black stroke-[4]" />
+                    </div>
+                    <span className="text-base md:text-lg text-brand-bone leading-tight text-left">{benefit}</span>
                   </div>
-                  <span className="text-2xl font-light text-white/40 mb-1">+</span>
-                   <span className="text-4xl font-display font-black text-white tracking-tighter leading-none">$99</span>
-                   <div className="flex flex-col justify-end pb-1">
-                      <span className="text-brand-muted font-bold text-xs uppercase tracking-widest leading-none mb-0.5">/mo</span>
-                   </div>
-               </div>
-
-               <p className="text-brand-bone text-sm font-medium mb-6 pb-6 border-b border-white/10">
-                  Everything included. No hidden fees. Cancel anytime.
-               </p>
-
-               <div className="space-y-4 mb-8">
-                  <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-1">What You Get</h4>
-                  {[
-                      "A website built to get you more quote requests",
-                      "Completely done-for-you setup - we handle everything",
-                      "Updates included - no hidden costs",
-                      "30-day money-back guarantee"
-                  ].map((item, i) => (
-                      <div key={i} className="flex gap-3 items-start">
-                          <div className="mt-0.5 bg-brand-accent rounded-full p-0.5 shrink-0">
-                              <Check size={10} className="text-brand-black stroke-[4]" />
-                          </div>
-                          <span className="text-sm text-gray-300 leading-tight">{item}</span>
-                      </div>
-                  ))}
-               </div>
-
-               <a 
-                 href="#enquire"
-                 onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('enquire')?.scrollIntoView({ behavior: 'smooth' });
-                 }}
-                 className="w-full bg-brand-accent hover:bg-white text-brand-black font-black text-lg py-4 px-4 rounded-xl shadow-[0_4px_20px_rgba(0,255,157,0.4)] hover:shadow-[0_6px_30px_rgba(0,255,157,0.6)] transition-all flex items-center justify-center gap-2 uppercase tracking-wide transform group-hover:-translate-y-1"
-               >
-                 SECURE MY SPOT <ArrowRight size={20} strokeWidth={3} />
-               </a>
+                ))}
+              </div>
             </div>
-
           </div>
+        </div>
+      </section>
 
-          {/* Hero Visual - Industrial Aesthetic */}
-          <div className="lg:col-span-5 relative perspective-1000 hidden lg:block reveal reveal-delay-200">
-            {/* Back decorative elements */}
-            <div className="absolute inset-0 bg-brand-accent/5 blur-3xl transform rotate-12 rounded-full"></div>
-            
-            {/* Main Floating Card */}
-            <div className="relative z-10 transform rotate-y-[-12deg] rotate-x-[5deg] transition-transform hover:rotate-0 duration-700 ease-out preserve-3d">
-              <div className="bg-brand-surface border border-brand-border/50 rounded-xl p-2 shadow-2xl">
-                <div className="bg-brand-black rounded-lg overflow-hidden border border-brand-border relative group">
-                  
-                  {/* Mock Browser Header */}
-                  <div className="h-12 bg-[#111] flex items-center gap-3 px-4 border-b border-brand-border">
-                    <div className="flex gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+      {/* Pricing Card Section - Separate */}
+      <section className="relative bg-transparent py-16 lg:py-24 overflow-hidden">
+        {/* Animated Divider */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            {/* Section Heading */}
+            <div className="text-center mb-8 reveal">
+              <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tight">
+                THE DEAL
+              </h2>
+            </div>
+
+            <div className="reveal reveal-delay-100">
+              {/* Pricing Card */}
+              <div className="bg-brand-surface/60 backdrop-blur-lg border-2 border-brand-accent rounded-2xl p-6 md:p-8 lg:p-10 mx-auto shadow-[0_0_50px_rgba(0,255,157,0.15)] text-left transform hover:scale-[1.01] transition-all duration-300 group relative overflow-hidden">
+
+                {/* 3-Column Layout */}
+                <div className="grid lg:grid-cols-[1fr_1.5fr_1fr] gap-6 lg:gap-8 mb-6">
+
+                  {/* LEFT COLUMN - Badge, Pricing & CTA */}
+                  <div className="flex flex-col justify-between">
+                    {/* Urgency Badge */}
+                    <div className="bg-brand-accent text-brand-black text-[10px] font-black uppercase tracking-widest py-2 px-3 rounded text-center">
+                      DECEMBER INTAKE - 3 SPOTS REMAINING
                     </div>
-                    <div className="bg-[#080808] px-4 py-1.5 rounded text-[10px] text-brand-accent font-mono flex-grow text-center border border-brand-border/30 shadow-inner tracking-wider">
-                      LIVE JOBS - DASHBOARD
+
+                    {/* Pricing Section - Centered */}
+                    <div className="flex-1 flex flex-col justify-center">
+                      {/* Valued At Strikethrough */}
+                      <div className="text-center mb-4">
+                        <div className="relative inline-block">
+                          <span className="text-gray-500 text-sm font-bold">VALUED AT $2,500</span>
+                          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-red-500 rotate-[-5deg]"></div>
+                        </div>
+                      </div>
+
+                      {/* Pricing Display */}
+                      <div className="text-center">
+                        <div className="mb-3">
+                          <span className="text-4xl md:text-5xl font-display font-black text-white tracking-tighter leading-none block">$299</span>
+                          <span className="text-brand-accent font-bold text-xs uppercase tracking-widest mt-1 block">Setup [One-time]</span>
+                        </div>
+                        <span className="text-2xl font-light text-white/40 block my-2">+</span>
+                        <div>
+                          <span className="text-4xl md:text-5xl font-display font-black text-white tracking-tighter leading-none block">$99</span>
+                          <span className="text-brand-muted font-bold text-xs uppercase tracking-widest mt-1 block">/mo [Ongoing]</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <div>
+                      <button
+                        onClick={onOpenModal}
+                        className="w-full bg-brand-accent hover:bg-white text-brand-black font-black text-sm py-3 px-4 rounded-xl shadow-[0_4px_20px_rgba(0,255,157,0.4)] hover:shadow-[0_6px_30px_rgba(0,255,157,0.6)] transition-all flex items-center justify-center gap-2 uppercase tracking-wide transform group-hover:-translate-y-1"
+                      >
+                        GET STARTED
+                      </button>
                     </div>
                   </div>
-                  
-                  {/* Mock Website Content */}
-                  <div className="relative">
-                     <img 
-                       src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop" 
-                       alt="Industrial Website" 
-                       className="w-full h-[450px] object-cover opacity-60 grayscale group-hover:grayscale-0 transition-all duration-700"
-                     />
-                     <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-transparent to-transparent opacity-90"></div>
-                     
-                     {/* Floating Elements over the image */}
-                     <div className="absolute bottom-8 left-6 right-6 space-y-3">
-                       <div className="bg-[#111]/90 backdrop-blur-md border-l-4 border-brand-accent p-4 rounded-r flex items-center gap-4 shadow-[0_10px_40px_rgba(0,0,0,0.7)] transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                          <div className="w-12 h-12 bg-brand-accent rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,255,157,0.4)]">
-                            <PhoneCall className="text-brand-black" size={24} />
-                          </div>
-                          <div>
-                            <div className="text-brand-accent font-bold text-sm font-display uppercase tracking-wider">New Quote Request</div>
-                            <div className="text-white text-sm font-bold">Full House Rewire - Bondi</div>
-                            <div className="text-brand-muted text-xs font-mono mt-1">Received 2 mins ago</div>
-                          </div>
-                       </div>
-                     </div>
+
+                  {/* MIDDLE COLUMN - Feature Lists */}
+                  <div className="border-l border-r border-white/10 px-6 lg:px-8">
+                    <div className="space-y-6">
+                      {/* What You Get Upfront */}
+                      <div>
+                        <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-3">What You Get Upfront:</h4>
+                        <div className="space-y-2">
+                          {[
+                            "Mobile-optimised website",
+                            "Google-friendly structure",
+                            "Click-to-call buttons on every page",
+                            "Quote request forms that work",
+                            "Photo gallery for your best jobs",
+                            "Service area mapping for local SEO",
+                            "Lead tracking dashboard"
+                          ].map((item, i) => (
+                            <div key={i} className="flex gap-2.5 items-start">
+                              <div className="mt-0.5 bg-brand-accent rounded-full p-0.5 shrink-0">
+                                <Check size={10} className="text-brand-black stroke-[4]" />
+                              </div>
+                              <span className="text-xs text-gray-300 leading-relaxed">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Then, Every Month */}
+                      <div>
+                        <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-3">Then, Every Month:</h4>
+                        <div className="space-y-2">
+                          {[
+                            "Hosting & security (worth $50/mo)",
+                            "Unlimited updates & edits",
+                            "Mobile optimisation maintenance",
+                            "Monthly analytics report",
+                            "Priority support"
+                          ].map((item, i) => (
+                            <div key={i} className="flex gap-2.5 items-start">
+                              <div className="mt-0.5 bg-brand-accent rounded-full p-0.5 shrink-0">
+                                <Check size={10} className="text-brand-black stroke-[4]" />
+                              </div>
+                              <span className="text-xs text-gray-300 leading-relaxed">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  {/* RIGHT COLUMN - Advertising Package */}
+                  <div className="bg-orange-500/10 border border-orange-500/30 rounded-xl p-4 h-fit">
+                    <div className="text-center mb-3">
+                      <span className="bg-orange-500 text-brand-black text-[10px] font-black uppercase tracking-widest py-1 px-3 rounded inline-block mb-2">Optional Add On</span>
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider">Turn It Into A Lead Machine</h4>
+                    </div>
+
+                    <div className="mb-4">
+                      <div className="text-center mb-3">
+                        <span className="text-orange-400 text-xs font-bold uppercase tracking-widest block mb-1">Add:</span>
+                        <span className="text-white font-bold text-base block">Advertising Package</span>
+                        <span className="text-orange-400 font-bold text-lg">$497/mo</span>
+                      </div>
+
+                      <div className="space-y-2 mb-3">
+                        {[
+                          "$300/mo ad budget",
+                          "Conversion tracking",
+                          "Monthly reports",
+                          "A/B testing",
+                          "Lead quality filtering"
+                        ].map((item, i) => (
+                          <div key={i} className="flex gap-2.5 items-start">
+                            <div className="mt-0.5 bg-orange-500 rounded-full p-0.5 shrink-0">
+                              <Check size={10} className="text-brand-black stroke-[4]" />
+                            </div>
+                            <span className="text-xs text-gray-300 leading-relaxed">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="border-t border-orange-500/20 pt-2">
+                        <p className="text-orange-400 text-xs font-bold mb-0.5">Typical results:</p>
+                        <p className="text-white text-xs">20-40 leads/mo • $10-15/lead</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Partnership Terms - Full Width Bottom */}
+                <div className="text-center bg-brand-accent/10 border border-brand-accent/20 rounded-lg p-3 border-t border-white/10 pt-6">
+                  <div className="flex items-center justify-center gap-2 text-brand-accent font-bold text-xs mb-2">
+                    <Check className="bg-brand-accent text-brand-black rounded-full p-0.5" size={14} strokeWidth={3} />
+                    <span className="uppercase tracking-wider">Partnership Terms</span>
+                  </div>
+                  <p className="text-white text-xs font-medium mb-1.5">24-Month Partnership • Then Up to You</p>
+                  <p className="text-brand-muted text-[11px] leading-relaxed">
+                    After 24 months: Your site is yours. Continue with us for $50/mo (hosting & security only), or move it wherever you want.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

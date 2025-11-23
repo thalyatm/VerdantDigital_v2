@@ -10,7 +10,10 @@ const Faq: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-32 bg-brand-surface border-t border-brand-border">
+    <section id="faq" className="py-32 bg-transparent relative">
+      {/* Animated Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
+
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-display font-bold text-white uppercase tracking-widest">F.A.Q.</h2>

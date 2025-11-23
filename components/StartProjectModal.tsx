@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { X, Check, ShieldCheck, Users, MapPin } from 'lucide-react';
+import ExpressBuildModal from './ExpressBuildModal';
 
 interface StartProjectModalProps {
   isOpen: boolean;
@@ -7,6 +8,8 @@ interface StartProjectModalProps {
 }
 
 const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }) => {
+  const [isExpressModalOpen, setIsExpressModalOpen] = useState(false);
+
   if (!isOpen) return null;
 
   return (
@@ -45,33 +48,55 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
                 </div>
               </div>
 
-              <ul className="space-y-3 mb-8 flex-grow">
-                {[
-                  "Standard 5-page website",
-                  "Mobile responsive design",
-                  "Contact form + quote system",
-                  "Google Business setup",
-                  "Live in 7 days guaranteed"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
-                    <div className="bg-brand-accent/10 p-0.5 rounded-full mt-0.5">
-                      <Check size={12} className="text-brand-accent shrink-0" strokeWidth={3} />
-                    </div>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div className="mb-8 flex-grow">
+                <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-3">What you get upfront:</h4>
+                <ul className="space-y-2 mb-6">
+                  {[
+                    "Mobile-optimised website (loads in under 2 seconds)",
+                    "Google-friendly structure",
+                    "Click-to-call buttons on every page",
+                    "Quote request forms that work",
+                    "Photo gallery for your best jobs",
+                    "Service area mapping for local SEO",
+                    "Lead tracking dashboard"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
+                      <div className="bg-brand-accent/10 p-0.5 rounded-full mt-0.5">
+                        <Check size={12} className="text-brand-accent shrink-0" strokeWidth={3} />
+                      </div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-3">Then, every month:</h4>
+                <ul className="space-y-2">
+                  {[
+                    "Hosting & security (worth $50/mo)",
+                    "Unlimited updates & edits",
+                    "Monthly analytics report",
+                    "Priority support"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
+                      <div className="bg-brand-accent/10 p-0.5 rounded-full mt-0.5">
+                        <Check size={12} className="text-brand-accent shrink-0" strokeWidth={3} />
+                      </div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               
               <div className="bg-brand-surface/50 rounded-lg p-4 mb-6 border border-brand-border">
                  <p className="text-xs text-brand-muted leading-relaxed">
                    <span className="text-brand-accent font-bold block mb-1 text-[10px] uppercase tracking-wider">✓ Perfect for:</span>
-                   Tradies who need a simple, professional website fast. No complex features needed.
+                   Tradies who want the complete foundation package with ongoing support.
                  </p>
               </div>
 
-              <button 
+              <button
                 className="w-full block text-center bg-brand-accent hover:bg-white text-brand-black font-bold py-4 px-6 rounded-lg transition-all uppercase tracking-wide shadow-[0_4px_14px_rgba(0,255,157,0.3)] hover:shadow-[0_6px_20px_rgba(0,255,157,0.5)] hover:-translate-y-1 transform"
-                onClick={() => alert('Redirect to Checkout')}
+                onClick={() => setIsExpressModalOpen(true)}
               >
                 Start Now
                 <span className="block text-[10px] opacity-70 font-normal normal-case mt-0.5">No waiting, instant setup</span>
@@ -94,7 +119,7 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
                   "Discuss your specific needs",
                   "Get custom recommendations",
                   "Review portfolio examples",
-                  "Quote for custom features",
+                  "Learn about the advertising add-on ($497/mo)",
                   "Ask all your questions"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
@@ -109,7 +134,7 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
               <div className="bg-brand-surface/50 rounded-lg p-4 mb-6 border border-brand-border">
                  <p className="text-xs text-brand-muted leading-relaxed">
                    <span className="text-white font-bold block mb-1 text-[10px] uppercase tracking-wider">✓ Perfect for:</span>
-                   Businesses with custom requirements, e-commerce needs, or booking systems.
+                   Businesses who want to understand the full package or discuss the lead generation add-on.
                  </p>
               </div>
 
@@ -121,16 +146,17 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
                 <span className="block text-[10px] text-brand-muted group-hover:text-brand-accent font-normal normal-case mt-0.5 transition-colors">Next available: Today</span>
               </button>
             </div>
-
           </div>
 
           <div className="mt-10 pt-6 border-t border-brand-border flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
-            <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-brand-accent"/> 30-Day Money-Back Guarantee</span>
             <span className="flex items-center gap-2"><Users size={16} className="text-brand-accent"/> 120+ Happy Tradies</span>
             <span className="flex items-center gap-2"><MapPin size={16} className="text-brand-accent"/> Australian Based Support</span>
+            <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-brand-accent"/> 24-Month Partnership</span>
           </div>
         </div>
       </div>
+
+      <ExpressBuildModal isOpen={isExpressModalOpen} onClose={() => setIsExpressModalOpen(false)} />
     </div>
   );
 };
