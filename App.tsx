@@ -20,11 +20,19 @@ import MainContact from './components/MainContact';
 
 // Pages
 import EnquiryPage from './components/EnquiryPage';
+import SuccessPage from './components/SuccessPage';
 
-type ViewType = 'agency' | 'tradie' | 'enquire';
+type ViewType = 'agency' | 'tradie' | 'enquire' | 'success';
 
 const App: React.FC = () => {
-  const [view, setView] = useState<ViewType>('agency');
+  const [view, setView] = useState<ViewType>(() => {
+    // Check if URL has success param
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('session_id')) {
+      return 'success';
+    }
+    return 'agency';
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Handle Scroll Animations
@@ -116,6 +124,10 @@ const App: React.FC = () => {
 
         {view === 'enquire' && (
           <EnquiryPage />
+        )}
+
+        {view === 'success' && (
+          <SuccessPage />
         )}
       </main>
 

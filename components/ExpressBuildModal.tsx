@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, Zap, FileText, ArrowRight, X as XIcon } from 'lucide-react';
+import { createCheckoutSession, redirectToCheckout } from '../services/stripeService';
 
 interface ExpressBuildModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
   const [qualificationPassed, setQualificationPassed] = useState(false);
   const [selectedOption, setSelectedOption] = useState<'quick' | 'detailed' | null>(null);
   const [expressConfirmed, setExpressConfirmed] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     business: '',
@@ -28,6 +30,7 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
       setQualificationPassed(false);
       setSelectedOption(null);
       setExpressConfirmed(false);
+      setIsProcessing(false);
       setFormData({
         name: '',
         business: '',
@@ -50,15 +53,60 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
     setFormData({ ...formData, [target.name]: value });
   };
 
-  const handleQuickPay = () => {
-    // Redirect to payment/checkout
-    alert('Redirecting to checkout... (Stripe/payment integration here)');
+  const handleQuickPay = async () => {
+    setIsProcessing(true);
+    try {
+      // Create Stripe Checkout session for one-time payment
+      const sessionId = await createCheckoutSession({
+        mode: 'payment',
+        successUrl: `${window.location.origin}/success`,
+        cancelUrl: `${window.location.origin}/tradie`,
+        metadata: {
+          product: 'Express Build Setup',
+          amount: '299',
+        },
+      });
+
+      // Redirect to Stripe Checkout
+      await redirectToCheckout(sessionId);
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('There was an error processing your payment. Please try again or contact support.');
+      setIsProcessing(false);
+    }
   };
 
-  const handleDetailedSubmit = (e: React.FormEvent) => {
+  const handleDetailedSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Submit form and redirect to payment
-    alert('Form submitted! Redirecting to checkout... (Stripe/payment integration here)');
+    setIsProcessing(true);
+
+    try {
+      // Create Stripe Checkout session with customer info
+      const sessionId = await createCheckoutSession({
+        mode: 'payment',
+        successUrl: `${window.location.origin}/success`,
+        cancelUrl: `${window.location.origin}/tradie`,
+        customerEmail: formData.email,
+        metadata: {
+          product: 'Express Build Setup',
+          name: formData.name,
+          business: formData.business,
+          phone: formData.phone,
+          location: formData.location,
+          trade: formData.trade,
+          currentWebsite: formData.currentWebsite,
+          goals: formData.goals,
+          advertising: formData.advertising.toString(),
+        },
+      });
+
+      // Redirect to Stripe Checkout
+      await redirectToCheckout(sessionId);
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('There was an error processing your payment. Please try again or contact support.');
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -251,9 +299,10 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
 
                 <button
                   onClick={handleQuickPay}
-                  className="w-full bg-brand-accent hover:bg-white text-brand-black font-black text-lg py-4 px-6 rounded-lg transition-all uppercase tracking-wide shadow-xl"
+                  disabled={isProcessing}
+                  className="w-full bg-brand-accent hover:bg-white text-brand-black font-black text-lg py-4 px-6 rounded-lg transition-all uppercase tracking-wide shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Pay $299 Now
+                  {isProcessing ? 'Processing...' : 'Pay $299 Now'}
                 </button>
 
                 <p className="text-xs text-gray-500 text-center mt-4">Secure payment via Stripe</p>
@@ -375,13 +424,14 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
 
                 <button
                   type="submit"
-                  className="w-full bg-brand-accent hover:bg-white text-brand-black font-black text-lg py-4 px-6 rounded-lg transition-all uppercase tracking-wide shadow-xl flex items-center justify-center gap-2"
+                  disabled={isProcessing}
+                  className="w-full bg-brand-accent hover:bg-white text-brand-black font-black text-lg py-4 px-6 rounded-lg transition-all uppercase tracking-wide shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Submit & Continue to Payment
-                  <ArrowRight size={20} />
+                  {isProcessing ? 'Processing...' : 'Submit & Continue to Payment'}
+                  {!isProcessing && <ArrowRight size={20} />}
                 </button>
 
-                <p className="text-xs text-gray-500 text-center">After submission, we'll create your custom plan and you'll be redirected to secure payment</p>
+                <p className="text-xs text-gray-500 text-center">After submission, you'll be redirected to secure Stripe payment</p>
               </form>
             </div>
           )}

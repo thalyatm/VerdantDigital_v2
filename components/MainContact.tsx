@@ -33,9 +33,43 @@ const MainContact: React.FC = () => {
     return () => window.removeEventListener('prefillForm', handlePrefill);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thanks for your enquiry! We will be in touch shortly.');
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Thanks for your enquiry! We will be in touch shortly.');
+        // Reset form
+        setFormState({
+          name: '',
+          business: '',
+          email: '',
+          phone: '',
+          industry: '',
+          message: ''
+        });
+      } else {
+        alert('There was an error submitting your form. Please try again or email us directly.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your form. Please try again or email us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -178,12 +212,13 @@ const MainContact: React.FC = () => {
                 />
               </div>
 
-              <button 
+              <button
                 type="submit"
-                className="w-full bg-brand-accent hover:bg-white text-brand-black font-extrabold text-lg py-3 rounded-lg shadow-[0_4px_14px_rgba(0,255,157,0.4)] hover:shadow-[0_6px_20px_rgba(0,255,157,0.6)] transition-all flex items-center justify-center gap-3 mt-2"
+                disabled={isSubmitting}
+                className="w-full bg-brand-accent hover:bg-white text-brand-black font-extrabold text-lg py-3 rounded-lg shadow-[0_4px_14px_rgba(0,255,157,0.4)] hover:shadow-[0_6px_20px_rgba(0,255,157,0.6)] transition-all flex items-center justify-center gap-3 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                SEND MESSAGE
-                <Send size={18} />
+                {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
+                {!isSubmitting && <Send size={18} />}
               </button>
             </form>
           </div>

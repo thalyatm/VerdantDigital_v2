@@ -149,9 +149,8 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
           </div>
 
           <div className="mt-10 pt-6 border-t border-brand-border flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
-            <span className="flex items-center gap-2"><Users size={16} className="text-brand-accent"/> 120+ Happy Tradies</span>
             <span className="flex items-center gap-2"><MapPin size={16} className="text-brand-accent"/> Australian Based Support</span>
-            <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-brand-accent"/> 24-Month Partnership</span>
+            <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-brand-accent"/> 24 Month Agreement</span>
           </div>
         </div>
       </div>

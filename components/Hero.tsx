@@ -54,7 +54,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
       </section>
 
       {/* Pricing Card Section - Separate */}
-      <section className="relative bg-transparent py-16 lg:py-24 overflow-hidden">
+      <section id="pricing" className="relative bg-transparent py-16 lg:py-24 overflow-hidden scroll-mt-24">
         {/* Animated Divider */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
 
@@ -111,7 +111,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                         onClick={onOpenModal}
                         className="w-full bg-brand-accent hover:bg-white text-brand-black font-black text-sm py-3 px-4 rounded-xl shadow-[0_4px_20px_rgba(0,255,157,0.4)] hover:shadow-[0_6px_30px_rgba(0,255,157,0.6)] transition-all flex items-center justify-center gap-2 uppercase tracking-wide transform group-hover:-translate-y-1"
                       >
-                        GET STARTED
+                        GET STARTED - $299 SETUP
                       </button>
                     </div>
                   </div>
@@ -210,9 +210,9 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                     <Check className="bg-brand-accent text-brand-black rounded-full p-0.5" size={14} strokeWidth={3} />
                     <span className="uppercase tracking-wider">Partnership Terms</span>
                   </div>
-                  <p className="text-white text-xs font-medium mb-1.5">24-Month Partnership • Then Up to You</p>
+                  <p className="text-white text-xs font-medium mb-1.5">24 Month Agreement • Then Month-to-Month</p>
                   <p className="text-brand-muted text-[11px] leading-relaxed">
-                    After 24 months: Your site is yours. Continue with us for $50/mo (hosting & security only), or move it wherever you want.
+                    After 24 months: Switch to month-to-month at $50/mo (hosting & security only), or take your site wherever you want.
                   </p>
                 </div>
               </div>

@@ -42,16 +42,6 @@ const Comparison: React.FC = () => {
 
               <div className="flex gap-4">
                  <div className="w-10 h-10 bg-brand-black rounded-full flex items-center justify-center flex-shrink-0 text-red-500 border border-brand-border shadow-lg">
-                  <Settings size={18} />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white mb-1">Locked Out of Your Own Site</h3>
-                  <p className="text-brand-muted text-xs lg:text-sm leading-relaxed">Need to add photos from yesterday's job? That'll be $150 and a 3-day wait. Your "web guy" has you held hostage. You should own your online presence—not rent it.</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                 <div className="w-10 h-10 bg-brand-black rounded-full flex items-center justify-center flex-shrink-0 text-red-500 border border-brand-border shadow-lg">
                   <AlertTriangle size={18} />
                 </div>
                 <div>
@@ -102,16 +92,6 @@ const Comparison: React.FC = () => {
                 <div>
                   <h3 className="text-base font-bold text-white mb-1">Live in 7 Days</h3>
                   <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">No 12-week waits. No "we're still working on it." You'll be taking calls from your new site within a week. Fast doesn't mean sloppy—it means we know what works.</p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 group">
-                <div className="w-10 h-10 bg-brand-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 text-brand-accent border border-brand-accent/20 group-hover:scale-110 transition-transform">
-                  <Settings size={20} />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white mb-1">You're in Control (Finally)</h3>
-                  <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">Update photos, add testimonials, change your service area—all without calling us. But when you need help? We're Australian-based and respond in under 4 hours.</p>
                 </div>
               </div>
 

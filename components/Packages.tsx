@@ -78,10 +78,10 @@ const Packages: React.FC = () => {
                        Partnership Terms
                      </div>
                      <p className="text-white text-sm font-medium mb-2">
-                       24-Month Partnership • Then Up to You
+                       24 Month Agreement • Then Month-to-Month
                      </p>
                      <p className="text-brand-muted text-xs leading-relaxed">
-                       After 24 months: Your site is yours. Continue with us for $50/mo (hosting & security only), or move it wherever you want.
+                       After 24 months: Switch to month-to-month at $50/mo (hosting & security only), or take your site wherever you want.
                      </p>
                    </div>
                 </div>
