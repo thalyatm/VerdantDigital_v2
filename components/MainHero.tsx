@@ -87,7 +87,7 @@ const MainHero: React.FC = () => {
         </div>
       </div>
 
-      <a href="#expertise" className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-brand-muted/50 hover:text-brand-accent transition-colors animate-bounce reveal reveal-delay-300 cursor-pointer z-30">
+      <a href="#expertise" className="absolute bottom-10 left-8 md:left-1/2 md:-translate-x-1/2 flex flex-col items-center gap-4 text-brand-muted/50 hover:text-brand-accent transition-colors animate-bounce reveal reveal-delay-300 cursor-pointer z-30">
         <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Scroll</span>
         <ArrowDown size={16} />
       </a>
