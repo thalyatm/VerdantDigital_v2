@@ -51,8 +51,8 @@ export const PACKAGES: PackageItem[] = [
 
 export const FAQS: FaqItem[] = [
   {
-    question: "I'm not tech savvy, can I still manage the site?",
-    answer: "Absolutely. We build on user-friendly platforms. If you can use Facebook, you can update your site. Plus, with our monthly support, you can just text us photos or changes and we handle it for you."
+    question: "I'm not tech savvy, can I still work with you?",
+    answer: "Absolutely. You don't need to manage anything technical. We build and host your site. Simply text or email us any changes (photos, text updates, new services) and we'll action them quickly—usually within 24 hours."
   },
   {
     question: "How long will it take and what's the cost?",
@@ -120,8 +120,8 @@ export const BENEFITS: BenefitItem[] = [
     iconName: "Clock"
   },
   {
-    title: "Dead Simple Updates",
-    description: "You or your admin can easily update jobs and photos without a degree in computer science. It's drag-and-drop simple.",
+    title: "Quick Updates on Request",
+    description: "Need to add photos or update your services? Just text or email us. We handle all changes quickly—no technical skills needed on your end.",
     iconName: "Settings"
   },
   {
