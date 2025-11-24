@@ -17,7 +17,33 @@ npm run preview      # Preview production build
 
 **Environment Setup**:
 - `GEMINI_API_KEY`: For AI content generation (service falls back to mock data if missing)
-- `VITE_STRIPE_PUBLISHABLE_KEY`: For Stripe payment integration (see `.env.example`)
+- `VITE_STRIPE_PUBLISHABLE`: Stripe publishable key (note: no `_KEY` suffix)
+- `STRIPE_SECRET`: Stripe secret key for backend (note: no `_KEY` suffix)
+- `STRIPE_WEBHOOK_SECRET`: For verifying Stripe webhook signatures
+- `STRIPE_RECURRING_PRICE_ID`: Stripe price ID for $99/mo recurring subscription
+- `RESEND_API_KEY`: For sending emails via Resend API
+
+## Deployment
+
+**Platform**: Vercel (not Netlify)
+
+**API Routes**: Serverless functions in `/api/` directory (ES modules):
+- `api/contact-form.js`: Handles contact form submissions, sends emails via Resend
+- `api/create-checkout-session.js`: Creates Stripe checkout sessions
+- `api/stripe-webhook.js`: Receives Stripe webhook events, sends payment receipts
+
+**Important**: All API files use ES module syntax (`import`/`export`) because `package.json` has `"type": "module"`
+
+**vercel.json Configuration**:
+```json
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+The catch-all rewrite ensures SPA routing works (prevents 404s on client-side routes like `/success`)
 
 ## Architecture
 
@@ -91,30 +117,38 @@ generateTradieContent(trade, location, tone) → {headline, bio}
 **services/stripeService.ts**:
 
 ```typescript
-createCheckoutSession(params) → Promise<sessionId>
-redirectToCheckout(sessionId) → Promise<void>
+createCheckoutSession(params) → Promise<checkoutUrl>
+redirectToCheckout(checkoutUrl) → Promise<void>
 ```
 
 - Uses `@stripe/stripe-js` for client-side Stripe integration
-- Requires backend API endpoint at `/api/create-checkout-session` (see `api-example.js`)
+- **Modern API**: Uses direct URL redirect (`window.location.href`), NOT deprecated `stripe.redirectToCheckout()`
+- Requires backend API endpoint at `/api/create-checkout-session`
 - Supports both one-time payments ($299 setup) and recurring subscriptions ($99/mo)
 - Success URL: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`
 - Cancel URL: `${origin}/tradie`
-- Publishable key from `VITE_STRIPE_PUBLISHABLE_KEY` env var
+- Publishable key from `VITE_STRIPE_PUBLISHABLE` env var (no `_KEY` suffix)
 
 **Payment Flow**:
 1. User completes ExpressBuildModal qualification and path selection
 2. Click "Pay Now $299" triggers `createCheckoutSession()`
 3. Backend creates Stripe Checkout session with metadata
-4. Frontend redirects to Stripe Checkout via `redirectToCheckout()`
-5. After payment, Stripe redirects to `/success?session_id=...`
-6. App.tsx detects session_id param and shows SuccessPage
+4. Backend returns `{ sessionId, url }` where `url` is the checkout URL
+5. Frontend redirects to Stripe Checkout via `window.location.href = checkoutUrl`
+6. After payment, Stripe redirects to `/success?session_id=...`
+7. App.tsx detects session_id param and shows SuccessPage
 
-**Backend Requirements** (see `api-example.js`):
-- Express.js or Netlify Functions endpoint
-- Stripe secret key from environment
+**Backend Requirements** (`api/create-checkout-session.js`):
+- Vercel serverless function (ES module)
+- Stripe secret key from `STRIPE_SECRET` env var
 - Handles both `mode: 'payment'` and `mode: 'subscription'`
-- Returns `{ sessionId }` for frontend redirect
+- **Must return**: `{ sessionId, url }` where `url` is `session.url` from Stripe
+
+**Webhook Configuration**:
+- Endpoint: `https://yourdomain.com/api/stripe-webhook`
+- Events: `checkout.session.completed`, `invoice.payment_succeeded`
+- Purpose: Sends payment receipt emails via Resend
+- **Critical**: Must be created in correct Stripe account (check if multiple accounts exist)
 
 ### Data & Constants
 
@@ -138,12 +172,29 @@ Nested modal pattern with z-index layering:
 
 **ExpressBuildModal** (z-index: 200):
 - Nested modal launched from StartProjectModal
-- Three-step flow:
-  1. Qualification check (shows what's included/not included)
-  2. Path selection: "Quick Start" (pay immediately) or "Detailed Plan First" (fill form then pay)
-  3. Payment or form submission with Stripe integration
-- State management: `qualificationPassed`, `selectedOption`, `isProcessing`
-- Form data passed as metadata to Stripe checkout
+- **Two-screen streamlined flow** (consolidated from 4 screens):
+
+  **Screen 1: Build Options**
+  - Select package tier (The Starter $299, The Growth $599, The Dominator $1299)
+  - Displays all features for selected package
+  - "Continue" button advances to Screen 2
+
+  **Screen 2: Qualification & Payment** (consolidated)
+  - Shows package features and pricing at top
+  - **Non-blocking qualification checkboxes** (3 items):
+    - More than 5 pages needed
+    - E-commerce or booking system
+    - Custom calculators/advanced features
+  - If ANY checkbox selected: Shows advisory message "Your project may benefit from a custom plan"
+  - **Two payment options side-by-side**:
+    - **Option A**: "PAY $299 + START BUILD" - Direct Stripe payment (immediate)
+    - **Option B**: "GET CUSTOM PLAN" - Shows form (name, email, phone, business, additional requirements)
+  - Form submission (Option B) shows success message without payment
+  - Qualification checkboxes do NOT block payment or form submission
+
+- State management: `selectedOption`, `qualifications`, `showForm`, `formSubmitted`, `isProcessing`
+- Form data from Option B sent via contact form API
+- Payment data from Option A passed as metadata to Stripe checkout
 
 **No external modal library** - Custom implementation with React state
 
@@ -183,6 +234,26 @@ Three fonts loaded via Google Fonts (index.html):
 - Safety timeout on scroll animations prevents blank page loads
 - Gemini API calls use async/await with proper error handling
 
+## Mobile Responsiveness
+
+**Key Mobile Patterns**:
+- Mobile-first Tailwind approach: base styles for mobile, `md:` and `lg:` for desktop
+- Responsive spacing: Use `gap-4` on mobile, `lg:gap-0` or larger gaps on desktop
+- Responsive sizing: Smaller text/components on mobile (e.g., `text-lg md:text-xl`)
+- Responsive positioning: Elements may be positioned differently on mobile vs desktop
+
+**Mobile-Specific Adjustments**:
+- **Scroll indicator** (MainHero): `left-8` on mobile, `md:left-1/2 md:-translate-x-1/2` on desktop
+- **Workflow cards**: `gap-4` between cards on mobile to prevent touching
+- **Hero pricing section**: Increased `gap-6` and `py-4` spacing on mobile
+- **Feature bullet points**: Keep concise to avoid wrapping on mobile screens
+- **Modal buttons**: Stack vertically on mobile, side-by-side on desktop
+
+**Testing on Mobile**:
+- Always test form flows, modal interactions, and spacing on actual mobile devices
+- Check for elements "touching" (insufficient gap/padding)
+- Verify text doesn't wrap awkwardly or extend beyond viewport
+
 ## Business Model & Key Messaging
 
 ### Tradie Offering (Express Build)
@@ -191,6 +262,20 @@ Three fonts loaded via Google Fonts (index.html):
 - **Contract Terms**: "24 Month Agreement • Then Month-to-Month"
 - **After 24 months**: Switch to month-to-month at $50/mo (hosting & security only), or take site elsewhere
 - **Limited Offer Badge**: "DECEMBER INTAKE - 3 SPOTS REMAINING" (update monthly)
+
+### Service Model & Content Accuracy ⚠️
+
+**CRITICAL**: Verdant builds, hosts, and manages ALL website changes. Clients do NOT manage their own sites.
+
+- **Accurate messaging**: "We build and host your site. Simply text or email us any changes (photos, text updates, new services) and we'll action them quickly—usually within 24 hours."
+- **Never suggest**: Clients can manage/update their own site, use drag-and-drop editors, or have admin access
+- **Change request process**: Clients text or email change requests → Verdant actions them within 24 hours
+- **No self-service**: There is no client portal, CMS access, or DIY updates
+
+**FAQ & Benefits Guidelines**:
+- FAQ should emphasize "can I still work with you?" not "can I manage it?"
+- Benefits title: "Quick Updates on Request" (not "Dead Simple Updates")
+- Always clarify Verdant handles all technical work
 
 ### Language & Localization
 - **Australian English**: Use -ise/-isation spelling (optimise, not optimize)
@@ -202,3 +287,5 @@ Three fonts loaded via Google Fonts (index.html):
 - Workflow steps: Day 1, Day 2-5, Day 6-7
 - CTA button in Hero: "GET STARTED - $299 SETUP"
 - Service area updates note: "(updates SEO automatically)"
+- Portfolio: "BreadBloom" (one word, not "Bread Bloom")
+- Contact forms: All fields are optional (no `required` attributes)
