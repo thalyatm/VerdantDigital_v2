@@ -124,8 +124,8 @@ Now add all your keys to Vercel:
 
 | Variable Name | Value | Where to Get It |
 |--------------|-------|-----------------|
-| `VITE_STRIPE_PUBLISHABLE_KEY` | `pk_test_...` | Step 1.2 - Stripe API Keys |
-| `STRIPE_SECRET_KEY` | `sk_test_...` | Step 1.2 - Stripe API Keys |
+| `VITE_STRIPE_PUBLISHABLE` | `pk_test_...` | Step 1.2 - Stripe API Keys |
+| `STRIPE_SECRET` | `sk_test_...` | Step 1.2 - Stripe API Keys |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_...` | Step 3.2 - Stripe Webhook |
 | `STRIPE_RECURRING_PRICE_ID` | `price_...` | Step 2 - Product Price ID |
 | `RESEND_API_KEY` | `re_...` | Step 4.3 - Resend API Key |
@@ -204,8 +204,8 @@ Once testing works perfectly:
 
 1. In Vercel project → **Settings** → **Environment Variables**
 2. **Update these 3 variables** with live values:
-   - `VITE_STRIPE_PUBLISHABLE_KEY` → `pk_live_...`
-   - `STRIPE_SECRET_KEY` → `sk_live_...`
+   - `VITE_STRIPE_PUBLISHABLE` → `pk_live_...`
+   - `STRIPE_SECRET` → `sk_live_...`
    - `STRIPE_WEBHOOK_SECRET` → `whsec_...` (live)
 
 3. Click **"Redeploy"** to apply changes
@@ -278,8 +278,8 @@ Do one real small payment (you can refund it):
 
 ### Environment Variables Checklist
 
-- [ ] `VITE_STRIPE_PUBLISHABLE_KEY` - Frontend Stripe key
-- [ ] `STRIPE_SECRET_KEY` - Backend Stripe key
+- [ ] `VITE_STRIPE_PUBLISHABLE` - Frontend Stripe key
+- [ ] `STRIPE_SECRET` - Backend Stripe key
 - [ ] `STRIPE_WEBHOOK_SECRET` - Webhook signing secret
 - [ ] `STRIPE_RECURRING_PRICE_ID` - $99/mo price ID
 - [ ] `RESEND_API_KEY` - Email sending key
