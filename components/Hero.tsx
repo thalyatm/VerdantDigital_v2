@@ -75,16 +75,16 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 <div className="grid lg:grid-cols-[1fr_1.5fr_1fr] gap-6 lg:gap-8 mb-6">
 
                   {/* LEFT COLUMN - Badge, Pricing & CTA */}
-                  <div className="flex flex-col justify-between">
+                  <div className="flex flex-col justify-between gap-6 lg:gap-0">
                     {/* Urgency Badge */}
                     <div className="bg-brand-accent text-brand-black text-[10px] font-black uppercase tracking-widest py-2 px-3 rounded text-center">
                       DECEMBER INTAKE - 3 SPOTS REMAINING
                     </div>
 
                     {/* Pricing Section - Centered */}
-                    <div className="flex-1 flex flex-col justify-center">
+                    <div className="flex-1 flex flex-col justify-center py-4 lg:py-0">
                       {/* Valued At Strikethrough */}
-                      <div className="text-center mb-4">
+                      <div className="text-center mb-6">
                         <div className="relative inline-block">
                           <span className="text-gray-500 text-sm font-bold">VALUED AT $2,500</span>
                           <div className="absolute top-1/2 left-0 w-full h-0.5 bg-red-500 rotate-[-5deg]"></div>
@@ -93,14 +93,14 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
 
                       {/* Pricing Display */}
                       <div className="text-center">
-                        <div className="mb-3">
+                        <div className="mb-4">
                           <span className="text-4xl md:text-5xl font-display font-black text-white tracking-tighter leading-none block">$299</span>
-                          <span className="text-brand-accent font-bold text-xs uppercase tracking-widest mt-1 block">Setup [One-time]</span>
+                          <span className="text-brand-accent font-bold text-xs uppercase tracking-widest mt-2 block">Setup [One-time]</span>
                         </div>
-                        <span className="text-2xl font-light text-white/40 block my-2">+</span>
+                        <span className="text-2xl font-light text-white/40 block my-3">+</span>
                         <div>
                           <span className="text-4xl md:text-5xl font-display font-black text-white tracking-tighter leading-none block">$99</span>
-                          <span className="text-brand-muted font-bold text-xs uppercase tracking-widest mt-1 block">/mo [Ongoing]</span>
+                          <span className="text-brand-muted font-bold text-xs uppercase tracking-widest mt-2 block">/mo [Ongoing]</span>
                         </div>
                       </div>
                     </div>
