@@ -3,18 +3,20 @@ import { ArrowUpRight, ArrowRight } from 'lucide-react';
 
 const projects = [
   {
-    name: "Bread Bloom",
+    name: "BreadBloom",
     category: "E-commerce / Brand",
     desc: "Artisan aesthetics meet seamless checkout. Online ordering, subscriptions, and delivery scheduling that feels as good as it works.",
     result: "Increased conversion rate 47% through mobile-first redesign and streamlined checkout flow.",
-    image: "https://images.unsplash.com/photo-1555507036-ab1f40388085?q=80&w=1926&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1555507036-ab1f40388085?q=80&w=1926&auto=format&fit=crop",
+    website: "BreadBloom.com.au"
   },
   {
     name: "Newstead Plant Co",
     category: "Shopify E-commerce",
     desc: "Beautiful product photography optimised for mobile conversion. Care guides and location-based delivery in an interface plant lovers actually enjoy using.",
     result: "Reduced cart abandonment by 32% with location-based delivery integration and optimised mobile experience.",
-    image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2070&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2070&auto=format&fit=crop",
+    website: "newsteadplantco.com.au"
   }
 ];
 
