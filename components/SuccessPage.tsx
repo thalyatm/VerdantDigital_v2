@@ -75,21 +75,12 @@ const SuccessPage: React.FC = () => {
           <p className="text-brand-muted text-sm mb-4">
             Questions? Need immediate assistance?
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:hello@verdantdigital.com.au"
-              className="text-brand-accent hover:text-white font-bold text-sm transition-colors"
-            >
-              hello@verdantdigital.com.au
-            </a>
-            <span className="hidden sm:block text-brand-border">|</span>
-            <a
-              href="tel:+61400000000"
-              className="text-brand-accent hover:text-white font-bold text-sm transition-colors"
-            >
-              0400 000 000
-            </a>
-          </div>
+          <a
+            href="mailto:hello@verdantdigital.com.au"
+            className="text-brand-accent hover:text-white font-bold text-sm transition-colors"
+          >
+            hello@verdantdigital.com.au
+          </a>
         </div>
 
         {/* Session ID for reference */}
