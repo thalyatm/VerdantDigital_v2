@@ -1,16 +1,5 @@
-import { loadStripe } from '@stripe/stripe-js';
-
-// Replace with your actual Stripe publishable key
-const STRIPE_PUBLISHABLE_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE || 'pk_test_your_key_here';
-
-let stripePromise: ReturnType<typeof loadStripe>;
-
-export const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
-  }
-  return stripePromise;
-};
+// Modern Stripe Checkout using direct URL redirect
+// No need for Stripe.js library - just redirect to the checkout URL
 
 interface CreateCheckoutSessionParams {
   priceId?: string;
@@ -44,32 +33,21 @@ export const createCheckoutSession = async (params: CreateCheckoutSessionParams)
     const data = await response.json();
     console.log('Response data:', data);
 
-    if (!data.sessionId) {
-      throw new Error('No sessionId in response');
+    if (!data.url) {
+      throw new Error('No checkout URL in response');
     }
 
-    return data.sessionId;
+    return data.url; // Return the checkout URL instead of sessionId
   } catch (error) {
     console.error('Error creating checkout session:', error);
     throw error;
   }
 };
 
-export const redirectToCheckout = async (sessionId: string) => {
-  console.log('Redirecting to checkout with sessionId:', sessionId);
-  console.log('Stripe publishable key:', STRIPE_PUBLISHABLE_KEY ? 'Set' : 'Not set');
+export const redirectToCheckout = async (checkoutUrl: string) => {
+  console.log('Redirecting to Stripe Checkout URL:', checkoutUrl);
 
-  const stripe = await getStripe();
-  if (!stripe) {
-    console.error('Stripe failed to load - check publishable key');
-    throw new Error('Stripe failed to load - check publishable key in environment variables');
-  }
-
-  console.log('Stripe loaded successfully, redirecting...');
-  const { error } = await stripe.redirectToCheckout({ sessionId });
-
-  if (error) {
-    console.error('Error redirecting to checkout:', error);
-    throw error;
-  }
+  // Modern approach: Direct redirect to Stripe Checkout URL
+  // No need to load Stripe.js for this
+  window.location.href = checkoutUrl;
 };

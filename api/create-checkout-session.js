@@ -65,7 +65,10 @@ export default async function handler(req, res) {
 
     const session = await stripe.checkout.sessions.create(sessionConfig);
 
-    return res.status(200).json({ sessionId: session.id });
+    return res.status(200).json({
+      sessionId: session.id,
+      url: session.url // Return the checkout URL for direct redirect
+    });
   } catch (error) {
     console.error('Error creating checkout session:', error);
     return res.status(500).json({ error: error.message });

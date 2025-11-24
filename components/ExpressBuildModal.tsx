@@ -56,14 +56,9 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
   const handleQuickPay = async () => {
     setIsProcessing(true);
 
-    // Debug: Check if Stripe key is available
-    const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE;
-    console.log('Stripe key available:', stripeKey ? 'YES' : 'NO');
-    console.log('Stripe key value:', stripeKey ? `${stripeKey.substring(0, 15)}...` : 'MISSING');
-
     try {
       // Create Stripe Checkout session for one-time payment
-      const sessionId = await createCheckoutSession({
+      const checkoutUrl = await createCheckoutSession({
         mode: 'payment',
         successUrl: `${window.location.origin}/success`,
         cancelUrl: `${window.location.origin}/tradie`,
@@ -74,7 +69,7 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
       });
 
       // Redirect to Stripe Checkout
-      await redirectToCheckout(sessionId);
+      await redirectToCheckout(checkoutUrl);
     } catch (error) {
       console.error('Payment error:', error);
       console.error('Error details:', error instanceof Error ? error.message : 'Unknown error');
@@ -89,7 +84,7 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
 
     try {
       // Create Stripe Checkout session with customer info
-      const sessionId = await createCheckoutSession({
+      const checkoutUrl = await createCheckoutSession({
         mode: 'payment',
         successUrl: `${window.location.origin}/success`,
         cancelUrl: `${window.location.origin}/tradie`,
@@ -108,10 +103,11 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
       });
 
       // Redirect to Stripe Checkout
-      await redirectToCheckout(sessionId);
+      await redirectToCheckout(checkoutUrl);
     } catch (error) {
       console.error('Payment error:', error);
-      alert('There was an error processing your payment. Please try again or contact support.');
+      console.error('Error details:', error instanceof Error ? error.message : 'Unknown error');
+      alert(`There was an error processing your payment. Please try again or contact support.\n\nError: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setIsProcessing(false);
     }
   };
