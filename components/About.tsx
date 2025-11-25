@@ -58,7 +58,7 @@ const About: React.FC = () => {
 
             <div className="space-y-5 md:space-y-6 text-brand-muted text-sm lg:text-base leading-relaxed">
               <p>
-                We specialise in modern, considered websites, Shopify and e-commerce builds and digital solutions that reduce friction and make day-to-day operations smoother. Whether it is a tradie business that needs more enquiries or an established organisation that needs a cleaner, more scalable platform, we bring the same thoughtful approach and commitment to outcomes.
+                We specialise in modern, considered websites, Shopify and e-commerce builds and digital solutions that reduce friction and make day-to-day operations smoother. Whether it is a growing business that needs more enquiries or an established organisation that needs a cleaner, more scalable platform, we bring the same thoughtful approach and commitment to outcomes.
               </p>
               <p className="text-brand-accent font-bold">
                 No clutter. No confusion. No complicated handovers. Just digital work that helps your business move forward.

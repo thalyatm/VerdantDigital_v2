@@ -58,9 +58,9 @@ const MainHero: React.FC = () => {
             </a>
           </div>
 
-          <div className="flex flex-col items-start gap-4 border-t border-brand-border pt-10">
+          <div className="flex flex-col items-start gap-4 border-t border-brand-border pt-10 pb-20 md:pb-0">
              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Powered by Enterprise Technology Stack</span>
-             
+
              {/* Clarified Technology Section with visual badges */}
              <div className="flex flex-wrap gap-3 md:gap-5">
                 <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 hover:bg-white/10 hover:border-brand-accent hover:shadow-[0_0_15px_rgba(0,255,179,0.2)] transition-all duration-300 group cursor-default">

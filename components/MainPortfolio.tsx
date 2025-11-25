@@ -57,6 +57,7 @@ const MainPortfolio: React.FC = () => {
               {/* Text Content */}
               <div className="flex flex-col items-start flex-grow">
                 <span className="text-brand-accent text-[10px] font-bold uppercase tracking-widest mb-2">{project.category}</span>
+
                 <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors flex items-center gap-2">
                   {project.name}
                   <ArrowUpRight className="opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all" size={18} />

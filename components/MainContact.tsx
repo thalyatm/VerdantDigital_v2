@@ -131,7 +131,7 @@ const MainContact: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-8 border-t border-brand-border/50">
+            <div className="pt-8">
               <p className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2">Questions?</p>
               <a href="mailto:hello@verdantdigital.com.au" className="text-sm font-bold text-white hover:text-brand-accent transition-colors font-display">
                 hello@verdantdigital.com.au
@@ -192,10 +192,16 @@ const MainContact: React.FC = () => {
                     className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all h-[46px] text-sm"
                   >
                     <option value="" disabled>Select Industry</option>
-                    <option value="Trade">Trade / Construction</option>
-                    <option value="Ecommerce">E-commerce</option>
-                    <option value="Corporate">Corporate</option>
-                    <option value="Startup">Startup</option>
+                    <option value="Trade & Construction">Trade & Construction</option>
+                    <option value="Retail & E-commerce">Retail & E-commerce</option>
+                    <option value="Professional Services">Professional Services</option>
+                    <option value="Healthcare & Medical">Healthcare & Medical</option>
+                    <option value="Hospitality & Food">Hospitality & Food</option>
+                    <option value="Real Estate & Property">Real Estate & Property</option>
+                    <option value="Technology & Software">Technology & Software</option>
+                    <option value="Education & Training">Education & Training</option>
+                    <option value="Finance & Insurance">Finance & Insurance</option>
+                    <option value="Creative & Design">Creative & Design</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
