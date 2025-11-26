@@ -85,8 +85,12 @@ const About: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-10 md:mb-12 reveal reveal-delay-100">
             {/* Director 1 */}
             <div className="flex items-start gap-4 md:gap-6">
-              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/20 flex items-center justify-center overflow-hidden flex-shrink-0">
-                <Users size={40} className="text-brand-accent/40" />
+              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/20 overflow-hidden flex-shrink-0">
+                <img
+                  src="/Thalya.jpeg"
+                  alt="Thalya Tilt MacSporran"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h3 className="text-xl font-display font-bold text-white mb-1">Thalya Tilt MacSporran</h3>
@@ -99,8 +103,12 @@ const About: React.FC = () => {
 
             {/* Director 2 */}
             <div className="flex items-start gap-4 md:gap-6">
-              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/20 flex items-center justify-center overflow-hidden flex-shrink-0">
-                <Users size={40} className="text-brand-accent/40" />
+              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/20 overflow-hidden flex-shrink-0">
+                <img
+                  src="/Jacob.jpeg"
+                  alt="Jacob Paterson"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h3 className="text-xl font-display font-bold text-white mb-1">Jacob Paterson</h3>

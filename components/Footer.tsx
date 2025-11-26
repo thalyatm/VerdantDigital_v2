@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/#enquire" className="text-sm text-gray-500 hover:text-brand-accent transition-colors">
+                <a href="/enquire" className="text-sm text-gray-500 hover:text-brand-accent transition-colors">
                   Contact Us
                 </a>
               </li>

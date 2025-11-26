@@ -307,7 +307,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
 
               <div className="flex justify-center mt-8">
                 <a
-                  href="/whats-included"
+                  href="/tradie/whats-included"
                   className="inline-flex items-center gap-2 text-sm font-bold text-brand-accent hover:text-white transition-colors uppercase tracking-widest border-b-2 border-brand-accent/30 hover:border-brand-accent pb-1"
                 >
                   See What's Included

@@ -1,7 +1,12 @@
-import React from 'react';
-import { Home, Wrench, User, Images, Mail, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { Home, Wrench, User, Images, Mail, ArrowRight, Plus, Minus } from 'lucide-react';
 
 const WhatsIncluded: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggle = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
   const pages = [
     {
       icon: Home,
@@ -98,44 +103,329 @@ const WhatsIncluded: React.FC = () => {
           <p className="text-brand-muted text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
             A complete 5-page website built to generate leads and grow your business. Here's exactly what each page includes:
           </p>
+
+          {/* Disclaimer */}
+          <div className="mt-8 max-w-4xl mx-auto bg-orange-500/10 border border-orange-500/30 rounded-lg p-5">
+            <p className="text-orange-400 text-sm md:text-base leading-relaxed">
+              <strong className="font-bold">Note:</strong> The examples below are for visual reference only. Your website will be custom-designed with colours, fonts and styling unique to your brand, not the generic style shown here.
+            </p>
+          </div>
         </div>
 
         {/* Pages Grid */}
-        <div className="space-y-12">
+        <div className="space-y-4">
           {pages.map((page, index) => {
             const Icon = page.icon;
+            const isOpen = openIndex === index;
+
+            // Get explicit class names based on index
+            const getBorderColor = () => {
+              if (index === 0) return isOpen ? 'border-brand-accent' : 'border-brand-border';
+              if (index === 1) return isOpen ? 'border-blue-500/50' : 'border-brand-border';
+              if (index === 2) return isOpen ? 'border-purple-500/50' : 'border-brand-border';
+              if (index === 3) return isOpen ? 'border-orange-500/50' : 'border-brand-border';
+              if (index === 4) return isOpen ? 'border-green-500/50' : 'border-brand-border';
+              return 'border-brand-border';
+            };
+
+            const getIconBorderColor = () => {
+              if (index === 0) return 'border-brand-accent';
+              if (index === 1) return 'border-blue-500/50';
+              if (index === 2) return 'border-purple-500/50';
+              if (index === 3) return 'border-orange-500/50';
+              if (index === 4) return 'border-green-500/50';
+              return 'border-brand-border';
+            };
+
+            const getIconColor = () => {
+              if (index === 0) return 'text-brand-accent';
+              if (index === 1) return 'text-blue-400';
+              if (index === 2) return 'text-purple-400';
+              if (index === 3) return 'text-orange-400';
+              if (index === 4) return 'text-green-400';
+              return 'text-white';
+            };
+
+            const getTitleColor = () => {
+              if (!isOpen) return 'text-white';
+              if (index === 0) return 'text-brand-accent';
+              if (index === 1) return 'text-blue-400';
+              if (index === 2) return 'text-purple-400';
+              if (index === 3) return 'text-orange-400';
+              if (index === 4) return 'text-green-400';
+              return 'text-white';
+            };
+
+            const getButtonBg = () => {
+              if (!isOpen) return 'bg-brand-surface border border-brand-border text-gray-400';
+              if (index === 0) return 'bg-brand-accent text-brand-black';
+              if (index === 1) return 'bg-blue-400 text-brand-black';
+              if (index === 2) return 'bg-purple-400 text-brand-black';
+              if (index === 3) return 'bg-orange-400 text-brand-black';
+              if (index === 4) return 'bg-green-400 text-brand-black';
+              return 'bg-brand-surface border border-brand-border text-gray-400';
+            };
+
+            const getRingColor = () => {
+              if (!isOpen) return '';
+              if (index === 0) return 'ring-2 ring-brand-accent';
+              if (index === 1) return 'ring-2 ring-blue-500/50';
+              if (index === 2) return 'ring-2 ring-purple-500/50';
+              if (index === 3) return 'ring-2 ring-orange-500/50';
+              if (index === 4) return 'ring-2 ring-green-500/50';
+              return '';
+            };
+
             return (
               <div
                 key={index}
-                className={`reveal reveal-delay-${index * 100} bg-brand-surface border-l-4 border-${page.borderColor} rounded-r-2xl p-6 md:p-8 hover:bg-brand-surface/80 transition-all`}
+                className={`border rounded-lg transition-all duration-300 ${getBorderColor()} ${
+                  isOpen ? 'bg-brand-surface' : 'bg-transparent hover:border-gray-600'
+                }`}
               >
-                <div className="flex items-start gap-4 mb-6">
-                  <div className={`bg-brand-black border border-${page.borderColor} rounded-lg p-3 shrink-0`}>
-                    <Icon size={28} className={`text-${page.color}`} />
+                {/* Clickable Header */}
+                <button
+                  onClick={() => toggle(index)}
+                  className="w-full px-6 md:px-8 py-6 flex items-start gap-4 text-left group"
+                >
+                  <div className={`bg-brand-black ${getIconBorderColor()} border rounded-lg p-3 shrink-0 transition-all ${getRingColor()}`}>
+                    <Icon size={28} className={getIconColor()} />
                   </div>
                   <div className="flex-grow">
-                    <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-2">
+                    <h2 className={`text-2xl md:text-3xl font-display font-bold mb-2 transition-colors ${getTitleColor()}`}>
                       {page.title}
                     </h2>
                     <p className="text-brand-muted text-base md:text-lg leading-relaxed">
                       {page.description}
                     </p>
                   </div>
-                </div>
+                  <div className={`rounded-full p-2 transition-all shrink-0 ${getButtonBg()}`}>
+                    {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                  </div>
+                </button>
 
-                <div className="pl-0 md:pl-16">
-                  <h3 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-4">
-                    What's Included:
-                  </h3>
-                  <ul className="grid md:grid-cols-2 gap-3">
-                    {page.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
-                        <ArrowRight size={16} className={`text-${page.color} mt-0.5 shrink-0`} />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {/* Collapsible Content */}
+                {isOpen && (
+                  <div className="px-6 md:px-8 pb-6 pt-2 border-t border-brand-border/50 mt-2">
+                    {/* Browser Mockup with Sample Content */}
+                    <div className="mb-6 mt-4">
+                      <div className="bg-white border-2 border-gray-300 rounded-lg overflow-hidden shadow-2xl">
+                        {/* Browser Chrome */}
+                        <div className="bg-gray-200 px-4 py-3 flex items-center gap-2 border-b-2 border-gray-300">
+                          <div className="flex gap-1.5">
+                            <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                          </div>
+                          <div className="flex-grow ml-4 bg-white border border-gray-300 rounded px-3 py-1 text-xs text-gray-600 font-sans">
+                            yourbusiness.com.au/{page.title.toLowerCase()}
+                          </div>
+                        </div>
+                        {/* Page Content Preview */}
+                        <div className="bg-white p-6 md:p-8 min-h-[300px]">
+                          {index === 0 && ( // Home page mockup
+                            <div className="space-y-6">
+                              <div className="text-center space-y-4">
+                                <div className="inline-block bg-blue-600 text-white px-4 py-1 text-xs font-bold uppercase">
+                                  Licensed & Insured
+                                </div>
+                                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 font-sans">
+                                  Melbourne's Trusted Plumber
+                                  <br />
+                                  <span className="text-blue-600">Fast, Reliable Service</span>
+                                </h1>
+                                <p className="text-gray-600 text-base max-w-2xl mx-auto font-sans">
+                                  Professional plumbing with upfront pricing. Available 24/7 for emergencies.
+                                </p>
+                                <div className="flex gap-3 justify-center flex-wrap">
+                                  <div className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-md font-bold text-base shadow-lg">
+                                    📞 0400 123 456
+                                  </div>
+                                  <div className="bg-white border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-md font-bold text-base">
+                                    Get Free Quote
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-3 gap-4 pt-6 border-t-2 border-gray-200">
+                                <div className="text-center">
+                                  <div className="text-blue-600 font-bold text-2xl font-sans">15+</div>
+                                  <div className="text-xs text-gray-600 font-sans">Years Experience</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-blue-600 font-bold text-2xl font-sans">2,500+</div>
+                                  <div className="text-xs text-gray-600 font-sans">Happy Customers</div>
+                                </div>
+                                <div className="text-center">
+                                  <div className="text-orange-500 font-bold text-2xl font-sans">4.9★</div>
+                                  <div className="text-xs text-gray-600 font-sans">Google Rating</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          {index === 1 && ( // Services page mockup
+                            <div className="space-y-4">
+                              <h2 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Our Services</h2>
+                              <div className="grid md:grid-cols-2 gap-4">
+                                <div className="bg-gray-50 border-2 border-blue-200 rounded-lg p-5">
+                                  <h3 className="text-blue-700 font-bold mb-2 flex items-center gap-2 text-lg font-sans">
+                                    <Wrench size={20} /> Emergency Repairs
+                                  </h3>
+                                  <p className="text-gray-700 text-sm mb-3 font-sans">
+                                    24/7 callout for urgent plumbing issues. Fast response times guaranteed.
+                                  </p>
+                                  <div className="text-sm text-gray-800 mb-2 font-semibold font-sans">From $150 callout</div>
+                                  <div className="text-sm text-orange-600 font-bold font-sans">→ Get a Quote</div>
+                                </div>
+                                <div className="bg-gray-50 border-2 border-blue-200 rounded-lg p-5">
+                                  <h3 className="text-blue-700 font-bold mb-2 flex items-center gap-2 text-lg font-sans">
+                                    <Wrench size={20} /> New Installations
+                                  </h3>
+                                  <p className="text-gray-700 text-sm mb-3 font-sans">
+                                    Quality installations with certified materials and workmanship guarantee.
+                                  </p>
+                                  <div className="text-sm text-gray-800 mb-2 font-semibold font-sans">Custom pricing</div>
+                                  <div className="text-sm text-orange-600 font-bold font-sans">→ Get a Quote</div>
+                                </div>
+                              </div>
+                              <div className="bg-blue-50 border border-blue-300 rounded-lg p-4 text-sm text-gray-700 font-sans">
+                                <strong className="text-blue-700">Service Areas:</strong> Melbourne CBD, Inner Suburbs, Outer East
+                              </div>
+                            </div>
+                          )}
+                          {index === 2 && ( // About page mockup
+                            <div className="space-y-4">
+                              <h2 className="text-2xl font-bold text-gray-900 mb-4 font-sans">About Us</h2>
+                              <div className="flex gap-4 items-start">
+                                <div className="w-24 h-24 bg-blue-100 border-2 border-blue-300 rounded-full flex items-center justify-center shrink-0">
+                                  <User size={40} className="text-blue-600" />
+                                </div>
+                                <div className="space-y-2">
+                                  <h3 className="text-gray-900 font-bold text-lg font-sans">John Smith Plumbing</h3>
+                                  <p className="text-gray-700 text-sm leading-relaxed font-sans">
+                                    With over 15 years serving Melbourne families and businesses, we've built our reputation on honest work, fair pricing and showing up when we say we will. Fully licensed, insured and ready to help.
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="grid grid-cols-2 gap-3 pt-3">
+                                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                                  <div className="text-blue-700 text-sm font-bold mb-1 font-sans">✓ Licensed Plumber</div>
+                                  <div className="text-gray-600 text-xs font-sans">VIC License #123456</div>
+                                </div>
+                                <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                                  <div className="text-blue-700 text-sm font-bold mb-1 font-sans">✓ Fully Insured</div>
+                                  <div className="text-gray-600 text-xs font-sans">$20M Public Liability</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          {index === 3 && ( // Gallery page mockup
+                            <div className="space-y-4">
+                              <h2 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Recent Projects</h2>
+                              <div className="grid grid-cols-3 gap-3">
+                                {[1, 2, 3, 4, 5, 6].map((i) => (
+                                  <div key={i} className="aspect-square bg-gray-100 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:border-blue-400 transition-colors">
+                                    <Images size={28} className="text-gray-400" />
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="bg-gray-100 border border-gray-300 rounded-lg p-3 text-center">
+                                <div className="text-sm text-gray-700 font-sans">
+                                  View: <span className="text-blue-600 font-bold">All Projects</span> | <span className="text-gray-500">Residential</span> | <span className="text-gray-500">Commercial</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          {index === 4 && ( // Contact page mockup
+                            <div className="space-y-3">
+                              <h2 className="text-2xl font-bold text-gray-900 mb-4 font-sans">Get Your Free Quote</h2>
+                              <div className="space-y-3">
+                                {/* Service Type */}
+                                <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-4">
+                                  <div className="text-sm font-bold text-gray-900 mb-2 font-sans">What do you need help with?</div>
+                                  <div className="flex flex-wrap gap-2">
+                                    <div className="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-sans">✓ Blocked Drain</div>
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">Hot Water</div>
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">Leak Repair</div>
+                                  </div>
+                                </div>
+
+                                {/* Smart Follow-up Question */}
+                                <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-3">
+                                  <div className="text-xs font-bold text-blue-900 mb-2 font-sans">Is it affecting multiple drains?</div>
+                                  <div className="text-xs text-gray-600 font-sans italic mb-2">Helps us check if it's a main line issue</div>
+                                  <div className="flex gap-2">
+                                    <div className="bg-blue-600 text-white px-3 py-1 rounded text-xs font-sans">✓ Yes</div>
+                                    <div className="bg-white border border-gray-400 text-gray-700 px-3 py-1 rounded text-xs font-sans">No</div>
+                                  </div>
+                                </div>
+
+                                {/* Property Type */}
+                                <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-3">
+                                  <div className="text-sm font-bold text-gray-900 mb-2 font-sans">Are you the property owner?</div>
+                                  <div className="flex gap-2">
+                                    <div className="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-sans">✓ Owner</div>
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">Tenant</div>
+                                  </div>
+                                </div>
+
+                                {/* Urgency */}
+                                <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-3">
+                                  <div className="text-sm font-bold text-gray-900 mb-2 font-sans">When do you need this done?</div>
+                                  <div className="flex gap-2 flex-wrap">
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">Emergency</div>
+                                    <div className="bg-orange-500 text-white px-3 py-1.5 rounded text-xs font-sans">✓ This Week</div>
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">Flexible</div>
+                                  </div>
+                                </div>
+
+                                {/* Budget Bands */}
+                                <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-3">
+                                  <div className="text-sm font-bold text-gray-900 mb-2 font-sans">Budget comfort range</div>
+                                  <div className="text-xs text-gray-600 font-sans mb-2">No surprises - just helps us recommend the right solution</div>
+                                  <div className="flex gap-2 flex-wrap">
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">Under $300</div>
+                                    <div className="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-sans">✓ $300-$600</div>
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">$600+</div>
+                                    <div className="bg-white border-2 border-gray-300 text-gray-700 px-3 py-1.5 rounded text-xs font-sans">Unsure</div>
+                                  </div>
+                                </div>
+
+                                {/* Photo Upload */}
+                                <div className="bg-green-50 border-2 border-green-300 rounded-lg p-3">
+                                  <div className="text-sm font-bold text-green-900 mb-1 font-sans">📸 Got photos? (Optional)</div>
+                                  <div className="text-xs text-gray-600 font-sans">Share pics to help us quote faster - sometimes without a site visit!</div>
+                                </div>
+
+                                {/* Access Notes */}
+                                <div className="bg-gray-50 border-2 border-gray-300 rounded-lg p-3">
+                                  <div className="text-sm font-bold text-gray-900 mb-1 font-sans">Access details</div>
+                                  <div className="text-xs text-gray-500 font-sans">Gate code, pets, parking notes</div>
+                                </div>
+
+                                {/* Submit */}
+                                <div className="bg-orange-500 text-white px-6 py-2.5 rounded-md text-center font-bold text-sm shadow-lg font-sans">
+                                  Get My Free Quote
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <h3 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-4 mt-6">
+                      What's Included:
+                    </h3>
+                    <ul className="grid md:grid-cols-2 gap-3">
+                      {page.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
+                          <ArrowRight size={16} className={`${getIconColor()} mt-0.5 shrink-0`} />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             );
           })}
@@ -223,21 +513,38 @@ const WhatsIncluded: React.FC = () => {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center">
                 <div className="inline-block bg-brand-accent/10 border border-brand-accent/20 rounded-lg p-3 mb-3">
-                  <span className="text-2xl">🧠</span>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-accent">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
                 </div>
                 <h4 className="text-sm font-bold text-brand-accent uppercase tracking-widest mb-2">Cognitive Ease</h4>
                 <p className="text-xs text-brand-muted">Tick-boxes before free-text. Plain language, no jargon.</p>
               </div>
               <div className="text-center">
                 <div className="inline-block bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 mb-3">
-                  <span className="text-2xl">✓</span>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-400">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
                 </div>
                 <h4 className="text-sm font-bold text-purple-400 uppercase tracking-widest mb-2">Commitment & Consistency</h4>
                 <p className="text-xs text-brand-muted">Starts with tiny choices, builds momentum to completion.</p>
               </div>
               <div className="text-center">
                 <div className="inline-block bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 mb-3">
-                  <span className="text-2xl">🤝</span>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
                 </div>
                 <h4 className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-2">Authority & Reciprocity</h4>
                 <p className="text-xs text-brand-muted">"Share photos to help us give you the fastest answer."</p>

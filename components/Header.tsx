@@ -90,7 +90,6 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
             <nav className="hidden md:flex items-center space-x-8">
               {renderNavLink('Home', location.pathname === '/', () => handleNavClick('/'))}
               {renderNavLink('Our Services', location.pathname === '/' && location.hash === '#expertise', () => handleNavClick('/', 'expertise'))}
-              {renderNavLink('Our Work', location.pathname === '/' && location.hash === '#work', () => handleNavClick('/', 'work'))}
 
               {/* Industries Dropdown */}
               <div className="relative group h-full flex items-center">
@@ -197,12 +196,6 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 className="w-full text-left block px-4 py-4 rounded-lg text-xl font-display font-bold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all"
               >
                 Our Services
-              </button>
-              <button
-                onClick={() => handleNavClick('/', 'work')}
-                className="w-full text-left block px-4 py-4 rounded-lg text-xl font-display font-bold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all"
-              >
-                Our Work
               </button>
 
               {/* Mobile Industries Accordion */}

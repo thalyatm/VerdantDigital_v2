@@ -27,6 +27,7 @@ import FaqPage from './components/FaqPage';
 import TermsAndConditions from './components/TermsAndConditions';
 import TermsAndPrivacy from './components/TermsAndPrivacy';
 import WhatsIncluded from './components/WhatsIncluded';
+import Sitemap from './components/Sitemap';
 
 // Page layout components
 const AgencyPage: React.FC = () => (
@@ -53,26 +54,36 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => (
       {/* Section Navigation */}
       <nav className="bg-brand-black border-b border-brand-border mt-[72px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-6 md:gap-8 py-3 md:py-2 overflow-x-auto">
-            <a href="#pricing" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              Pricing
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#comparison" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              Why Us
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#process" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              Process
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#faq" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              FAQ
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#enquire" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              Contact
-            </a>
+          <div className="flex items-center justify-between py-3 md:py-2 overflow-x-auto">
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest whitespace-nowrap">
+              <span className="text-brand-muted">Industries</span>
+              <span className="text-brand-muted">›</span>
+              <span className="text-brand-accent">Tradies</span>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="flex items-center gap-6 md:gap-8">
+              <a href="#pricing" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+                Pricing
+              </a>
+              <span className="text-brand-border">|</span>
+              <a href="#comparison" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+                Why Us
+              </a>
+              <span className="text-brand-border">|</span>
+              <a href="#process" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+                Process
+              </a>
+              <span className="text-brand-border">|</span>
+              <a href="#faq" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+                FAQ
+              </a>
+              <span className="text-brand-border">|</span>
+              <a href="#enquire" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+                Contact
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -171,13 +182,14 @@ const AppContent: React.FC = () => {
         <Routes>
           <Route path="/" element={<AgencyPage />} />
           <Route path="/tradie" element={<TradiePage onOpenModal={() => setIsModalOpen(true)} />} />
+          <Route path="/tradie/whats-included" element={<WhatsIncluded />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FaqPage />} />
-          <Route path="/whats-included" element={<WhatsIncluded />} />
           <Route path="/enquire" element={<EnquiryPage />} />
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
+          <Route path="/sitemap" element={<Sitemap />} />
         </Routes>
       </main>
 
