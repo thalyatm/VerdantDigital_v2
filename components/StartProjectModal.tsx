@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Check, ShieldCheck, Users, MapPin } from 'lucide-react';
 import ExpressBuildModal from './ExpressBuildModal';
+import ContactFormModal from './ContactFormModal';
 
 interface StartProjectModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface StartProjectModalProps {
 
 const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }) => {
   const [isExpressModalOpen, setIsExpressModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   if (!isOpen) return null;
 
@@ -131,15 +133,13 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
                  </p>
               </div>
 
-              <a
-                href="https://meetings-ap1.hubspot.com/thalya"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setIsContactModalOpen(true)}
                 className="w-full block text-center bg-transparent border-2 border-brand-border hover:border-brand-accent text-white hover:text-brand-accent font-bold py-4 px-6 rounded-lg transition-all uppercase tracking-wide group"
               >
-                Book Free Call
-                <span className="block text-[10px] text-brand-muted group-hover:text-brand-accent font-normal normal-case mt-0.5 transition-colors">Next available: Today</span>
-              </a>
+                GET IN TOUCH
+                <span className="block text-[10px] text-brand-muted group-hover:text-brand-accent font-normal normal-case mt-0.5 transition-colors">We'll respond within 24 hours</span>
+              </button>
             </div>
           </div>
 
@@ -151,6 +151,11 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
       </div>
 
       <ExpressBuildModal isOpen={isExpressModalOpen} onClose={() => setIsExpressModalOpen(false)} />
+      <ContactFormModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        prefilledHelpWith="NEW YEAR TRADIE REFRESH OFFER"
+      />
     </div>
   );
 };

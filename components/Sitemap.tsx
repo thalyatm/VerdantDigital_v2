@@ -20,7 +20,6 @@ const Sitemap: React.FC = () => {
       icon: Building2,
       links: [
         { name: 'Tradies', path: '/tradie', description: 'Express Build package for trade businesses' },
-        { name: "What's Included", path: '/tradie/whats-included', description: 'Complete breakdown of Express Build features' },
       ]
     },
     {
@@ -29,7 +28,7 @@ const Sitemap: React.FC = () => {
       links: [
         { name: 'FAQs', path: '/faq', description: 'Frequently asked questions' },
         { name: 'Terms & Privacy', path: '/terms-and-privacy', description: 'Terms and conditions, privacy policy' },
-        { name: 'Terms & Conditions', path: '/terms', description: 'Terms and conditions' },
+        { name: 'Tradie Terms & Conditions', path: '/tradie/terms', description: 'Express Build service terms' },
       ]
     },
     {
@@ -141,10 +140,10 @@ const Sitemap: React.FC = () => {
                 Get In Touch
               </button>
               <button
-                onClick={() => handleNavigation('/')}
+                onClick={() => handleNavigation('/#expertise')}
                 className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-brand-accent hover:bg-brand-accent/10 text-brand-accent font-extrabold py-4 px-8 rounded-lg transition-all uppercase tracking-widest text-sm"
               >
-                <Home size={18} />
+                <Briefcase size={18} />
                 View Services
               </button>
             </div>

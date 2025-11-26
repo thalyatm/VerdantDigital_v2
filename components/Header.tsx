@@ -100,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                     <div className="bg-brand-black border border-brand-border rounded-xl shadow-2xl overflow-hidden p-2 flex flex-col gap-1 relative z-50">
                         <button
                             onClick={() => handleNavClick('/tradie')}
-                            className="w-full text-left px-4 py-3 rounded-lg text-sm font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors flex items-center justify-between group/item"
+                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors flex items-center justify-between group/item"
                         >
                             For Tradies
                             <Hammer size={16} className="text-brand-muted group-hover/item:text-brand-accent transition-colors" />

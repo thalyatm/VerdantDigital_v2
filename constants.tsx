@@ -4,7 +4,7 @@ import { PackageItem, FaqItem, FaqCategory, TestimonialItem, BenefitItem, Workfl
 export const PACKAGES: PackageItem[] = [
   {
     name: "The Starter",
-    priceBuild: 299,
+    priceBuild: 399,
     priceMonthly: 99,
     features: [
       "Professional 5-Page Website",
@@ -19,7 +19,7 @@ export const PACKAGES: PackageItem[] = [
   },
   {
     name: "The Growth",
-    priceBuild: 599,
+    priceBuild: 699,
     priceMonthly: 149,
     popular: true,
     features: [
@@ -35,7 +35,7 @@ export const PACKAGES: PackageItem[] = [
   },
   {
     name: "The Dominator",
-    priceBuild: 1299,
+    priceBuild: 1399,
     priceMonthly: 299,
     features: [
       "Everything in Growth",
@@ -59,7 +59,7 @@ export const FAQS: FaqItem[] = [
     question: "How long does it take to go live?",
     answer: (
       <>
-        Your website is typically ready within 7 calendar days of getting started, depending on how quickly feedback is provided after the staging preview. See our <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 6)</a> for full timeline details.
+        Your website is typically ready within 7 calendar days of getting started, depending on how quickly feedback is provided after the staging preview. See our <a href="/tradie/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 6)</a> for full timeline details.
       </>
     )
   },
@@ -75,7 +75,7 @@ export const FAQS: FaqItem[] = [
     question: "What if I don't have photos or wording?",
     answer: (
       <>
-        No problem. We can create the copy and source stock imagery for you. If you send photos later, we'll swap them in at no extra cost. Note: This doesn't include logo design or custom photography. See <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 7)</a> for details.
+        No problem. We can create the copy and source stock imagery for you. If you send photos later, we'll swap them in at no extra cost. Note: This doesn't include logo design or custom photography. See <a href="/tradie/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 7)</a> for details.
       </>
     )
   },
@@ -87,7 +87,7 @@ export const FAQS: FaqItem[] = [
     question: "Do I have to manage the website myself?",
     answer: (
       <>
-        No. We manage updates, changes, optimisation and hosting. You focus on the work, we handle the website. Learn more in our <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 8)</a>.
+        No. We manage updates, changes, optimisation and hosting. You focus on the work, we handle the website. Learn more in our <a href="/tradie/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 8)</a>.
       </>
     )
   },
@@ -95,7 +95,7 @@ export const FAQS: FaqItem[] = [
     question: "What happens after launch?",
     answer: (
       <>
-        You continue to receive hosting, updates, mobile optimisation and priority support as part of your monthly plan. Full details in our <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Sections 5 & 12)</a>.
+        You continue to receive hosting, updates, mobile optimisation and priority support as part of your monthly plan. Full details in our <a href="/tradie/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Sections 5 & 12)</a>.
       </>
     )
   },
@@ -103,7 +103,7 @@ export const FAQS: FaqItem[] = [
     question: "Are there any hidden costs?",
     answer: (
       <>
-        No. The only costs are the setup fee and the monthly plan. Optional extras, like advertising or additional pages, are quoted only if requested. See <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 11)</a> for what's not included.
+        No. The only costs are the $399 setup fee and the $99/month ongoing fee for 24 months. Optional extras, like advertising, additional pages, or logo design, are quoted only if requested. See <a href="/tradie/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Section 11)</a> for what's not included.
       </>
     )
   },
@@ -111,7 +111,7 @@ export const FAQS: FaqItem[] = [
     question: "Can I take my website with me in the future?",
     answer: (
       <>
-        Yes. After 24 months, you can continue month-to-month or take your website anywhere you like. If you need to exit earlier, you can buy out the remaining contract (similar to a phone plan). Full details in our <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Sections 5 & 10)</a>.
+        Yes. After 24 months, you own the website and can continue month-to-month at $50/mo (hosting and security only) or take your website files to another provider at no cost. If you need to exit earlier, you can buy out the remaining contract balance (number of months remaining x $99). Full details in our <a href="/tradie/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">Terms & Conditions (Sections 5 & 10)</a>.
       </>
     )
   }
@@ -181,7 +181,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       },
       {
         question: "Do you offer hosting and domain management?",
-        answer: "Yes. We provide optional hosting and can manage domains so everything stays simple and centralised."
+        answer: "Yes. Hosting is included in our ongoing service packages, and we can manage domains so everything stays simple and centralised."
       },
       {
         question: "Do you integrate booking systems, CRMs or other tools?",

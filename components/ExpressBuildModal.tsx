@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Check, Zap, FileText, ArrowRight, AlertCircle } from 'lucide-react';
 import { createCheckoutSession, redirectToCheckout } from '../services/stripeService';
+import ContactFormModal from './ContactFormModal';
 
 interface ExpressBuildModalProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
   const [showForm, setShowForm] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [qualifications, setQualifications] = useState({
     moreThan5Pages: false,
     ecommerceBooking: false,
@@ -173,14 +175,12 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
                         <AlertCircle size={20} className="text-brand-accent" />
                       </div>
                       <p className="text-sm text-white font-bold mb-2">We recommend a consultation for your needs</p>
-                      <a
-                        href="https://meetings-ap1.hubspot.com/thalya"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={() => setIsContactModalOpen(true)}
                         className="text-sm text-brand-accent hover:text-white font-bold underline transition-colors"
                       >
-                        BOOK FREE CALL →
-                      </a>
+                        GET IN TOUCH →
+                      </button>
                     </div>
                   </div>
                 )}
@@ -215,7 +215,7 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
 
                   <p className="text-xs text-brand-muted text-center mb-4 leading-relaxed">
                     By proceeding with payment, I agree to the{' '}
-                    <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">
+                    <a href="/tradie/terms" target="_blank" rel="noopener noreferrer" className="text-brand-accent hover:underline">
                       Terms and Conditions
                     </a>
                   </p>
@@ -415,6 +415,12 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
           )}
         </div>
       </div>
+
+      <ContactFormModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        prefilledHelpWith="NEW YEAR TRADIE REFRESH OFFER"
+      />
     </div>
   );
 };

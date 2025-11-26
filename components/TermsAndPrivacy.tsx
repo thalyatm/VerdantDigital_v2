@@ -139,9 +139,9 @@ const TermsAndPrivacy: React.FC = () => {
 
           {/* Note about Express Build */}
           <section className="bg-brand-accent/10 border border-brand-accent/20 rounded-lg p-6 mt-8">
-            <h3 className="text-lg font-bold text-brand-accent mb-2">Express Build Service</h3>
+            <h3 className="text-lg font-bold text-brand-accent mb-2">For Tradies Deal Customers</h3>
             <p className="text-sm">
-              If you are entering into an Express Build service agreement with Verdant Digital, separate terms and conditions apply. Please refer to our <a href="/terms" className="text-brand-accent hover:underline font-semibold">Express Build Terms & Conditions</a> for specific service-related terms.
+              If you are entering into an Express Build service agreement (our Tradies Deal) with Verdant Digital, separate terms and conditions apply. Please refer to our <a href="/tradie/terms" className="text-brand-accent hover:underline font-semibold">Express Build Terms & Conditions</a> for specific service-related terms.
             </p>
           </section>
         </div>

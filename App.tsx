@@ -183,11 +183,11 @@ const AppContent: React.FC = () => {
           <Route path="/" element={<AgencyPage />} />
           <Route path="/tradie" element={<TradiePage onOpenModal={() => setIsModalOpen(true)} />} />
           <Route path="/tradie/whats-included" element={<WhatsIncluded />} />
+          <Route path="/tradie/terms" element={<TermsAndConditions />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/enquire" element={<EnquiryPage />} />
           <Route path="/success" element={<SuccessPage />} />
-          <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/terms-and-privacy" element={<TermsAndPrivacy />} />
           <Route path="/sitemap" element={<Sitemap />} />
         </Routes>
