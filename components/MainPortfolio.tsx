@@ -8,7 +8,7 @@ const projects = [
     desc: "Artisan aesthetics meet seamless checkout. Online ordering, subscriptions, and delivery scheduling that feels as good as it works.",
     result: "Increased conversion rate 47% through mobile-first redesign and streamlined checkout flow.",
     image: "/BreadBloom.png",
-    website: "BreadBloom.com.au",
+    website: "https://breadbloom.com.au",
     altText: "Artisan bread loaves on display - BreadBloom e-commerce website portfolio project"
   },
   {
@@ -17,7 +17,7 @@ const projects = [
     desc: "Beautiful product photography optimised for mobile conversion. Care guides and location-based delivery in an interface plant lovers actually enjoy using.",
     result: "Reduced cart abandonment by 32% with location-based delivery integration and optimised mobile experience.",
     image: "/Newstead Plant Co.png",
-    website: "newsteadplantco.com.au",
+    website: "https://newsteadplantco.com.au",
     altText: "Indoor plants and greenery display - Newstead Plant Co Shopify e-commerce website portfolio project"
   }
 ];
@@ -43,7 +43,13 @@ const MainPortfolio: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <div key={index} className="group flex flex-col h-full">
+            <a
+              key={index}
+              href={project.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col h-full"
+            >
               {/* Image Container */}
               <div className="relative overflow-hidden rounded-lg border border-brand-border group-hover:border-brand-accent/50 transition-all duration-500 h-40 cursor-pointer mb-4">
                 <div className="absolute inset-0 bg-brand-accent/10 opacity-0 group-hover:opacity-100 transition-opacity z-10 mix-blend-overlay"></div>
@@ -68,11 +74,8 @@ const MainPortfolio: React.FC = () => {
                 <p className="text-brand-accent text-xs font-medium leading-relaxed mb-4 italic">
                   {project.result}
                 </p>
-                <a href="#enquire" className="mt-auto text-white text-[10px] font-bold uppercase tracking-widest border-b border-brand-accent pb-1 hover:text-brand-accent transition-colors">
-                  Enquire about this project
-                </a>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
