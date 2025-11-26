@@ -7,7 +7,7 @@ const projects = [
     category: "E-commerce / Brand",
     desc: "Artisan aesthetics meet seamless checkout. Online ordering, subscriptions, and delivery scheduling that feels as good as it works.",
     result: "Increased conversion rate 47% through mobile-first redesign and streamlined checkout flow.",
-    image: "https://images.unsplash.com/photo-1555507036-ab1f40388085?q=80&w=1926&auto=format&fit=crop",
+    image: "/BreadBloom.png",
     website: "BreadBloom.com.au",
     altText: "Artisan bread loaves on display - BreadBloom e-commerce website portfolio project"
   },
@@ -16,7 +16,7 @@ const projects = [
     category: "Shopify E-commerce",
     desc: "Beautiful product photography optimised for mobile conversion. Care guides and location-based delivery in an interface plant lovers actually enjoy using.",
     result: "Reduced cart abandonment by 32% with location-based delivery integration and optimised mobile experience.",
-    image: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2070&auto=format&fit=crop",
+    image: "/Newstead Plant Co.png",
     website: "newsteadplantco.com.au",
     altText: "Indoor plants and greenery display - Newstead Plant Co Shopify e-commerce website portfolio project"
   }
@@ -50,7 +50,7 @@ const MainPortfolio: React.FC = () => {
                 <img
                   src={project.image}
                   alt={project.altText}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 grayscale group-hover:grayscale-0"
+                  className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
 
