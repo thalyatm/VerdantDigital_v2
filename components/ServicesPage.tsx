@@ -264,7 +264,7 @@ const ServicesPage: React.FC = () => {
               <button
                 key={index}
                 onClick={() => scrollToService(`service-${index}`)}
-                className={`px-4 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
+                className={`px-3 py-2.5 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wide md:tracking-wider transition-all leading-tight ${
                   service.highlight
                     ? 'bg-brand-accent/10 text-brand-accent border border-brand-accent/30 hover:bg-brand-accent hover:text-brand-black'
                     : 'bg-brand-black text-brand-muted border border-brand-border hover:text-brand-accent hover:border-brand-accent'
