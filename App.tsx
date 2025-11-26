@@ -26,6 +26,7 @@ import About from './components/About';
 import FaqPage from './components/FaqPage';
 import TermsAndConditions from './components/TermsAndConditions';
 import TermsAndPrivacy from './components/TermsAndPrivacy';
+import WhatsIncluded from './components/WhatsIncluded';
 
 // Page layout components
 const AgencyPage: React.FC = () => (
@@ -172,6 +173,7 @@ const AppContent: React.FC = () => {
           <Route path="/tradie" element={<TradiePage onOpenModal={() => setIsModalOpen(true)} />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/whats-included" element={<WhatsIncluded />} />
           <Route path="/enquire" element={<EnquiryPage />} />
           <Route path="/success" element={<SuccessPage />} />
           <Route path="/terms" element={<TermsAndConditions />} />

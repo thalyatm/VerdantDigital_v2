@@ -113,7 +113,6 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
                   "Discuss your specific needs",
                   "Get custom recommendations",
                   "Review portfolio examples",
-                  "Learn about the advertising add-on ($497/mo)",
                   "Ask all your questions"
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">

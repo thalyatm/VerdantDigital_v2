@@ -305,7 +305,19 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                 </div>
               </div>
 
-              <p className="text-sm text-gray-500 italic mt-8 text-center">Need more pages, custom features or e-commerce? We can quote for anything additional.</p>
+              <div className="flex justify-center mt-8">
+                <a
+                  href="/whats-included"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-brand-accent hover:text-white transition-colors uppercase tracking-widest border-b-2 border-brand-accent/30 hover:border-brand-accent pb-1"
+                >
+                  See What's Included
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+
+              <p className="text-sm text-gray-500 italic mt-6 text-center">Need more pages, custom features or e-commerce? We can quote for anything additional.</p>
             </div>
           </div>
         </div>

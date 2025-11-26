@@ -3,29 +3,31 @@ import { Send, Clock, MapPin, MessageSquare } from 'lucide-react';
 
 const MainContact: React.FC = () => {
   const [formState, setFormState] = useState({
-    name: '',
-    business: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
-    industry: '',
+    preferredContact: '',
+    business: '',
+    helpWith: '',
     message: ''
   });
 
   useEffect(() => {
     const handlePrefill = () => {
       const message = sessionStorage.getItem('prefillMessage');
-      const industry = sessionStorage.getItem('prefillIndustry');
+      const helpWith = sessionStorage.getItem('prefillHelpWith');
 
-      if (message || industry) {
+      if (message || helpWith) {
         setFormState(prev => ({
           ...prev,
           message: message || prev.message,
-          industry: industry || prev.industry
+          helpWith: helpWith || prev.helpWith
         }));
 
         // Clear from session storage
         sessionStorage.removeItem('prefillMessage');
-        sessionStorage.removeItem('prefillIndustry');
+        sessionStorage.removeItem('prefillHelpWith');
       }
     };
 
@@ -54,11 +56,13 @@ const MainContact: React.FC = () => {
         alert('Thanks for your enquiry! We will be in touch shortly.');
         // Reset form
         setFormState({
-          name: '',
-          business: '',
+          firstName: '',
+          lastName: '',
           email: '',
           phone: '',
-          industry: '',
+          preferredContact: '',
+          business: '',
+          helpWith: '',
           message: ''
         });
       } else {
@@ -144,71 +148,96 @@ const MainContact: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Name</label>
+                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">First Name</label>
                   <input
-                    type="text" name="name"
-                    value={formState.name} onChange={handleChange}
+                    type="text" name="firstName"
+                    value={formState.firstName} onChange={handleChange}
+                    required
                     className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
-                    placeholder="John Doe"
+                    placeholder="John"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Business Name</label>
+                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Last Name</label>
                   <input
-                    type="text" name="business"
-                    value={formState.business} onChange={handleChange}
+                    type="text" name="lastName"
+                    value={formState.lastName} onChange={handleChange}
+                    required
                     className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
-                    placeholder="Acme Inc."
+                    placeholder="Doe"
                   />
                 </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Email Address</label>
-                <input
-                  type="email" name="email"
-                  value={formState.email} onChange={handleChange}
-                  className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
-                  placeholder="john@example.com"
-                />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                   <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Phone</label>
+                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Phone Number</label>
                   <input
                     type="tel" name="phone"
                     value={formState.phone} onChange={handleChange}
+                    required
                     className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
-                    placeholder="0400..."
+                    placeholder="0400 000 000"
                   />
                 </div>
+
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Industry</label>
-                  <select
-                    name="industry"
-                    value={formState.industry} onChange={handleChange}
-                    className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all h-[46px] text-sm"
-                  >
-                    <option value="" disabled>Select Industry</option>
-                    <option value="Trade & Construction">Trade & Construction</option>
-                    <option value="Retail & E-commerce">Retail & E-commerce</option>
-                    <option value="Professional Services">Professional Services</option>
-                    <option value="Healthcare & Medical">Healthcare & Medical</option>
-                    <option value="Hospitality & Food">Hospitality & Food</option>
-                    <option value="Real Estate & Property">Real Estate & Property</option>
-                    <option value="Technology & Software">Technology & Software</option>
-                    <option value="Education & Training">Education & Training</option>
-                    <option value="Finance & Insurance">Finance & Insurance</option>
-                    <option value="Creative & Design">Creative & Design</option>
-                    <option value="Other">Other</option>
-                  </select>
+                  <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Email Address</label>
+                  <input
+                    type="email" name="email"
+                    value={formState.email} onChange={handleChange}
+                    required
+                    className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
+                    placeholder="john@example.com"
+                  />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Message (Optional)</label>
+                <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">Preferred Contact Method</label>
+                <select
+                  name="preferredContact"
+                  value={formState.preferredContact} onChange={handleChange}
+                  required
+                  className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all h-[46px] text-sm"
+                >
+                  <option value="" disabled>Select preferred method</option>
+                  <option value="Email">Email</option>
+                  <option value="Phone">Phone</option>
+                  <option value="Either">Either</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-brand-muted uppercase tracking-widest ml-1">Business Name <span className="text-[10px]">(Optional)</span></label>
+                <input
+                  type="text" name="business"
+                  value={formState.business} onChange={handleChange}
+                  className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
+                  placeholder="Acme Inc."
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-brand-muted uppercase tracking-widest ml-1">I Need Help With <span className="text-[10px]">(Optional)</span></label>
+                <select
+                  name="helpWith"
+                  value={formState.helpWith} onChange={handleChange}
+                  className="w-full bg-brand-surface border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all h-[46px] text-sm"
+                >
+                  <option value="">Select a service</option>
+                  <option value="Google Ads & Paid Search">Google Ads & Paid Search</option>
+                  <option value="SEO & Organic Growth">SEO & Organic Growth</option>
+                  <option value="Website Design & Development">Website Design & Development</option>
+                  <option value="E-commerce Solutions">E-commerce Solutions</option>
+                  <option value="Full Digital Marketing Suite">Full Digital Marketing Suite</option>
+                  <option value="Something Else">Something Else</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-brand-muted uppercase tracking-widest ml-1">Message <span className="text-[10px]">(Optional)</span></label>
                 <textarea
                   name="message"
                   value={formState.message} onChange={handleChange}

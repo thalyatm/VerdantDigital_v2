@@ -9,12 +9,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, business, email, phone, industry, message } = req.body;
+    const { firstName, lastName, email, phone, preferredContact, business, helpWith, message } = req.body;
 
     // Validate required fields
-    if (!name || !business || !email) {
+    if (!firstName || !lastName || !email || !phone || !preferredContact) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
+
+    const fullName = `${firstName} ${lastName}`;
 
     // Build email HTML
     const emailHtml = `
@@ -42,26 +44,30 @@ export default async function handler(req, res) {
             <h2>Contact Details</h2>
             <div class="field">
               <span class="label">Name:</span>
-              <span class="value">${name}</span>
-            </div>
-            <div class="field">
-              <span class="label">Business:</span>
-              <span class="value">${business}</span>
+              <span class="value">${fullName}</span>
             </div>
             <div class="field">
               <span class="label">Email:</span>
               <span class="value">${email}</span>
             </div>
-            ${phone ? `
             <div class="field">
               <span class="label">Phone:</span>
               <span class="value">${phone}</span>
             </div>
-            ` : ''}
-            ${industry ? `
             <div class="field">
-              <span class="label">Industry:</span>
-              <span class="value">${industry}</span>
+              <span class="label">Preferred Contact Method:</span>
+              <span class="value">${preferredContact}</span>
+            </div>
+            ${business ? `
+            <div class="field">
+              <span class="label">Business Name:</span>
+              <span class="value">${business}</span>
+            </div>
+            ` : ''}
+            ${helpWith ? `
+            <div class="field">
+              <span class="label">Needs Help With:</span>
+              <span class="value">${helpWith}</span>
             </div>
             ` : ''}
             ${message ? `
@@ -85,7 +91,7 @@ export default async function handler(req, res) {
       from: 'Verdant Digital <noreply@verdantdigital.com.au>',
       to: 'thalya@verdantlabs.com.au',
       replyTo: email, // Allow easy reply to the customer
-      subject: `New Contact Form - ${name} from ${business}`,
+      subject: `New Contact Form - ${fullName}${business ? ` from ${business}` : ''}`,
       html: emailHtml,
     });
 
