@@ -11,6 +11,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileIndustryOpen, setMobileIndustryOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -89,7 +90,35 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
               {renderNavLink('Home', location.pathname === '/', () => handleNavClick('/'))}
-              {renderNavLink('Our Services', location.pathname === '/' && location.hash === '#expertise', () => handleNavClick('/', 'expertise'))}
+
+              {/* Our Services Dropdown */}
+              <div className="relative group h-full flex items-center">
+                <button className="flex items-center gap-1 text-sm font-semibold uppercase tracking-widest font-display text-brand-muted group-hover:text-brand-accent transition-colors py-4">
+                    Our Services <ChevronDown size={14} />
+                </button>
+                <div className="absolute top-full left-0 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-0">
+                    <div className="bg-brand-black border border-brand-border rounded-xl shadow-2xl overflow-hidden p-2 flex flex-col gap-1 relative z-50">
+                        <button
+                            onClick={() => handleNavClick('/services')}
+                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors"
+                        >
+                            Services Overview
+                        </button>
+                        <button
+                            onClick={() => handleNavClick('/enquire')}
+                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors"
+                        >
+                            Complimentary Audit
+                        </button>
+                        <button
+                            onClick={() => handleNavClick('/resources')}
+                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors"
+                        >
+                            Digital Guides
+                        </button>
+                    </div>
+                </div>
+              </div>
 
               {/* Industries Dropdown */}
               <div className="relative group h-full flex items-center">
@@ -191,12 +220,39 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
               >
                 Home
               </button>
-              <button
-                onClick={() => handleNavClick('/', 'expertise')}
-                className="w-full text-left block px-4 py-4 rounded-lg text-xl font-display font-bold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all"
-              >
-                Our Services
-              </button>
+
+              {/* Mobile Our Services Accordion */}
+              <div className="rounded-lg overflow-hidden bg-brand-surface/20 border border-brand-surface/50">
+                <button
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                  className="w-full text-left px-4 py-4 text-xl font-display font-bold text-brand-bone hover:text-brand-accent flex justify-between items-center"
+                >
+                  Our Services
+                  <ChevronDown size={20} className={`transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {mobileServicesOpen && (
+                  <div className="bg-brand-black/50 px-4 pb-2 border-t border-brand-surface/30 space-y-1">
+                    <button
+                      onClick={() => handleNavClick('/services')}
+                      className="w-full text-left block px-4 py-3 rounded-lg text-sm font-display font-semibold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all uppercase tracking-widest"
+                    >
+                      Services Overview
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('/enquire')}
+                      className="w-full text-left block px-4 py-3 rounded-lg text-sm font-display font-semibold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all uppercase tracking-widest"
+                    >
+                      Complimentary Audit
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('/resources')}
+                      className="w-full text-left block px-4 py-3 rounded-lg text-sm font-display font-semibold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all uppercase tracking-widest"
+                    >
+                      Digital Guides
+                    </button>
+                  </div>
+                )}
+              </div>
 
               {/* Mobile Industries Accordion */}
               <div className="rounded-lg overflow-hidden bg-brand-surface/20 border border-brand-surface/50">

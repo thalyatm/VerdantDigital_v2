@@ -75,8 +75,12 @@ const MainExpertise: React.FC = () => {
           ))}
         </div>
 
-        <div className="text-center md:text-left reveal reveal-delay-200">
-          <a href="#enquire" className="group inline-flex items-center gap-3 text-brand-accent font-bold uppercase tracking-widest hover:text-white transition-colors text-sm">
+        <div className="flex flex-col md:flex-row gap-4 text-center md:text-left reveal reveal-delay-200">
+          <a href="/services" className="group inline-flex items-center justify-center gap-3 bg-brand-accent hover:bg-white text-brand-black font-extrabold px-6 py-3 rounded-lg shadow-[0_4px_14px_rgba(0,255,179,0.4)] hover:shadow-[0_6px_20px_rgba(0,255,179,0.6)] transition-all uppercase tracking-widest text-sm">
+            View all services
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+          <a href="#enquire" className="group inline-flex items-center justify-center gap-3 text-brand-accent font-bold uppercase tracking-widest hover:text-white transition-colors text-sm">
             Discuss your project
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </a>

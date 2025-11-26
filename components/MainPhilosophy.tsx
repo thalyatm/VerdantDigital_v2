@@ -89,7 +89,7 @@ const MainPhilosophy: React.FC = () => {
               Start a conversation
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#philosophy" className="group inline-flex items-center justify-center gap-3 border-2 border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-brand-black font-bold px-6 py-3 rounded-lg transition-all uppercase tracking-widest text-sm">
+            <a href="/about" className="group inline-flex items-center justify-center gap-3 border-2 border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-brand-black font-bold px-6 py-3 rounded-lg transition-all uppercase tracking-widest text-sm">
               Read more in About Us
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>

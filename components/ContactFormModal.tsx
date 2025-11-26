@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Send } from 'lucide-react';
 
 interface ContactFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   prefilledHelpWith?: string;
+  initialMessage?: string;
 }
 
-const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, prefilledHelpWith }) => {
+const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, prefilledHelpWith, initialMessage }) => {
   const [formState, setFormState] = useState({
     firstName: '',
     lastName: '',
@@ -16,10 +17,19 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, pr
     preferredContact: '',
     business: '',
     helpWith: prefilledHelpWith || '',
-    message: ''
+    message: initialMessage || ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (initialMessage) {
+      setFormState(prev => ({ ...prev, message: initialMessage }));
+    }
+    if (prefilledHelpWith) {
+      setFormState(prev => ({ ...prev, helpWith: prefilledHelpWith }));
+    }
+  }, [initialMessage, prefilledHelpWith]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -186,6 +196,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, pr
                   className="w-full bg-brand-black border border-brand-border focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all h-[46px] text-sm"
                 >
                   <option value="">Select a service</option>
+                  <option value="Free Website Audit">Free Website Audit</option>
                   <option value="Google Ads & Paid Search">Google Ads & Paid Search</option>
                   <option value="SEO & Organic Growth">SEO & Organic Growth</option>
                   <option value="Website Design & Development">Website Design & Development</option>

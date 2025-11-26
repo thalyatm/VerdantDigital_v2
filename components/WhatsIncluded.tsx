@@ -73,12 +73,12 @@ const WhatsIncluded: React.FC = () => {
       color: 'green-400',
       borderColor: 'green-500/50',
       title: 'Contact & Quote Request',
-      description: 'Intelligent forms designed to get you qualified leads with all the detail you need—without follow-up calls.',
+      description: 'Intelligent forms designed to get you qualified leads with all the detail you need - without follow-up calls.',
       features: [
         'Smart quote forms with job-type specific questions',
         'Photo upload to help you quote faster (sometimes without a site visit)',
         'Urgency filters (emergency, soon, flexible) so you can prioritise',
-        'Budget comfort indicators—no awkward money conversations',
+        'Budget comfort indicators - no awkward money conversations',
         'Access notes (pets, gates, parking) save you time on arrival',
         'Auto-filtering to protect your time from tyre-kickers'
       ]
@@ -491,7 +491,7 @@ const WhatsIncluded: React.FC = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-400 mt-0.5">•</span>
-                  <span><strong className="text-white">No scary pricing questions</strong>—budget bands feel collaborative, not confrontational</span>
+                  <span><strong className="text-white">No scary pricing questions</strong> - budget bands feel collaborative, not confrontational</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-400 mt-0.5">•</span>
@@ -608,7 +608,7 @@ const WhatsIncluded: React.FC = () => {
             </div>
             <div className="bg-brand-surface border border-brand-border rounded-lg p-5">
               <h4 className="text-brand-accent font-bold text-sm uppercase tracking-widest mb-2">Unlimited Updates</h4>
-              <p className="text-brand-muted text-sm">Text changes, new photos, pricing updates—whenever you need</p>
+              <p className="text-brand-muted text-sm">Text changes, new photos, pricing updates - whenever you need</p>
             </div>
             <div className="bg-brand-surface border border-brand-border rounded-lg p-5">
               <h4 className="text-brand-accent font-bold text-sm uppercase tracking-widest mb-2">Priority Support</h4>

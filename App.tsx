@@ -28,6 +28,10 @@ import TermsAndConditions from './components/TermsAndConditions';
 import TermsAndPrivacy from './components/TermsAndPrivacy';
 import WhatsIncluded from './components/WhatsIncluded';
 import Sitemap from './components/Sitemap';
+import ServicesPage from './components/ServicesPage';
+import FreeResourcesPage from './components/FreeResourcesPage';
+import AdvertisingGuidePage from './components/AdvertisingGuidePage';
+import ConversionPsychologyGuidePage from './components/ConversionPsychologyGuidePage';
 
 // Page layout components
 const AgencyPage: React.FC = () => (
@@ -181,6 +185,10 @@ const AppContent: React.FC = () => {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<AgencyPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/resources" element={<FreeResourcesPage />} />
+          <Route path="/resources/advertising-guide" element={<AdvertisingGuidePage />} />
+          <Route path="/resources/conversion-psychology" element={<ConversionPsychologyGuidePage />} />
           <Route path="/tradie" element={<TradiePage onOpenModal={() => setIsModalOpen(true)} />} />
           <Route path="/tradie/whats-included" element={<WhatsIncluded />} />
           <Route path="/tradie/terms" element={<TermsAndConditions />} />

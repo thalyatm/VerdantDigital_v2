@@ -53,7 +53,7 @@ const MainHero: React.FC = () => {
               href="#enquire"
               className="inline-flex items-center gap-3 bg-brand-accent hover:bg-white text-brand-black font-black text-lg px-8 py-3 rounded-lg shadow-[0_4px_20px_rgba(0,255,179,0.4)] hover:shadow-[0_6px_30px_rgba(0,255,179,0.6)] transition-all duration-300 group uppercase tracking-wide"
             >
-              Book Strategy Call
+              Get in touch
               <ArrowDown size={20} className="rotate-[-90deg] group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

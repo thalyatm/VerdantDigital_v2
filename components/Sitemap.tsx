@@ -11,6 +11,7 @@ const Sitemap: React.FC = () => {
       icon: Home,
       links: [
         { name: 'Home', path: '/', description: 'Agency homepage and services overview' },
+        { name: 'Our Services', path: '/services', description: 'Complete breakdown of all services offered' },
         { name: 'About Us', path: '/about', description: 'Our story, founders, philosophy and approach' },
         { name: 'Contact', path: '/enquire', description: 'Get in touch with our team' },
       ]
@@ -140,7 +141,7 @@ const Sitemap: React.FC = () => {
                 Get In Touch
               </button>
               <button
-                onClick={() => handleNavigation('/#expertise')}
+                onClick={() => handleNavigation('/services')}
                 className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-brand-accent hover:bg-brand-accent/10 text-brand-accent font-extrabold py-4 px-8 rounded-lg transition-all uppercase tracking-widest text-sm"
               >
                 <Briefcase size={18} />
