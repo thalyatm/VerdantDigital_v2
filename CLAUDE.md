@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a React 19 + TypeScript marketing website for Verdant Digital agency, built as a Google AI Studio app with Gemini API integration. The site uses React Router for navigation with multiple page routes.
 
-**Legal Entity**: Verdant Labs Pty Ltd (ABN: 62 690 480 516 7)
+**Legal Entity**: Verdant Labs Pty Ltd (ABN: 62 690 480 516)
 **Contact Email**: hello@verdantdigital.com.au
 **Social Media**:
 - Instagram: https://www.instagram.com/verdant.digital/

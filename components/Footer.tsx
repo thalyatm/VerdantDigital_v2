@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
             {/* Business Identity */}
             <div className="text-sm space-y-1">
               <p className="text-brand-bone font-semibold">Verdant Labs Pty Ltd</p>
-              <p className="text-gray-500">ABN: 62 690 480 516 7</p>
+              <p className="text-gray-500">ABN: 62 690 480 516</p>
               <p className="text-gray-500">Brisbane, Queensland, Australia</p>
             </div>
 

@@ -26,7 +26,7 @@ const TermsAndConditions: React.FC = () => {
           <section>
             <h2 className="text-xl font-bold text-white mb-3">1. Agreement Overview</h2>
             <p className="mb-3">
-              This Service Agreement ("Agreement") is entered into between Verdant Labs Pty Ltd (ABN: 62 690 480 516 7)
+              This Service Agreement ("Agreement") is entered into between Verdant Labs Pty Ltd (ABN: 62 690 480 516)
               ("Verdant Digital", "we", "us", "our") and the client ("you", "your", "Client") for the provision of
               the Express Build website service.
             </p>
@@ -224,7 +224,7 @@ const TermsAndConditions: React.FC = () => {
           <section className="bg-brand-surface border border-brand-border rounded-lg p-6 mt-12">
             <h2 className="text-xl font-bold text-white mb-3">Contact Information</h2>
             <p className="mb-1"><strong>Business Name:</strong> Verdant Labs Pty Ltd</p>
-            <p className="mb-1"><strong>ABN:</strong> 62 690 480 516 7</p>
+            <p className="mb-1"><strong>ABN:</strong> 62 690 480 516</p>
             <p className="mb-1"><strong>Email:</strong> hello@verdantdigital.com.au</p>
             <p className="mb-1"><strong>Website:</strong> verdantdigital.com.au</p>
           </section>

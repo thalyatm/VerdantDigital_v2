@@ -13,7 +13,7 @@ const TermsAndPrivacy: React.FC = () => {
           <section>
             <h2 className="text-xl font-bold text-white mb-3">1. Introduction</h2>
             <p className="mb-3">
-              Welcome to Verdant Digital. This website is operated by Verdant Labs Pty Ltd (ABN: 62 690 480 516 7) ("Verdant Digital", "we", "us", "our"). By accessing and using this website, you agree to be bound by these Terms of Use and Privacy Policy.
+              Welcome to Verdant Digital. This website is operated by Verdant Labs Pty Ltd (ABN: 62 690 480 516) ("Verdant Digital", "we", "us", "our"). By accessing and using this website, you agree to be bound by these Terms of Use and Privacy Policy.
             </p>
             <p>
               If you do not agree with these terms, please do not use our website. For specific service agreements (such as our Express Build service), separate terms and conditions apply.
@@ -130,7 +130,7 @@ const TermsAndPrivacy: React.FC = () => {
             </p>
             <div className="bg-brand-surface border border-brand-border rounded-lg p-6 mt-4">
               <p className="mb-1"><strong>Business Name:</strong> Verdant Labs Pty Ltd</p>
-              <p className="mb-1"><strong>ABN:</strong> 62 690 480 516 7</p>
+              <p className="mb-1"><strong>ABN:</strong> 62 690 480 516</p>
               <p className="mb-1"><strong>Email:</strong> hello@verdantdigital.com.au</p>
               <p className="mb-1"><strong>Website:</strong> verdantdigital.com.au</p>
               <p className="mb-1"><strong>Location:</strong> Brisbane, Queensland, Australia</p>
