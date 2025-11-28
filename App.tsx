@@ -44,7 +44,18 @@ const AgencyPage: React.FC = () => (
   </>
 );
 
-const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => (
+const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => {
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
   <div className="relative">
     {/* Background Grid & Noise */}
     <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
@@ -56,7 +67,7 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => (
 
     <div className="relative z-10">
       {/* Section Navigation */}
-      <nav className="fixed top-[48px] md:top-[52px] left-0 right-0 bg-brand-black/95 backdrop-blur-md border-b border-brand-border z-40">
+      <nav className={`fixed left-0 right-0 bg-brand-black/95 backdrop-blur-md border-b border-brand-border z-40 transition-all duration-300 ${scrolled ? 'top-[56px] md:top-[52px]' : 'top-[48px] md:top-[52px]'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile: Stacked Layout */}
           <div className="md:hidden py-3">
@@ -134,7 +145,8 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => (
       <MainContact />
     </div>
   </div>
-);
+  );
+};
 
 // Main layout wrapper with scroll animations
 const AppContent: React.FC = () => {

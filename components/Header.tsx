@@ -71,10 +71,10 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-18">
+          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 md:h-18' : 'h-18'}`}>
             {/* Logo - Primary White on Dark */}
             <div
-              className="flex-shrink-0 cursor-pointer group p-2"
+              className={`flex-shrink-0 cursor-pointer group p-2 transition-all duration-300 ${scrolled ? 'md:opacity-100 opacity-0 md:visible invisible' : 'opacity-100 visible'}`}
               onClick={() => handleNavClick('/')}
             >
               <div className="flex items-center gap-2 transition-opacity duration-300 group-hover:opacity-80">
