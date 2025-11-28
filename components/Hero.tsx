@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, PhoneCall, Check, Home, Wrench, User, Images, Mail } from 'lucide-react';
+import { ArrowRight, PhoneCall, Check, Home, Wrench, User, Images, Mail, Zap, Award, MapPin, Headphones } from 'lucide-react';
 
 interface HeroProps {
   onOpenModal: () => void;
@@ -66,6 +66,37 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
                       <span className="text-base md:text-lg text-brand-bone leading-tight text-left">{benefit}</span>
                     </div>
                   ))}
+                </div>
+
+                {/* Trust Badges */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8 pt-8 border-t border-brand-border/30">
+                  {/* 7-Day Launch */}
+                  <div className="flex flex-col items-center text-center p-3 bg-brand-surface/30 border border-brand-border/40 rounded-lg hover:border-brand-accent/40 transition-colors">
+                    <Zap size={20} className="text-brand-accent mb-2" />
+                    <span className="text-xs font-bold text-white leading-tight">7-Day Launch</span>
+                    <span className="text-[10px] text-brand-muted mt-0.5">Guaranteed</span>
+                  </div>
+
+                  {/* Australian Owned */}
+                  <div className="flex flex-col items-center text-center p-3 bg-brand-surface/30 border border-brand-border/40 rounded-lg hover:border-brand-accent/40 transition-colors">
+                    <MapPin size={20} className="text-brand-accent mb-2" />
+                    <span className="text-xs font-bold text-white leading-tight">Australian</span>
+                    <span className="text-[10px] text-brand-muted mt-0.5">Owned & Operated</span>
+                  </div>
+
+                  {/* Built for Tradies */}
+                  <div className="flex flex-col items-center text-center p-3 bg-brand-surface/30 border border-brand-border/40 rounded-lg hover:border-brand-accent/40 transition-colors">
+                    <Award size={20} className="text-brand-accent mb-2" />
+                    <span className="text-xs font-bold text-white leading-tight">Built for</span>
+                    <span className="text-[10px] text-brand-muted mt-0.5">Trade Businesses</span>
+                  </div>
+
+                  {/* Priority Support */}
+                  <div className="flex flex-col items-center text-center p-3 bg-brand-surface/30 border border-brand-border/40 rounded-lg hover:border-brand-accent/40 transition-colors">
+                    <Headphones size={20} className="text-brand-accent mb-2" />
+                    <span className="text-xs font-bold text-white leading-tight">Priority</span>
+                    <span className="text-[10px] text-brand-muted mt-0.5">Support Included</span>
+                  </div>
                 </div>
               </div>
             </div>
