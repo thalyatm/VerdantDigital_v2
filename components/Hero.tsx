@@ -8,7 +8,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
   return (
     <>
-      <section className="relative bg-transparent pt-24 pb-32 lg:pt-32 lg:pb-40 overflow-hidden">
+      <section className="relative bg-transparent pt-8 pb-32 lg:pt-12 lg:pb-40 overflow-hidden">
         {/* Animated Divider */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
 
