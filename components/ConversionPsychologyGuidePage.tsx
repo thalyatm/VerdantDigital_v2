@@ -150,6 +150,7 @@ const ConversionPsychologyGuidePage: React.FC = () => {
 
                 <div className="space-y-4">
                   <h3 className="text-brand-accent font-bold text-lg">The Two Systems of Thinking</h3>
+                  <p className="text-xs text-brand-muted italic">Concept from "Thinking, Fast and Slow" by Daniel Kahneman</p>
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-brand-black/40 border border-brand-border rounded-lg p-5">
@@ -451,6 +452,7 @@ const ConversionPsychologyGuidePage: React.FC = () => {
 
                   <div className="bg-brand-black/40 border border-brand-border rounded-lg p-5">
                     <h4 className="text-white font-bold mb-3">❌ Friction: Too Many Choices</h4>
+                    <p className="text-xs text-brand-muted italic mb-2">Concept from "The Paradox of Choice" by Barry Schwartz</p>
                     <p className="text-sm text-brand-muted mb-3">
                       Paradox of choice: more options = decision paralysis. Users overwhelmed by choices often choose nothing.
                     </p>
@@ -688,6 +690,7 @@ const ConversionPsychologyGuidePage: React.FC = () => {
 
                 <div className="bg-brand-black/40 border border-brand-border rounded-lg p-5 space-y-4">
                   <h3 className="text-brand-accent font-bold">Cognitive Load Theory</h3>
+                  <p className="text-xs text-brand-muted italic">Concept from research by John Sweller</p>
                   <p className="text-base">
                     Humans have <span className="text-brand-accent font-bold">limited working memory</span>. The more mental effort required to understand your website, the less capacity users have left to make a decision.
                   </p>
