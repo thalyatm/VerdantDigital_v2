@@ -27,7 +27,8 @@ export default async function handler(req, res) {
     };
 
     if (mode === 'payment') {
-      // One-time payment for $399 setup
+      // DEPRECATED: Old one-time payment flow
+      // Use mode === 'subscription' for the new $399 + $99/mo pricing
       sessionConfig.line_items = [
         {
           price_data: {
@@ -41,16 +42,21 @@ export default async function handler(req, res) {
           quantity: 1,
         },
       ];
-      // Enable automatic tax calculation if needed
       sessionConfig.payment_intent_data = {
         receipt_email: 'thalya@verdantlabs.com.au',
         metadata: metadata,
       };
     } else if (mode === 'subscription') {
-      // Recurring subscription for $99/month
-      // You'll need to create a Price in Stripe Dashboard and use its ID
+      // NEW PRICING: $399 upfront + $99/month for 24 months
+      // Customer pays $399 today, then $99/month starting next month for 24 months
       sessionConfig.line_items = [
         {
+          // One-time setup fee: $399
+          price: process.env.STRIPE_SETUP_FEE_PRICE_ID,
+          quantity: 1,
+        },
+        {
+          // Recurring monthly fee: $99/month
           price: process.env.STRIPE_RECURRING_PRICE_ID,
           quantity: 1,
         },
@@ -59,6 +65,16 @@ export default async function handler(req, res) {
         metadata: {
           ...metadata,
           receipt_email: 'thalya@verdantlabs.com.au',
+          plan_duration_months: '24', // Track that this is a 24-month plan
+        },
+        // Trial period delays the first $99 payment by 30 days
+        // Customer pays $399 today, then first $99 payment in 30 days
+        trial_period_days: 30,
+      };
+      // Add invoice settings to ensure receipts are sent
+      sessionConfig.subscription_data.invoice_settings = {
+        issuer: {
+          type: 'self',
         },
       };
     }

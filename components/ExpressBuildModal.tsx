@@ -73,14 +73,17 @@ const ExpressBuildModal: React.FC<ExpressBuildModalProps> = ({ isOpen, onClose }
     setIsProcessing(true);
 
     try {
-      // Create Stripe Checkout session for one-time payment
+      // Create Stripe Checkout session for subscription
+      // Pricing: $399 upfront + $99/month for 24 months (starting next month)
       const checkoutUrl = await createCheckoutSession({
-        mode: 'payment',
+        mode: 'subscription',
         successUrl: `${window.location.origin}/success`,
         cancelUrl: `${window.location.origin}/tradie`,
         metadata: {
-          product: 'Express Build Setup',
-          amount: '299',
+          product: 'Express Build - Tradie Website',
+          setup_fee: '399',
+          monthly_fee: '99',
+          plan_duration: '24_months',
         },
       });
 
