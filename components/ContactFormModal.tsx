@@ -47,7 +47,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, pr
       const data = await response.json();
 
       if (response.ok) {
-        alert('Thanks for your enquiry! We will be in touch shortly.');
+        alert('✓ Message sent!\n\nThanks for getting in touch. We\'ll get back to you within 24 hours.\n\nYou should receive a confirmation email shortly.');
         onClose();
         // Reset form
         setFormState({
@@ -61,11 +61,11 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, pr
           message: ''
         });
       } else {
-        alert('There was an error submitting your form. Please try again or email us directly.');
+        alert('Something went wrong.\n\nPlease try again, or email us directly at hello@verdantdigital.com.au');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting your form. Please try again or email us directly.');
+      alert('Connection error.\n\nPlease check your internet connection and try again, or email us at hello@verdantdigital.com.au');
     } finally {
       setIsSubmitting(false);
     }
