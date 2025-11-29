@@ -162,7 +162,7 @@ export default async function handler(req, res) {
 
     // Send notification email to internal team
     await resend.emails.send({
-      from: 'Verdant Digital <noreply@send.verdantdigital.com.au>',
+      from: 'Verdant Digital <noreply@verdantdigital.com.au>',
       to: 'thalya@verdantlabs.com.au',
       replyTo: email,
       subject: `New Enquiry: ${fullName}${business ? ` (${business})` : ''}`,
@@ -171,7 +171,7 @@ export default async function handler(req, res) {
 
     // Send confirmation email to customer
     await resend.emails.send({
-      from: 'Verdant Digital <hello@send.verdantdigital.com.au>',
+      from: 'Verdant Digital <hello@verdantdigital.com.au>',
       to: email,
       replyTo: 'hello@verdantdigital.com.au',
       subject: `We've received your enquiry - Verdant Digital`,
