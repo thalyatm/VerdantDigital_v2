@@ -72,16 +72,16 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 md:h-18' : 'h-18'}`}>
-            {/* Logo - Primary White on Dark */}
+            {/* Logo - Primary White on Dark - Always Visible */}
             <div
-              className={`flex-shrink-0 cursor-pointer group p-2 transition-all duration-300 ${scrolled ? 'md:opacity-100 opacity-0 md:visible invisible' : 'opacity-100 visible'}`}
+              className="flex-shrink-0 cursor-pointer group p-2 transition-all duration-300 opacity-100 visible"
               onClick={() => handleNavClick('/')}
             >
               <div className="flex items-center gap-2 transition-opacity duration-300 group-hover:opacity-80">
-                <span className="font-display font-black text-2xl tracking-tight text-white leading-none">
+                <span className={`font-display font-black tracking-tight text-white leading-none transition-all duration-300 ${scrolled ? 'text-xl md:text-2xl' : 'text-2xl'}`}>
                   VERDANT
                 </span>
-                <span className="font-display font-black text-2xl tracking-tight text-white leading-none">
+                <span className={`font-display font-black tracking-tight text-white leading-none transition-all duration-300 ${scrolled ? 'text-xl md:text-2xl' : 'text-2xl'}`}>
                   DIGITAL
                 </span>
               </div>
@@ -125,14 +125,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 <button className="flex items-center gap-1 text-sm font-semibold uppercase tracking-widest font-display text-brand-muted group-hover:text-brand-accent transition-colors py-4">
                     Industries <ChevronDown size={14} />
                 </button>
-                <div className="absolute top-full left-0 pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-0">
+                <div className="absolute top-full left-0 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-0">
                     <div className="bg-brand-black border border-brand-border rounded-xl shadow-2xl overflow-hidden p-2 flex flex-col gap-1 relative z-50">
                         <button
                             onClick={() => handleNavClick('/tradie')}
-                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors flex items-center justify-between group/item"
+                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors"
                         >
                             For Tradies
-                            <Hammer size={16} className="text-brand-muted group-hover/item:text-brand-accent transition-colors" />
                         </button>
                     </div>
                 </div>
@@ -264,12 +263,11 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                   <ChevronDown size={20} className={`transition-transform ${mobileIndustryOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {mobileIndustryOpen && (
-                  <div className="bg-brand-black/50 px-4 pb-2 border-t border-brand-surface/30">
+                  <div className="bg-brand-black/50 px-4 pb-2 border-t border-brand-surface/30 space-y-1">
                     <button
                       onClick={() => handleNavClick('/tradie')}
-                      className="w-full text-left block px-4 py-4 rounded-lg text-xl font-display font-bold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all flex items-center gap-3"
+                      className="w-full text-left block px-4 py-3 rounded-lg text-sm font-display font-semibold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all uppercase tracking-widest"
                     >
-                      <Hammer size={18} />
                       For Tradies
                     </button>
                   </div>

@@ -44,11 +44,17 @@ const Features: React.FC = () => {
         </div>
         
         {/* Visual Mockup Section - Optional visual reinforcement */}
-        <div className="mt-20 relative rounded-2xl overflow-hidden border border-brand-border">
+        <div className="mt-20 relative rounded-2xl overflow-hidden border border-brand-border bg-brand-surface">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-brand-black/90 z-10"></div>
-          <img 
-            src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2064&auto=format&fit=crop" 
-            alt="Team working" 
+          <img
+            src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2064&auto=format&fit=crop"
+            alt="Team working"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => {
+              // Fallback: hide external image if it fails to load
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
             className="w-full h-64 lg:h-96 object-cover opacity-50 grayscale"
           />
           <div className="absolute bottom-0 left-0 w-full p-8 lg:p-12 z-20 text-center">

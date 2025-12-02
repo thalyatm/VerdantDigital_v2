@@ -51,11 +51,17 @@ const MainPortfolio: React.FC = () => {
               className="group flex flex-col h-full"
             >
               {/* Image Container */}
-              <div className="relative overflow-hidden rounded-lg border border-brand-border group-hover:border-brand-accent/50 transition-all duration-500 h-40 cursor-pointer mb-4">
+              <div className="relative overflow-hidden rounded-lg border border-brand-border group-hover:border-brand-accent/50 transition-all duration-500 h-40 cursor-pointer mb-4 bg-brand-surface">
                 <div className="absolute inset-0 bg-brand-accent/10 opacity-0 group-hover:opacity-100 transition-opacity z-10 mix-blend-overlay"></div>
                 <img
                   src={project.image}
                   alt={project.altText}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    // Fallback: hide image and show gradient background
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
                   className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700"
                 />
               </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle, Color } from 'ogl';
 
 import './Threads.css';
@@ -14,7 +14,11 @@ void main() {
 `;
 
 const fragmentShader = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
+#else
+precision mediump float;
+#endif
 
 uniform float iTime;
 uniform vec3 iResolution;
@@ -128,6 +132,42 @@ interface ThreadsProps {
   [key: string]: any;
 }
 
+// Helper function to check WebGL support
+function isWebGLAvailable(): boolean {
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return false;
+
+    // Check if it's a software renderer (often indicates poor performance)
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    if (debugInfo) {
+      const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+      // Avoid software renderers like SwiftShader
+      if (renderer && renderer.toLowerCase().includes('swift')) return false;
+    }
+
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+// Check if device is low-end (disable WebGL on very low-end devices)
+function isLowEndDevice(): boolean {
+  // Check for reduced motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+
+  // Check device memory (if available)
+  const memory = (navigator as any).deviceMemory;
+  if (memory && memory < 4) return true;
+
+  // Check hardware concurrency (CPU cores)
+  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) return true;
+
+  return false;
+}
+
 const Threads: React.FC<ThreadsProps> = ({
   color = [1, 1, 1],
   amplitude = 1,
@@ -137,93 +177,143 @@ const Threads: React.FC<ThreadsProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationFrameId = useRef<number>();
+  const [shouldRender, setShouldRender] = useState<boolean>(true);
+  const [webglFailed, setWebglFailed] = useState<boolean>(false);
 
   useEffect(() => {
+    // Check if WebGL should be rendered
+    if (!isWebGLAvailable() || isLowEndDevice()) {
+      setShouldRender(false);
+      setWebglFailed(true);
+      return;
+    }
+
     if (!containerRef.current) return;
     const container = containerRef.current;
 
-    const renderer = new Renderer({ alpha: true });
-    const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    container.appendChild(gl.canvas);
+    try {
+      const renderer = new Renderer({ alpha: true, antialias: false }); // Disable antialiasing for better mobile performance
+      const gl = renderer.gl;
 
-    const geometry = new Triangle(gl);
-    const program = new Program(gl, {
-      vertex: vertexShader,
-      fragment: fragmentShader,
-      uniforms: {
-        iTime: { value: 0 },
-        iResolution: {
-          value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
-        },
-        uColor: { value: new Color(...color) },
-        uAmplitude: { value: amplitude },
-        uDistance: { value: distance },
-        uMouse: { value: new Float32Array([0.5, 0.5]) }
+      if (!gl) {
+        setWebglFailed(true);
+        setShouldRender(false);
+        return;
       }
-    });
 
-    const mesh = new Mesh(gl, { geometry, program });
+      gl.clearColor(0, 0, 0, 0);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      container.appendChild(gl.canvas);
 
-    function resize() {
-      const { clientWidth, clientHeight } = container;
-      renderer.setSize(clientWidth, clientHeight);
-      program.uniforms.iResolution.value.r = clientWidth;
-      program.uniforms.iResolution.value.g = clientHeight;
-      program.uniforms.iResolution.value.b = clientWidth / clientHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
+      const geometry = new Triangle(gl);
+      const program = new Program(gl, {
+        vertex: vertexShader,
+        fragment: fragmentShader,
+        uniforms: {
+          iTime: { value: 0 },
+          iResolution: {
+            value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
+          },
+          uColor: { value: new Color(...color) },
+          uAmplitude: { value: amplitude },
+          uDistance: { value: distance },
+          uMouse: { value: new Float32Array([0.5, 0.5]) }
+        }
+      });
 
-    let currentMouse = [0.5, 0.5];
-    let targetMouse = [0.5, 0.5];
+      const mesh = new Mesh(gl, { geometry, program });
 
-    function handleMouseMove(e: MouseEvent) {
-      const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height;
-      targetMouse = [x, y];
-    }
-    function handleMouseLeave() {
-      targetMouse = [0.5, 0.5];
-    }
-    if (enableMouseInteraction) {
-      container.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('mouseleave', handleMouseLeave);
-    }
+      function resize() {
+        const { clientWidth, clientHeight } = container;
+        renderer.setSize(clientWidth, clientHeight);
+        program.uniforms.iResolution.value.r = clientWidth;
+        program.uniforms.iResolution.value.g = clientHeight;
+        program.uniforms.iResolution.value.b = clientWidth / clientHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
 
-    function update(t: number) {
+      let currentMouse = [0.5, 0.5];
+      let targetMouse = [0.5, 0.5];
+
+      function handleMouseMove(e: MouseEvent) {
+        const rect = container.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = 1.0 - (e.clientY - rect.top) / rect.height;
+        targetMouse = [x, y];
+      }
+      function handleMouseLeave() {
+        targetMouse = [0.5, 0.5];
+      }
       if (enableMouseInteraction) {
-        const smoothing = 0.05;
-        currentMouse[0] += smoothing * (targetMouse[0] - currentMouse[0]);
-        currentMouse[1] += smoothing * (targetMouse[1] - currentMouse[1]);
-        program.uniforms.uMouse.value[0] = currentMouse[0];
-        program.uniforms.uMouse.value[1] = currentMouse[1];
-      } else {
-        program.uniforms.uMouse.value[0] = 0.5;
-        program.uniforms.uMouse.value[1] = 0.5;
+        container.addEventListener('mousemove', handleMouseMove);
+        container.addEventListener('mouseleave', handleMouseLeave);
       }
-      program.uniforms.iTime.value = t * 0.001;
 
-      renderer.render({ scene: mesh });
+      function update(t: number) {
+        try {
+          if (enableMouseInteraction) {
+            const smoothing = 0.05;
+            currentMouse[0] += smoothing * (targetMouse[0] - currentMouse[0]);
+            currentMouse[1] += smoothing * (targetMouse[1] - currentMouse[1]);
+            program.uniforms.uMouse.value[0] = currentMouse[0];
+            program.uniforms.uMouse.value[1] = currentMouse[1];
+          } else {
+            program.uniforms.uMouse.value[0] = 0.5;
+            program.uniforms.uMouse.value[1] = 0.5;
+          }
+          program.uniforms.iTime.value = t * 0.001;
+
+          renderer.render({ scene: mesh });
+          animationFrameId.current = requestAnimationFrame(update);
+        } catch (error) {
+          // If rendering fails, stop the animation and show fallback
+          console.warn('WebGL rendering error, falling back to static background:', error);
+          setWebglFailed(true);
+          setShouldRender(false);
+        }
+      }
       animationFrameId.current = requestAnimationFrame(update);
+
+      return () => {
+        if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
+        window.removeEventListener('resize', resize);
+
+        if (enableMouseInteraction) {
+          container.removeEventListener('mousemove', handleMouseMove);
+          container.removeEventListener('mouseleave', handleMouseLeave);
+        }
+        if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
+
+        // Safely lose WebGL context
+        try {
+          gl.getExtension('WEBGL_lose_context')?.loseContext();
+        } catch (e) {
+          // Ignore errors during cleanup
+        }
+      };
+    } catch (error) {
+      console.warn('WebGL initialization failed, falling back to static background:', error);
+      setWebglFailed(true);
+      setShouldRender(false);
     }
-    animationFrameId.current = requestAnimationFrame(update);
-
-    return () => {
-      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current);
-      window.removeEventListener('resize', resize);
-
-      if (enableMouseInteraction) {
-        container.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-      }
-      if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
-    };
   }, [color, amplitude, distance, enableMouseInteraction]);
+
+  // Fallback rendering when WebGL is not available
+  if (!shouldRender || webglFailed) {
+    return (
+      <div
+        ref={containerRef}
+        className="threads-container threads-fallback"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 50%, rgba(0, 255, 179, 0.08) 0%, transparent 60%)',
+          opacity: 0.6
+        }}
+        {...rest}
+      />
+    );
+  }
 
   return <div ref={containerRef} className="threads-container" {...rest} />;
 };

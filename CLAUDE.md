@@ -26,6 +26,7 @@ npm run preview      # Preview production build
 - `VITE_STRIPE_PUBLISHABLE`: Stripe publishable key (note: no `_KEY` suffix)
 - `STRIPE_SECRET`: Stripe secret key for backend (note: no `_KEY` suffix)
 - `STRIPE_WEBHOOK_SECRET`: For verifying Stripe webhook signatures
+- `STRIPE_SETUP_FEE_PRICE_ID`: Stripe price ID for $399 one-time setup fee
 - `STRIPE_RECURRING_PRICE_ID`: Stripe price ID for $99/mo recurring subscription
 - `RESEND_API_KEY`: For sending emails via Resend API
 
@@ -34,8 +35,8 @@ npm run preview      # Preview production build
 **Platform**: Vercel (not Netlify)
 
 **API Routes**: Serverless functions in `/api/` directory (ES modules):
-- `api/contact-form.js`: Handles contact form submissions, sends emails via Resend
-- `api/create-checkout-session.js`: Creates Stripe checkout sessions
+- `api/contact-form.js`: Handles contact form submissions, sends dual branded emails via Resend (notification to team + confirmation to customer)
+- `api/create-checkout-session.js`: Creates Stripe checkout sessions with combined pricing (setup fee + subscription)
 - `api/stripe-webhook.js`: Receives Stripe webhook events, sends payment receipts
 
 **Important**: All API files use ES module syntax (`import`/`export`) because `package.json` has `"type": "module"`
@@ -134,24 +135,32 @@ redirectToCheckout(checkoutUrl) → Promise<void>
 - Uses `@stripe/stripe-js` for client-side Stripe integration
 - **Modern API**: Uses direct URL redirect (`window.location.href`), NOT deprecated `stripe.redirectToCheckout()`
 - Requires backend API endpoint at `/api/create-checkout-session`
-- Supports both one-time payments ($299 setup) and recurring subscriptions ($99/mo)
 - Success URL: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`
 - Cancel URL: `${origin}/tradie`
 - Publishable key from `VITE_STRIPE_PUBLISHABLE` env var (no `_KEY` suffix)
 
+**Current Pricing Model** (Tradie Express Build):
+- **$399 upfront** - One-time setup fee (charged immediately)
+- **$99/month** - Recurring subscription for 24 months
+- **30-day trial** - First recurring payment starts 30 days after signup
+- **Total commitment**: $399 + ($99 × 24 months) = $2,775 over 24 months
+
 **Payment Flow**:
 1. User completes ExpressBuildModal qualification and path selection
-2. Click "Pay Now $299" triggers `createCheckoutSession()`
-3. Backend creates Stripe Checkout session with metadata
+2. Click "Pay Now" triggers `createCheckoutSession()` with `mode: 'subscription'`
+3. Backend creates Stripe Checkout session with both line items (setup fee + subscription)
 4. Backend returns `{ sessionId, url }` where `url` is the checkout URL
 5. Frontend redirects to Stripe Checkout via `window.location.href = checkoutUrl`
-6. After payment, Stripe redirects to `/success?session_id=...`
-7. App.tsx detects session_id param and shows SuccessPage
+6. Customer pays $399 immediately; $99/month starts after 30 days
+7. After payment, Stripe redirects to `/success?session_id=...`
+8. App.tsx detects session_id param and shows SuccessPage
 
 **Backend Requirements** (`api/create-checkout-session.js`):
 - Vercel serverless function (ES module)
 - Stripe secret key from `STRIPE_SECRET` env var
-- Handles both `mode: 'payment'` and `mode: 'subscription'`
+- Handles both `mode: 'payment'` (legacy) and `mode: 'subscription'` (current)
+- For subscription mode: Includes both `STRIPE_SETUP_FEE_PRICE_ID` and `STRIPE_RECURRING_PRICE_ID` as line items
+- Adds 30-day trial period via `subscription_data.trial_period_days: 30`
 - **Must return**: `{ sessionId, url }` where `url` is `session.url` from Stripe
 
 **Webhook Configuration**:
@@ -159,6 +168,44 @@ redirectToCheckout(checkoutUrl) → Promise<void>
 - Events: `checkout.session.completed`, `invoice.payment_succeeded`
 - Purpose: Sends payment receipt emails via Resend
 - **Critical**: Must be created in correct Stripe account (check if multiple accounts exist)
+
+### Contact Form & Email Integration
+
+**api/contact-form.js**:
+
+Handles contact form submissions and sends dual branded emails via Resend API.
+
+**Email Flow**:
+1. Customer submits contact form (MainContact.tsx or ContactFormModal.tsx)
+2. Backend validates required fields (firstName, lastName, email, phone, preferredContact)
+3. Sends **two emails** simultaneously:
+   - **Internal notification** to `thalya@verdantlabs.com.au` with full enquiry details
+   - **Customer confirmation** to customer's email with branded acknowledgment
+
+**Email Templates**:
+- Professional HTML templates with Verdant Digital branding
+- Gradient header with logo and message
+- Clean field display with accent border highlights
+- Footer with contact info and social links
+- Customer email includes "What happens next?" section
+
+**Sender Configuration** (CRITICAL):
+- **Must use root domain**: `verdantdigital.com.au` (NOT subdomains like `send.verdantdigital.com.au`)
+- Internal notification: `from: 'Verdant Digital <noreply@verdantdigital.com.au>'`
+- Customer confirmation: `from: 'Verdant Digital <hello@verdantdigital.com.au>'`
+- Reply-to addresses set appropriately (customer email for internal, hello@ for customer)
+- **Reason**: Subdomains may not be verified in Resend, causing delivery failures
+
+**DNS Requirements** (Resend):
+- Domain must be verified in Resend Dashboard
+- Required DNS records: SPF, DKIM, DMARC
+- DNS records must be set to "DNS only" (not proxied) in Cloudflare
+- Allow up to 48 hours for DNS propagation
+
+**Success/Error Messages**:
+- Success: "✓ Message sent!\n\nThanks for getting in touch. We'll get back to you within 24 hours.\n\nYou should receive a confirmation email shortly."
+- Error: "Something went wrong.\n\nPlease try again, or email us directly at hello@verdantdigital.com.au"
+- Connection error: "Connection error.\n\nPlease check your internet connection and try again, or email us at hello@verdantdigital.com.au"
 
 ### Data & Constants
 
@@ -279,7 +326,8 @@ Three fonts loaded via Google Fonts (index.html):
 
 ### Tradie Offering (Express Build)
 - **Timeline**: 7 days from discovery call to launch
-- **Pricing**: $299 upfront setup + $99/month ongoing
+- **Pricing**: $399 upfront setup + $99/month for 24 months
+- **Trial Period**: First $99 payment starts 30 days after signup (30-day trial)
 - **Contract Terms**: "24 Month Agreement • Then Month-to-Month"
 - **After 24 months**: Switch to month-to-month at $50/mo (hosting & security only), or take site elsewhere
 - **Limited Offer Badge**: "DECEMBER INTAKE - 3 SPOTS REMAINING" (update monthly)

@@ -89,6 +89,12 @@ const About: React.FC = () => {
                 <img
                   src="/Thalya.jpeg"
                   alt="Thalya Tilt MacSporran"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    // Fallback: hide image, background color will show
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -107,6 +113,12 @@ const About: React.FC = () => {
                 <img
                   src="/Jacob.jpeg"
                   alt="Jacob Paterson"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    // Fallback: hide image, background color will show
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
                   className="w-full h-full object-cover"
                 />
               </div>
