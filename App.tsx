@@ -74,42 +74,49 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => {
 
     <div className="relative z-10">
       {/* Section Navigation */}
-      <nav className={`fixed left-0 right-0 bg-brand-black/95 backdrop-blur-md border-b border-brand-border transition-all duration-300 ${scrolled ? 'top-0 md:top-[52px] z-50' : 'top-[48px] md:top-[52px] z-40'}`}>
+      <nav className={`fixed left-0 right-0 bg-brand-black/95 backdrop-blur-md border-b border-brand-border transition-all duration-300 ${scrolled ? 'top-[48px] lg:top-[56px] z-50' : 'top-[56px] lg:top-[64px] z-40'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile: Stacked Layout */}
-          <div className={`md:hidden transition-all duration-300 ${scrolled ? 'py-2' : 'py-3'}`}>
-            {/* Breadcrumb */}
-            <div className={`flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider transition-all duration-300 ${scrolled ? 'mb-0' : 'mb-2'}`}>
-              <span className="text-brand-muted">Industries</span>
-              <span className="text-brand-muted">›</span>
-              <span className="text-brand-accent">Tradies</span>
-            </div>
-            {/* Navigation Links - Scrollable */}
-            <div className={`flex items-center justify-center gap-3 overflow-x-auto pb-1 scrollbar-hide transition-all duration-300 ${scrolled ? 'hidden' : 'flex'}`}>
-              <a href="#pricing" className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-                Pricing
-              </a>
-              <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#comparison" className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-                Why Us
-              </a>
-              <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#process" className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-                Process
-              </a>
-              <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#faq" className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-                FAQ
-              </a>
-              <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#enquire" className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-                Contact
-              </a>
+          {/* Mobile/Tablet: Responsive Layout */}
+          <div className="lg:hidden py-2">
+            {/* Single row: Breadcrumb + Nav Links */}
+            <div className="flex items-center gap-4 overflow-x-auto scrollbar-hide">
+              {/* Breadcrumb */}
+              <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider flex-shrink-0">
+                <span className="text-brand-muted">Industries</span>
+                <span className="text-brand-muted/60">›</span>
+                <span className="text-brand-accent">Tradies</span>
+              </div>
+
+              {/* Separator */}
+              <span className="w-px h-4 bg-brand-border/50 flex-shrink-0"></span>
+
+              {/* Navigation Links */}
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <a href="#pricing" className="text-[11px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
+                  Pricing
+                </a>
+                <span className="w-px h-3 bg-brand-border/40"></span>
+                <a href="#comparison" className="text-[11px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
+                  Why Us
+                </a>
+                <span className="w-px h-3 bg-brand-border/40"></span>
+                <a href="#process" className="text-[11px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
+                  Process
+                </a>
+                <span className="w-px h-3 bg-brand-border/40"></span>
+                <a href="#faq" className="text-[11px] font-semibold uppercase tracking-wider text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
+                  FAQ
+                </a>
+                <span className="w-px h-3 bg-brand-border/40"></span>
+                <a href="#enquire" className="text-[11px] font-semibold uppercase tracking-wider text-brand-accent hover:text-brand-glow transition-colors whitespace-nowrap min-h-0">
+                  Contact
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Desktop: Horizontal Layout - Centered */}
-          <div className="hidden md:flex items-center justify-center py-2">
+          <div className="hidden lg:flex items-center justify-center py-2">
             {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest whitespace-nowrap">
               <span className="text-brand-muted">Industries</span>
@@ -118,27 +125,27 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => {
             </div>
 
             {/* Separator */}
-            <span className="w-px h-4 bg-brand-border/50 mx-6"></span>
+            <span className="w-px h-4 bg-brand-border/50 mx-4 lg:mx-6"></span>
 
             {/* Navigation Links */}
-            <div className="flex items-center gap-6 lg:gap-8">
-              <a href="#pricing" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+            <div className="flex items-center gap-4 lg:gap-6">
+              <a href="#pricing" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
                 Pricing
               </a>
               <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#comparison" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+              <a href="#comparison" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
                 Why Us
               </a>
               <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#process" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+              <a href="#process" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
                 Process
               </a>
               <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#faq" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+              <a href="#faq" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
                 FAQ
               </a>
               <span className="w-px h-3 bg-brand-border/50"></span>
-              <a href="#enquire" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
+              <a href="#enquire" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap min-h-0">
                 Contact
               </a>
             </div>

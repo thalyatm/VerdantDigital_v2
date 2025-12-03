@@ -72,13 +72,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
         style={{ transform: 'translateZ(0)', willChange: 'background-color' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 md:h-18' : 'h-18'}`}>
+          <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-12 md:h-14' : 'h-14 md:h-16'}`}>
             {/* Logo - Primary White on Dark - Always Visible */}
             <div
               className="flex-shrink-0 cursor-pointer group p-2 transition-all duration-300 opacity-100 visible"
               onClick={() => handleNavClick('/')}
             >
-              <div className="flex items-center gap-2 transition-opacity duration-300 group-hover:opacity-80">
+              <div className="flex items-center gap-1 md:gap-2 transition-opacity duration-300 group-hover:opacity-80">
                 <span className={`font-display font-black tracking-tight text-white leading-none transition-all duration-300 ${scrolled ? 'text-xl md:text-2xl' : 'text-2xl'}`}>
                   VERDANT
                 </span>
@@ -88,8 +88,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
               </div>
             </div>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center space-x-8">
+            {/* Desktop Nav - Shows at lg (1024px) for proper spacing */}
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               {renderNavLink('Home', location.pathname === '/', () => handleNavClick('/'))}
 
               {/* Our Services Dropdown */}
@@ -198,8 +198,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
               )}
             </nav>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            {/* Mobile Menu Button - Shows until lg (1024px) */}
+            <div className="lg:hidden flex items-center">
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)} 
                 className="text-brand-muted hover:text-brand-accent p-2 transition-colors"
@@ -212,7 +212,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-brand-black border-t border-brand-surface absolute w-full shadow-2xl h-screen z-50 overflow-y-auto pb-20">
+          <div className="lg:hidden bg-brand-black border-t border-brand-surface absolute w-full shadow-2xl h-screen z-50 overflow-y-auto pb-20">
             <div className="px-6 pt-8 pb-6 space-y-4">
               <button
                 onClick={() => handleNavClick('/')}
