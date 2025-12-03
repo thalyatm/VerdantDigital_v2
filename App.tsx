@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -48,22 +48,29 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => {
   const [scrolled, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
   <div className="relative">
-    {/* Background Grid & Noise */}
-    <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+    {/* Background Grid & Noise - CSS grain instead of external SVG */}
+    <div className="fixed -inset-[20%] opacity-[0.08] pointer-events-none grain-texture" style={{ transform: 'translateZ(0)' }}></div>
     <div className="fixed inset-0 bg-grid-pattern bg-[size:50px_50px] opacity-[0.1] pointer-events-none"></div>
 
-    {/* Neon Glows */}
-    <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
-    <div className="fixed bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+    {/* Neon Glows - Reduced blur on mobile via CSS */}
+    <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[60px] md:blur-[120px] pointer-events-none" style={{ transform: 'translateZ(0)' }}></div>
+    <div className="fixed bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-[60px] md:blur-[120px] pointer-events-none" style={{ transform: 'translateZ(0)' }}></div>
 
     <div className="relative z-10">
       {/* Section Navigation */}
@@ -151,21 +158,34 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => {
 // Main layout wrapper with scroll animations
 const AppContent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollProgressRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
-  // Handle Scroll Progress
+  // Handle Scroll Progress - Use refs to avoid React re-renders
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateProgress = () => {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
       const scrollableHeight = documentHeight - windowHeight;
-      const progress = (scrollTop / scrollableHeight) * 100;
-      setScrollProgress(Math.min(progress, 100));
+      const progress = Math.min((scrollTop / scrollableHeight) * 100, 100);
+
+      if (scrollProgressRef.current) {
+        scrollProgressRef.current.style.width = `${progress}%`;
+      }
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateProgress);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -217,11 +237,12 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col font-sans bg-brand-black text-white selection:bg-brand-accent selection:text-brand-black">
-      {/* Scroll Progress Bar */}
+      {/* Scroll Progress Bar - Uses ref for direct DOM updates to avoid re-renders */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-brand-surface/20 z-[100]">
         <div
-          className="h-full bg-gradient-to-r from-brand-accent to-brand-accent/60 transition-all duration-150 ease-out shadow-[0_0_10px_rgba(0,255,157,0.5)]"
-          style={{ width: `${scrollProgress}%` }}
+          ref={scrollProgressRef}
+          className="h-full bg-gradient-to-r from-brand-accent to-brand-accent/60 shadow-[0_0_10px_rgba(0,255,157,0.5)]"
+          style={{ width: '0%', transition: 'none' }}
         />
       </div>
 

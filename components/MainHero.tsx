@@ -24,11 +24,11 @@ const MainHero: React.FC = () => {
         />
       </div>
 
-      {/* Background Effects - CSS-based grain instead of external SVG */}
-      <div className="absolute inset-0 z-1 opacity-20 mix-blend-overlay pointer-events-none grain-texture" style={{ transform: 'translateZ(0)', willChange: 'transform' }}></div>
+      {/* Background Effects - CSS-based grain (no blend mode to avoid compositing issues) */}
+      <div className="absolute -inset-[20%] z-[1] opacity-[0.08] pointer-events-none grain-texture" style={{ transform: 'translateZ(0)' }}></div>
 
-      {/* Animated Gradient Blob */}
-      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-brand-accent/5 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[10000ms] z-1" style={{ transform: 'translateZ(0)', willChange: 'transform' }}></div>
+      {/* Animated Gradient Blob - Reduced blur on mobile */}
+      <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-brand-accent/5 rounded-full blur-[60px] md:blur-[120px] pointer-events-none animate-pulse duration-[10000ms] z-[1]" style={{ transform: 'translateZ(0)' }}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         <div className="max-w-5xl reveal">

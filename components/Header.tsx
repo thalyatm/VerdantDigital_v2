@@ -66,9 +66,10 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
   return (
     <>
       <header
-        className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-          scrolled || currentView === 'enquire' ? 'bg-brand-black/90 backdrop-blur-lg border-b border-brand-surface' : 'bg-transparent'
+        className={`fixed w-full top-0 z-50 transition-all duration-300 backdrop-blur-lg ${
+          scrolled || currentView === 'enquire' ? 'bg-brand-black/90 border-b border-brand-surface' : 'bg-brand-black/0'
         }`}
+        style={{ transform: 'translateZ(0)', willChange: 'background-color' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex justify-between items-center transition-all duration-300 ${scrolled ? 'h-14 md:h-18' : 'h-18'}`}>

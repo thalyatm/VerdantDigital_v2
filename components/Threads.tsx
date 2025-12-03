@@ -116,7 +116,9 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     }
 
     float colorVal = 1.0 - line_strength;
-    fragColor = vec4(uColor * colorVal, colorVal);
+    vec3 bgColor = vec3(0.051, 0.051, 0.059); // #0D0D0F brand-black
+    vec3 finalColor = mix(bgColor, uColor, colorVal);
+    fragColor = vec4(finalColor, 1.0);
 }
 
 void main() {
@@ -192,7 +194,7 @@ const Threads: React.FC<ThreadsProps> = ({
     const container = containerRef.current;
 
     try {
-      const renderer = new Renderer({ alpha: true, antialias: false }); // Disable antialiasing for better mobile performance
+      const renderer = new Renderer({ alpha: false, antialias: false, preserveDrawingBuffer: true }); // Opaque canvas prevents scroll flickering
       const gl = renderer.gl;
 
       if (!gl) {
@@ -201,9 +203,7 @@ const Threads: React.FC<ThreadsProps> = ({
         return;
       }
 
-      gl.clearColor(0, 0, 0, 0);
-      gl.enable(gl.BLEND);
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      gl.clearColor(0.051, 0.051, 0.059, 1); // #0D0D0F brand-black
       container.appendChild(gl.canvas);
 
       const geometry = new Triangle(gl);

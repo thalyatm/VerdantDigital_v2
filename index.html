@@ -305,6 +305,13 @@
         animation: grain 8s steps(10) infinite;
       }
 
+      /* Disable grain animation on mobile for performance */
+      @media (max-width: 768px) {
+        .grain-texture {
+          animation: none;
+        }
+      }
+
       @keyframes grain {
         0%, 100% { transform: translate(0, 0); }
         10% { transform: translate(-5%, -10%); }
