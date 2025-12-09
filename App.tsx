@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import Clarity from '@microsoft/clarity';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import StartProjectModal from './components/StartProjectModal';
+
+// Initialize Microsoft Clarity
+const CLARITY_PROJECT_ID = 'uio6a88ptj';
+Clarity.init(CLARITY_PROJECT_ID);
 
 // Tradie Components
 import Hero from './components/Hero';

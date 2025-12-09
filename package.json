@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
+    "@microsoft/clarity": "^1.0.2",
     "@stripe/stripe-js": "^8.5.2",
     "lucide-react": "^0.554.0",
     "ogl": "^1.0.11",
