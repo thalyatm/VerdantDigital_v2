@@ -4,6 +4,7 @@ import Clarity from '@microsoft/clarity';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import StartProjectModal from './components/StartProjectModal';
+import ContactFormModal from './components/ContactFormModal';
 
 // Initialize Microsoft Clarity
 const CLARITY_PROJECT_ID = 'uio6a88ptj';
@@ -173,6 +174,8 @@ const TradiePage: React.FC<{ onOpenModal: () => void }> = ({ onOpenModal }) => {
 // Main layout wrapper with scroll animations
 const AppContent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactModalPrefill, setContactModalPrefill] = useState('');
   const scrollProgressRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
@@ -261,7 +264,13 @@ const AppContent: React.FC = () => {
         />
       </div>
 
-      <Header onOpenModal={() => setIsModalOpen(true)} />
+      <Header
+        onOpenModal={() => setIsModalOpen(true)}
+        onOpenAuditModal={() => {
+          setContactModalPrefill('Free Website Audit');
+          setIsContactModalOpen(true);
+        }}
+      />
 
       <main className="flex-grow">
         <Routes>
@@ -284,6 +293,11 @@ const AppContent: React.FC = () => {
 
       <Footer />
       <StartProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <ContactFormModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        prefilledHelpWith={contactModalPrefill}
+      />
     </div>
   );
 };

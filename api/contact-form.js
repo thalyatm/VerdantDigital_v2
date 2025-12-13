@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { firstName, lastName, email, phone, preferredContact, business, helpWith, message } = req.body;
+    const { firstName, lastName, email, phone, preferredContact, business, website, helpWith, message } = req.body;
 
     // Validate required fields
     if (!firstName || !lastName || !email || !phone || !preferredContact) {
@@ -71,6 +71,12 @@ export default async function handler(req, res) {
             <div class="field">
               <span class="label">Business Name</span>
               <div class="value">${business}</div>
+            </div>
+            ` : ''}
+            ${website ? `
+            <div class="field">
+              <span class="label">Current Website</span>
+              <div class="value"><a href="${website.startsWith('http') ? website : 'https://' + website}" style="color: #00FF9D; text-decoration: none;" target="_blank">${website}</a></div>
             </div>
             ` : ''}
             ${helpWith ? `

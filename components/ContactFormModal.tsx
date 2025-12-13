@@ -17,6 +17,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, pr
     phone: '',
     preferredContact: '',
     business: '',
+    website: '',
     helpWith: prefilledHelpWith || '',
     message: initialMessage || ''
   });
@@ -68,6 +69,7 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, pr
           phone: '',
           preferredContact: '',
           business: '',
+          website: '',
           helpWith: prefilledHelpWith || '',
           message: ''
         });
@@ -193,6 +195,24 @@ const ContactFormModal: React.FC<ContactFormModalProps> = ({ isOpen, onClose, pr
                 placeholder="Acme Inc."
               />
             </div>
+
+            {(formState.helpWith === 'Free Website Audit' || prefilledHelpWith === 'Free Website Audit') && (
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-brand-accent uppercase tracking-widest ml-1">
+                  Current Website Address {!prefilledHelpWith && <span className="text-[10px] text-brand-muted">(Optional)</span>}
+                </label>
+                <input
+                  type="url" name="website"
+                  value={formState.website} onChange={handleChange}
+                  required={!!prefilledHelpWith}
+                  className="w-full bg-brand-black border border-brand-accent/30 focus:border-brand-accent text-white rounded-lg p-3 outline-none transition-all text-sm"
+                  placeholder="https://www.yourwebsite.com.au"
+                />
+                <p className="text-xs text-brand-muted/70 ml-1">
+                  Don't have a website yet? Just type "none" or leave blank.
+                </p>
+              </div>
+            )}
 
             {prefilledHelpWith ? (
               <div className="space-y-2">

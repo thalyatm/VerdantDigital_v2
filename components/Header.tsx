@@ -4,9 +4,10 @@ import { Menu, X, Hammer, ChevronDown, ArrowRight } from 'lucide-react';
 
 interface HeaderProps {
   onOpenModal: () => void;
+  onOpenAuditModal?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
+const Header: React.FC<HeaderProps> = ({ onOpenModal, onOpenAuditModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileIndustryOpen, setMobileIndustryOpen] = useState(false);
@@ -100,16 +101,20 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 <div className="absolute top-full left-0 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-4 group-hover:translate-y-0">
                     <div className="bg-brand-black border border-brand-border rounded-xl shadow-2xl overflow-hidden p-2 flex flex-col gap-1 relative z-50">
                         <button
+                            onClick={() => {
+                              if (onOpenAuditModal) {
+                                onOpenAuditModal();
+                              }
+                            }}
+                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-accent hover:bg-brand-surface hover:text-white transition-colors"
+                        >
+                            Free Website Audit
+                        </button>
+                        <button
                             onClick={() => handleNavClick('/services')}
                             className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors"
                         >
                             Services Overview
-                        </button>
-                        <button
-                            onClick={() => handleNavClick('/enquire')}
-                            className="w-full text-left px-4 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest font-display text-brand-muted hover:bg-brand-surface hover:text-brand-accent transition-colors"
-                        >
-                            Complimentary Audit
                         </button>
                         <button
                             onClick={() => handleNavClick('/resources')}
@@ -233,16 +238,21 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 {mobileServicesOpen && (
                   <div className="bg-brand-black/50 px-4 pb-2 border-t border-brand-surface/30 space-y-1">
                     <button
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        if (onOpenAuditModal) {
+                          onOpenAuditModal();
+                        }
+                      }}
+                      className="w-full text-left block px-4 py-3 rounded-lg text-sm font-display font-semibold text-brand-accent hover:text-white hover:bg-brand-surface border-l-2 border-brand-accent hover:border-white transition-all uppercase tracking-widest"
+                    >
+                      Free Website Audit
+                    </button>
+                    <button
                       onClick={() => handleNavClick('/services')}
                       className="w-full text-left block px-4 py-3 rounded-lg text-sm font-display font-semibold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all uppercase tracking-widest"
                     >
                       Services Overview
-                    </button>
-                    <button
-                      onClick={() => handleNavClick('/enquire')}
-                      className="w-full text-left block px-4 py-3 rounded-lg text-sm font-display font-semibold text-brand-bone hover:text-brand-accent hover:bg-brand-surface border-l-2 border-transparent hover:border-brand-accent transition-all uppercase tracking-widest"
-                    >
-                      Complimentary Audit
                     </button>
                     <button
                       onClick={() => handleNavClick('/resources')}
