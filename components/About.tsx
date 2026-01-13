@@ -5,28 +5,30 @@ const About: React.FC = () => {
   return (
     <div className="bg-brand-black">
       {/* Section Navigation */}
-      <nav className="bg-brand-black border-b border-brand-border mt-[72px]">
+      <nav className="bg-brand-black border-b border-brand-border mt-[56px] md:mt-[64px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-6 md:gap-8 py-3 md:py-2 overflow-x-auto">
-            <a href="#about" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              About Us
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#founders" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              Founders
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#philosophy" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              Philosophy
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#how-we-work" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              How We Work
-            </a>
-            <span className="text-brand-border">|</span>
-            <a href="#why-choose-us" className="text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap">
-              Why Choose Us
-            </a>
+          <div className="overflow-x-auto">
+            <div className="flex items-center justify-center gap-4 md:gap-6 py-3 md:py-2 min-w-max w-fit mx-auto">
+              <a href="#about" className="flex items-center text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap leading-none">
+                About Us
+              </a>
+              <span className="text-brand-border leading-none">|</span>
+              <a href="#founders" className="flex items-center text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap leading-none">
+                Founders
+              </a>
+              <span className="text-brand-border leading-none">|</span>
+              <a href="#philosophy" className="flex items-center text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap leading-none">
+                Philosophy
+              </a>
+              <span className="text-brand-border leading-none">|</span>
+              <a href="#how-we-work" className="flex items-center text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap leading-none">
+                How We Work
+              </a>
+              <span className="text-brand-border leading-none">|</span>
+              <a href="#why-choose-us" className="flex items-center text-xs font-semibold uppercase tracking-widest text-brand-muted hover:text-brand-accent transition-colors whitespace-nowrap leading-none">
+                Why Choose Us
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -37,7 +39,7 @@ const About: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="mb-10 md:mb-8 reveal">
-            <div className="inline-block mb-4 px-3 py-1 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded">
+            <div className="inline-block mb-4 px-3 py-1 bg-brand-accent/20 border border-brand-accent/40 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded">
               About Us
             </div>
             <h1 className="text-3xl md:text-5xl font-display font-black text-white leading-[1.1] mb-6 uppercase" style={{letterSpacing: '0.02em'}}>
@@ -85,7 +87,7 @@ const About: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-10 md:mb-12 reveal reveal-delay-100">
             {/* Director 1 */}
             <div className="flex items-start gap-4 md:gap-6">
-              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/20 overflow-hidden flex-shrink-0">
+              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/50 overflow-hidden flex-shrink-0">
                 <img
                   src="/Thalya.jpeg"
                   alt="Thalya Tilt MacSporran"
@@ -109,7 +111,7 @@ const About: React.FC = () => {
 
             {/* Director 2 */}
             <div className="flex items-start gap-4 md:gap-6">
-              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/20 overflow-hidden flex-shrink-0">
+              <div className="w-24 h-24 rounded-full bg-brand-surface border-2 border-brand-accent/50 overflow-hidden flex-shrink-0">
                 <img
                   src="/Jacob.jpeg"
                   alt="Jacob Paterson"
@@ -198,8 +200,8 @@ const About: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 md:gap-6 reveal reveal-delay-100">
-            <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-5 md:p-6 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300">
-              <div className="w-12 h-12 bg-brand-black border border-brand-border rounded-lg flex items-center justify-center text-brand-muted group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
+            <div className="bg-brand-surface/60 md:bg-brand-surface/30 border border-brand-accent/20 md:border-brand-border rounded-lg p-5 md:p-6 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300">
+              <div className="w-12 h-12 bg-brand-black border border-brand-accent/30 md:border-brand-border rounded-lg flex items-center justify-center text-brand-accent group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
                 <Target size={28} />
               </div>
               <h3 className="text-xl font-display font-bold text-white mb-3 group-hover:text-brand-accent transition-colors">Strategic Design</h3>
@@ -208,8 +210,8 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-5 md:p-6 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300">
-              <div className="w-12 h-12 bg-brand-black border border-brand-border rounded-lg flex items-center justify-center text-brand-muted group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
+            <div className="bg-brand-surface/60 md:bg-brand-surface/30 border border-brand-accent/20 md:border-brand-border rounded-lg p-5 md:p-6 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300">
+              <div className="w-12 h-12 bg-brand-black border border-brand-accent/30 md:border-brand-border rounded-lg flex items-center justify-center text-brand-accent group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
                 <Layers size={28} />
               </div>
               <h3 className="text-xl font-display font-bold text-white mb-3 group-hover:text-brand-accent transition-colors">Technical Excellence</h3>
@@ -218,8 +220,8 @@ const About: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-5 md:p-6 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300">
-              <div className="w-12 h-12 bg-brand-black border border-border rounded-lg flex items-center justify-center text-brand-muted group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
+            <div className="bg-brand-surface/60 md:bg-brand-surface/30 border border-brand-accent/20 md:border-brand-border rounded-lg p-5 md:p-6 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300">
+              <div className="w-12 h-12 bg-brand-black border border-brand-accent/30 md:border-brand-border rounded-lg flex items-center justify-center text-brand-accent group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
                 <Users size={28} />
               </div>
               <h3 className="text-xl font-display font-bold text-white mb-3 group-hover:text-brand-accent transition-colors">Integrated Approach</h3>

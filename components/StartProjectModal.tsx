@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, ShieldCheck, Users, MapPin } from 'lucide-react';
+import { X, Check, ShieldCheck, MapPin } from 'lucide-react';
 import ExpressBuildModal from './ExpressBuildModal';
 import ContactFormModal from './ContactFormModal';
 import { trackModalOpen, trackCtaClick } from '../services/analytics';
@@ -168,7 +168,7 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
       <ContactFormModal
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}
-        prefilledHelpWith="NEW YEAR TRADIE REFRESH OFFER"
+        prefilledHelpWith="2026 New Year Special - Tradie Website"
       />
     </div>
   );
