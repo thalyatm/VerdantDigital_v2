@@ -261,7 +261,7 @@ export const BENEFITS: BenefitItem[] = [
   },
   {
     title: "Quick Updates on Request",
-    description: "Need to add photos or update your services? Just text or email us. We handle all changes quickly—no technical skills needed on your end.",
+    description: "Need to add photos or update your services? Just text or email us. We handle all changes quickly. No technical skills needed on your end.",
     iconName: "Settings"
   },
   {

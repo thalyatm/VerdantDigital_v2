@@ -9,7 +9,7 @@ const Packages: React.FC = () => {
           <h2 className="text-4xl md:text-6xl font-display font-black text-white mb-6 uppercase tracking-tight">
             NEW YEAR, NEW WEBSITE
           </h2>
-          <p className="text-brand-muted text-lg italic">2026 New Year Special — Ends 15 February</p>
+          <p className="text-brand-muted text-lg italic">2026 New Year Special - Ends 15 February</p>
           <p className="text-brand-muted text-xl max-w-2xl mx-auto font-light mt-4">
             Simple Pricing. Big Results.
           </p>

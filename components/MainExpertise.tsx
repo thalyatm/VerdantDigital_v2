@@ -1,35 +1,25 @@
 import React from 'react';
-import { ShoppingBag, TrendingUp, Code2, Layout, Globe, MousePointerClick, ArrowRight } from 'lucide-react';
+import { TrendingUp, Layout, Search, MousePointerClick, ArrowRight } from 'lucide-react';
 
 const services = [
   {
     title: "UX/UI Design",
-    desc: "Your customers get interfaces that feel natural and guide them exactly where you want them to go. Less confusion, more conversions.",
+    desc: "Interfaces that feel natural and guide customers exactly where you want them. The foundation for everything that converts.",
     icon: <Layout size={28} />
   },
   {
-    title: "Custom App Development",
-    desc: "When off-the-shelf doesn't cut it, you get a custom web application (React, Node, Python) built to solve your specific workflow challenges.",
-    icon: <Code2 size={28} />
-  },
-  {
-    title: "E-commerce Development",
-    desc: "You get a Shopify storefront that looks premium and converts browsers into buyers. Your brand stands out, your sales go up.",
-    icon: <ShoppingBag size={28} />
+    title: "SEO Strategy",
+    desc: "Own your niche with content strategy, technical optimisation and authority building that brings the right traffic long-term.",
+    icon: <Search size={28} />
   },
   {
     title: "Performance Marketing",
-    desc: "Your ad spend goes further with smarter targeting across Google, Meta and TikTok. You see real returns, not just vanity metrics.",
+    desc: "Smarter targeting across Google, Meta and TikTok. Real returns on ad spend, not vanity metrics.",
     icon: <TrendingUp size={28} />
   },
   {
-    title: "SEO Strategy",
-    desc: "You own your niche with content strategy, technical optimisation and authority building that brings the right traffic for the long term.",
-    icon: <Globe size={28} />
-  },
-  {
     title: "Conversion Optimisation",
-    desc: "Your current traffic starts converting better. Data-driven testing shows you exactly what makes more visitors become paying customers.",
+    desc: "Data-driven testing that turns more of your current traffic into paying customers. Measurable ROI.",
     icon: <MousePointerClick size={28} />
   }
 ];
@@ -47,15 +37,18 @@ const MainExpertise: React.FC = () => {
         
         <div className="mb-16 reveal text-left">
           <div className="inline-block mb-4 px-3 py-1 bg-brand-accent/20 border border-brand-accent/40 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded">
-            OUR EXPERTISE
+            How We Grow It
           </div>
           <h2 className="text-3xl md:text-5xl font-display font-black text-white leading-[1.1] uppercase tracking-tight max-w-3xl">
-            DIGITAL GROWTH <br/>
-            <span className="animate-text-starspeed inline-block">ENGINEERED.</span>
+            GROWTH & <br/>
+            <span className="text-brand-accent">PERFORMANCE.</span>
           </h2>
+          <p className="text-brand-muted text-base lg:text-lg leading-relaxed font-light max-w-2xl mt-4">
+            Once we build it, we help you grow it.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           {services.map((service, index) => (
             <div
               key={index}

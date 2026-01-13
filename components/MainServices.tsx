@@ -1,30 +1,30 @@
 import React from 'react';
-import { ArrowRight, Smartphone, Sparkles, Globe, Layout } from 'lucide-react';
+import { ArrowRight, Smartphone, Sparkles, ShoppingBag, Globe } from 'lucide-react';
 
 const services = [
   {
     icon: Smartphone,
-    title: "Mobile App Development",
-    description: "Native and cross-platform apps that customers love to use.",
+    title: "Mobile Apps",
+    description: "Native and cross-platform apps built with React Native, Swift, or Kotlin.",
     link: "/services/mobile-app-development"
   },
   {
-    icon: Sparkles,
-    title: "AI Solutions",
-    description: "Intelligent automation and AI-powered experiences that drive efficiency.",
-    link: "/services/ai-solutions"
-  },
-  {
     icon: Globe,
-    title: "Progressive Web Applications",
-    description: "Fast, reliable web apps that work offline and feel native.",
+    title: "Web Platforms & PWAs",
+    description: "Custom websites and progressive web apps on React and Next.js.",
     link: "/services/progressive-web-apps"
   },
   {
-    icon: Layout,
-    title: "Websites & Web Platforms",
-    description: "Custom websites and platforms built for performance and conversion.",
+    icon: ShoppingBag,
+    title: "E-commerce & Shopify",
+    description: "Online stores that look premium and convert browsers into buyers.",
     link: "/services/websites"
+  },
+  {
+    icon: Sparkles,
+    title: "AI & Automation",
+    description: "Internal tools and AI-powered workflows that save time and reduce errors.",
+    link: "/services/ai-solutions"
   }
 ];
 
@@ -40,16 +40,15 @@ const MainServices: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Header Section */}
-        <div className="mb-12 reveal text-center">
+        <div className="mb-12 reveal text-left">
           <div className="inline-block mb-4 px-3 py-1 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded">
             What We Build
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white leading-[1.1] mb-6 uppercase" style={{letterSpacing: '0.02em'}}>
-            DIGITAL PRODUCTS <br/>
-            <span className="animate-text-starspeed inline-block">BUILT END-TO-END</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white leading-[1.1] mb-4 uppercase" style={{letterSpacing: '0.02em'}}>
+            THE <span className="text-brand-accent">PRODUCT.</span>
           </h2>
-          <p className="text-brand-muted text-base lg:text-lg leading-relaxed font-light max-w-3xl mx-auto">
-            Choose a starting point — we'll guide you end-to-end.
+          <p className="text-brand-muted text-base lg:text-lg leading-relaxed font-light max-w-2xl">
+            We build digital products from the ground up. Choose a starting point.
           </p>
         </div>
 

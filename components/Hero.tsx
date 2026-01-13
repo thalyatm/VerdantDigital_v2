@@ -120,7 +120,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               <h2 className="text-3xl md:text-5xl font-display font-black text-white uppercase tracking-tight">
                 NEW YEAR, NEW WEBSITE
               </h2>
-              <p className="text-brand-muted text-lg mt-2 italic">2026 New Year Special — Ends 15 February</p>
+              <p className="text-brand-muted text-lg mt-2 italic">2026 New Year Special - Ends 15 February</p>
             </div>
 
             <div className="reveal reveal-delay-100">

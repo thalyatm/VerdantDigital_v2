@@ -13,72 +13,52 @@ const MainPhilosophy: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Section */}
-        <div className="mb-12 reveal">
+        <div className="mb-10 reveal">
           <div className="inline-block mb-4 px-3 py-1 bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded">
             Our Philosophy
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-white leading-[1.1] mb-6 uppercase" style={{letterSpacing: '0.02em'}}>
-            WE DON'T SEPARATE <br/>
-            <span className="animate-text-starspeed inline-block">DESIGN FROM CODE.</span>
+            DESIGN AND CODE, <br/>
+            <span className="text-brand-accent">AS ONE TEAM.</span>
           </h2>
-          <div className="space-y-4 text-brand-muted text-base lg:text-lg leading-relaxed font-light">
-            <p>
-              Most agencies throw designs over the fence to developers. We think that's backwards.
-            </p>
-            <p>
-              At Verdant Digital, designers and developers work as one team. The people shaping your user flows understand performance. The people writing your code care about typography, clarity and how it feels to use.
-            </p>
-            <p className="font-semibold text-white">What that means for you:</p>
-            <ul className="space-y-2 pl-4">
-              <li className="flex items-start gap-3">
-                <span className="text-brand-accent mt-1">•</span>
-                <span>Products that are fast, stable and beautiful to use</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-brand-accent mt-1">•</span>
-                <span>Interfaces that reduce cognitive load so customers know exactly what to do next</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-brand-accent mt-1">•</span>
-                <span>Fewer "that's not technically possible" roadblocks and rework</span>
-              </li>
-            </ul>
-          </div>
+          <p className="text-brand-muted text-base lg:text-lg leading-relaxed font-light max-w-3xl">
+            Most agencies separate designers from developers. We don't. At Verdant, the people shaping your user experience also understand performance, and the people writing code care about clarity and how it feels to use. The result? Products that work as well as they look.
+          </p>
         </div>
 
         {/* 3 Boxes in one line */}
         <div className="grid md:grid-cols-3 gap-6 reveal reveal-delay-100">
 
           {/* Strategic Design */}
-          <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-4 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300 flex flex-col items-start">
+          <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-5 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300 flex flex-col items-start">
              <div className="w-10 h-10 bg-brand-black border border-brand-border rounded-lg flex items-center justify-center text-brand-muted group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
                 <Target size={24} />
               </div>
-              <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Strategic Design</h3>
+              <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Purposeful Design</h3>
               <p className="text-brand-muted leading-relaxed font-light text-sm">
-                You get products where every layout, colour and interaction has a purpose. Your customers know exactly what to do next, turning more visits into real business outcomes.
+                Every layout, colour and interaction guides your customers to act. More visits become real business outcomes.
               </p>
           </div>
 
           {/* Technical Excellence */}
-          <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-4 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300 flex flex-col items-start">
+          <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-5 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300 flex flex-col items-start">
              <div className="w-10 h-10 bg-brand-black border border-brand-border rounded-lg flex items-center justify-center text-brand-muted group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
                 <Layers size={24} />
               </div>
-              <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Technical Excellence</h3>
+              <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Built to Scale</h3>
               <p className="text-brand-muted leading-relaxed font-light text-sm">
-                You get platforms (React, Node, Shopify) that are fast, stable and built to scale with your business. No frustrating slowdowns, no technical debt holding you back.
+                Fast, stable platforms on React, Node or Shopify. No slowdowns, no technical debt holding you back.
               </p>
           </div>
 
           {/* Integrated Approach */}
-          <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-4 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300 flex flex-col items-start">
+          <div className="bg-brand-surface/30 border border-brand-border rounded-lg p-5 group hover:border-brand-accent hover:bg-brand-surface/60 transition-all duration-300 flex flex-col items-start">
              <div className="w-10 h-10 bg-brand-black border border-brand-border rounded-lg flex items-center justify-center text-brand-muted group-hover:text-brand-accent group-hover:scale-110 transition-all duration-300 mb-4 shadow-lg">
                 <Users size={24} />
               </div>
-              <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Integrated Approach</h3>
+              <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Your Team</h3>
               <p className="text-brand-muted leading-relaxed font-light text-sm">
-                You get a team that feels like your own. Clear updates, no confusing jargon, and people who care about your success as much as you do.
+                Clear updates, no jargon, and people who genuinely care about your success. We work with you, not around you.
               </p>
           </div>
 

@@ -15,12 +15,12 @@ const services = [
   },
   {
     icon: Sparkles,
-    title: "AI Tools",
-    description: "Automation that saves your team hours every week.",
+    title: "AI Solutions",
+    description: "Custom agents and workflows that integrate into your tech stack.",
     bullets: [
-      "Chatbots that answer customer questions 24/7",
-      "Document processing and data extraction",
-      "Custom AI integrations with your workflow"
+      "Knowledge bases & RAG for instant team answers",
+      "Agentic workflows that draft, update, and automate",
+      "Custom LLM integration into your existing software"
     ],
     link: "/services/ai-solutions"
   },

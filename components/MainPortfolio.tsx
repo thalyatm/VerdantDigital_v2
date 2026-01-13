@@ -158,7 +158,7 @@ const MainPortfolio: React.FC = () => {
   return (
     <section
       id="work"
-      className="py-16 md:py-20 bg-brand-black relative scroll-mt-24"
+      className="py-10 md:py-14 bg-brand-black relative scroll-mt-24"
     >
       {/* Animated Divider */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-0 animate-pulse" style={{animation: 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite'}}></div>
@@ -168,9 +168,9 @@ const MainPortfolio: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header with Navigation */}
-        <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div className="mb-5 md:mb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <div className="inline-block mb-4 px-3 py-1 bg-brand-accent/20 border border-brand-accent/40 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded">
+            <div className="inline-block mb-2 px-3 py-1 bg-brand-accent/20 border border-brand-accent/40 text-brand-accent text-[10px] font-bold uppercase tracking-widest rounded">
               PORTFOLIO
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-black text-white leading-[1.1] uppercase max-w-3xl" style={{letterSpacing: '0.02em'}}>
@@ -231,7 +231,7 @@ const MainPortfolio: React.FC = () => {
           {/* Stack container */}
           <div
             ref={containerRef}
-            className="relative cursor-pointer pb-14 md:pb-16 select-none"
+            className="relative cursor-pointer pb-10 md:pb-12 select-none"
             onClick={cycleNext}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={handleMouseLeave}
@@ -298,14 +298,16 @@ const MainPortfolio: React.FC = () => {
                       }}
                     >
                       {/* Image with parallax */}
-                      <div className="relative aspect-[4/3] sm:aspect-[2/1] md:aspect-[21/9] overflow-hidden bg-brand-surface">
+                      <div className="relative aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-brand-surface">
                         <img
                           src={project.image}
                           alt={project.altText}
                           loading={stackPos < 2 ? "eager" : "lazy"}
                           decoding="async"
-                          className="w-full h-full object-cover object-top transition-transform duration-300"
+                          className="w-full h-full object-cover transition-transform duration-300"
                           style={{
+                            objectPosition: 'top',
+                            transformOrigin: 'top center',
                             transform: isActive
                               ? `translate(${mousePosition.x}px, ${mousePosition.y}px) scale(1.05)`
                               : 'scale(1)',
@@ -389,11 +391,11 @@ const MainPortfolio: React.FC = () => {
             })}
 
             {/* Spacer to maintain height based on aspect ratio */}
-            <div className="aspect-[4/3] sm:aspect-[2/1] md:aspect-[21/9] pointer-events-none" />
+            <div className="aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] pointer-events-none" />
           </div>
 
           {/* Progress Bar */}
-          <div className="mt-4 sm:mt-6 max-w-xs mx-auto px-4 sm:px-0">
+          <div className="mt-2 sm:mt-4 max-w-xs mx-auto px-4 sm:px-0">
             <div className="h-0.5 bg-brand-border rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-accent transition-all duration-100 ease-linear rounded-full"

@@ -51,7 +51,7 @@ const About: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 reveal reveal-delay-100">
             <div className="space-y-5 md:space-y-6 text-brand-muted text-sm lg:text-base leading-relaxed">
               <p>
-                Verdant Digital builds digital products—websites, mobile apps, progressive web applications and AI-powered solutions—that help businesses run with more clarity, confidence and momentum.
+                Verdant Digital builds digital products (websites, mobile apps, progressive web applications and AI-powered solutions) that help businesses run with more clarity, confidence and momentum.
               </p>
               <p>
                 We focus on building solutions that feel easy to use, simple to manage and aligned to how real customers think and behave. When design, content, structure and technology all work together, digital products become more than tools to use. They become systems that support better decisions, stronger communication and real business growth.
