@@ -33,10 +33,10 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
     <!-- Primary Meta Tags -->
-    <title>Verdant Digital | Design-Led Websites, Apps & Performance Marketing</title>
-    <meta name="title" content="Verdant Digital | Design-Led Websites, Apps & Performance Marketing" />
-    <meta name="description" content="Brisbane-based digital agency specialising in design-led websites, custom applications, and performance marketing. Tradie websites live in 7 days from $399. Enterprise solutions for ambitious businesses." />
-    <meta name="keywords" content="web design Brisbane, tradie websites, custom web applications, performance marketing, Shopify Plus, React development, digital agency Brisbane, website development Australia" />
+    <title>Verdant Digital | Digital Product Studio - Apps, Websites, PWAs & AI Solutions</title>
+    <meta name="title" content="Verdant Digital | Digital Product Studio - Apps, Websites, PWAs & AI Solutions" />
+    <meta name="description" content="Brisbane-based digital product studio building mobile apps, websites, progressive web applications and AI-powered solutions. We create products that drive real business growth." />
+    <meta name="keywords" content="digital product studio Brisbane, mobile app development, progressive web apps, AI solutions, custom web applications, React Native, Shopify Plus, React development, website development Australia" />
     <meta name="author" content="Verdant Digital Pty Ltd" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://verdantdigital.com.au" />
@@ -44,8 +44,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://verdantdigital.com.au/" />
-    <meta property="og:title" content="Verdant Digital | Design-Led Websites, Apps & Performance Marketing" />
-    <meta property="og:description" content="Brisbane-based digital agency specialising in design-led websites, custom applications, and performance marketing. Tradie websites live in 7 days from $399." />
+    <meta property="og:title" content="Verdant Digital | Digital Product Studio - Apps, Websites, PWAs & AI Solutions" />
+    <meta property="og:description" content="Brisbane-based digital product studio building mobile apps, websites, progressive web applications and AI-powered solutions. We create products that drive real business growth." />
     <meta property="og:image" content="https://verdantdigital.com.au/og-image.jpg" />
     <meta property="og:locale" content="en_AU" />
     <meta property="og:site_name" content="Verdant Digital" />
@@ -53,8 +53,8 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://verdantdigital.com.au/" />
-    <meta property="twitter:title" content="Verdant Digital | Design-Led Websites, Apps & Performance Marketing" />
-    <meta property="twitter:description" content="Brisbane-based digital agency specialising in design-led websites, custom applications, and performance marketing. Tradie websites live in 7 days from $399." />
+    <meta property="twitter:title" content="Verdant Digital | Digital Product Studio - Apps, Websites, PWAs & AI Solutions" />
+    <meta property="twitter:description" content="Brisbane-based digital product studio building mobile apps, websites, progressive web applications and AI-powered solutions. We create products that drive real business growth." />
     <meta property="twitter:image" content="https://verdantdigital.com.au/twitter-image.jpg" />
 
     <!-- Business/Organization Schema -->
@@ -84,7 +84,7 @@
         "https://twitter.com/verdantdigital"
       ],
       "priceRange": "$$",
-      "description": "Design-led websites, custom applications, and performance marketing engineered to grow your business."
+      "description": "Build what matters. From idea to launch: custom websites, mobile apps, progressive web apps, and AI-powered solutions that grow your business."
     }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -277,6 +277,18 @@
         animation: stream 1s linear infinite;
       }
 
+      @keyframes scroll-horizontal {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .animate-scroll-horizontal {
+        display: flex;
+        animation: scroll-horizontal 20s linear infinite;
+      }
+      .animate-scroll-horizontal:hover {
+        animation-play-state: paused;
+      }
+
       .animate-text-starspeed {
         position: relative;
         display: inline-block;
@@ -284,19 +296,7 @@
         padding-right: 0.1em;
         line-height: 1.1;
         letter-spacing: 0.02em;
-
-        /* Onyx black fill for the text */
-        color: #0D0D0F;
-
-        /* Green outline using text-stroke with paint-order to prevent inner stroke */
-        -webkit-text-stroke: 2px #00FFB3;
-        text-stroke: 2px #00FFB3;
-        paint-order: stroke fill;
-
-        /* Green glow effect - reduced by 50% */
-        filter: drop-shadow(0 0 10px rgba(0, 255, 179, 0.4))
-                drop-shadow(0 0 20px rgba(0, 255, 179, 0.3))
-                drop-shadow(0 0 30px rgba(0, 255, 179, 0.2));
+        color: #00FFB3;
       }
 
       /* CSS-based grain texture (no external dependencies) */

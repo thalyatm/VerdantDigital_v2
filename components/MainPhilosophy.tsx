@@ -56,7 +56,7 @@ const MainPhilosophy: React.FC = () => {
               </div>
               <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-brand-accent transition-colors">Strategic Design</h3>
               <p className="text-brand-muted leading-relaxed font-light text-sm">
-                You get a website where every layout, colour and interaction has a purpose. Your customers know exactly what to do next, turning more visits into real business outcomes.
+                You get products where every layout, colour and interaction has a purpose. Your customers know exactly what to do next, turning more visits into real business outcomes.
               </p>
           </div>
 
