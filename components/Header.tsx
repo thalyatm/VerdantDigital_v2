@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const currentView = location.pathname === '/tradie' ? 'tradie'
+  const currentView = location.pathname.startsWith('/tradie') ? 'tradie'
     : location.pathname === '/enquire' ? 'enquire'
     : location.pathname === '/success' ? 'success'
     : 'agency';

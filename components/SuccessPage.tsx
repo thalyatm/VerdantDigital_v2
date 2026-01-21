@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Check, Calendar, Mail, Phone } from 'lucide-react';
+import { Check, FileText, Mail, Rocket } from 'lucide-react';
 
 const SuccessPage: React.FC = () => {
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -23,7 +23,7 @@ const SuccessPage: React.FC = () => {
             Payment Successful!
           </h1>
           <p className="text-xl text-brand-accent font-bold">
-            Welcome to Verdant Digital
+            Your Express Build has started
           </p>
         </div>
 
@@ -39,31 +39,31 @@ const SuccessPage: React.FC = () => {
               <div>
                 <h3 className="text-lg font-bold text-white mb-2">Check Your Email</h3>
                 <p className="text-brand-muted text-sm leading-relaxed">
-                  You'll receive a confirmation email with your payment receipt and next steps within 5 minutes.
+                  You'll receive a confirmation email with your payment receipt and a link to your intake form.
                 </p>
               </div>
             </div>
 
             <div className="flex gap-4">
               <div className="w-12 h-12 bg-brand-accent/10 rounded-lg flex items-center justify-center shrink-0">
-                <Calendar size={24} className="text-brand-accent" />
+                <FileText size={24} className="text-brand-accent" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white mb-2">We'll Schedule Your Call</h3>
+                <h3 className="text-lg font-bold text-white mb-2">Complete the Intake Form</h3>
                 <p className="text-brand-muted text-sm leading-relaxed">
-                  Our team will reach out within 24 hours to schedule your discovery call and gather your website details.
+                  Fill in your business details, services, and upload any photos or logo you have. This locks in your scope.
                 </p>
               </div>
             </div>
 
             <div className="flex gap-4">
               <div className="w-12 h-12 bg-brand-accent/10 rounded-lg flex items-center justify-center shrink-0">
-                <Phone size={24} className="text-brand-accent" />
+                <Rocket size={24} className="text-brand-accent" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white mb-2">Building Starts Immediately</h3>
+                <h3 className="text-lg font-bold text-white mb-2">We Start Building</h3>
                 <p className="text-brand-muted text-sm leading-relaxed">
-                  After your discovery call, we'll start building your site. You'll be live in 7 days!
+                  Once your form is submitted, we get to work. Your site will be live within 7 days.
                 </p>
               </div>
             </div>

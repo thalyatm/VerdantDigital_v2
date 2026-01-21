@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, ShieldCheck, MapPin } from 'lucide-react';
-import ExpressBuildModal from './ExpressBuildModal';
+import { X, ArrowRight, Calendar, MessageCircle } from 'lucide-react';
 import ContactFormModal from './ContactFormModal';
 import { trackModalOpen, trackCtaClick } from '../services/analytics';
+import { createCheckoutSession, redirectToCheckout } from '../services/stripeService';
 
 interface StartProjectModalProps {
   isOpen: boolean;
@@ -10,165 +10,188 @@ interface StartProjectModalProps {
 }
 
 const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }) => {
-  const [isExpressModalOpen, setIsExpressModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactModalPrefill, setContactModalPrefill] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  // Track modal open
   useEffect(() => {
     if (isOpen) {
       trackModalOpen('start_project');
     }
   }, [isOpen]);
 
+  const handleStartExpressBuild = async () => {
+    setIsProcessing(true);
+    trackCtaClick('express_build_pay_now', 'start_project_modal');
+
+    try {
+      const checkoutUrl = await createCheckoutSession({
+        mode: 'subscription',
+        successUrl: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancelUrl: `${window.location.origin}/tradie`,
+        metadata: {
+          product: 'tradie_express_build',
+          source: 'start_project_modal'
+        }
+      });
+
+      await redirectToCheckout(checkoutUrl);
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setIsProcessing(false);
+      alert('Something went wrong. Please try again or contact us directly.');
+    }
+  };
+
+  const handleBookCall = () => {
+    trackCtaClick('book_call', 'start_project_modal');
+    // Open Calendly or contact form for booking
+    setContactModalPrefill('Book a Free Call - Express Build');
+    setIsContactModalOpen(true);
+  };
+
+  const handleSendQuestion = () => {
+    trackCtaClick('send_question', 'start_project_modal');
+    window.location.href = 'mailto:hello@verdantdigital.com.au?subject=Question%20RE%3A%20Tradie%20Express%20Build';
+  };
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div 
-        className="absolute inset-0 bg-brand-black/90 backdrop-blur-md transition-opacity animate-fade-in-up" 
+      <div
+        className="absolute inset-0 bg-brand-black/90 backdrop-blur-md transition-opacity animate-fade-in-up"
         onClick={onClose}
       ></div>
-      
-      <div className="relative bg-brand-surface border border-brand-border rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden animate-fade-in-up max-h-[90vh] overflow-y-auto">
-        <button 
+
+      <div className="relative bg-brand-surface border border-brand-border rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-fade-in-up">
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 text-brand-muted hover:text-white transition-colors z-10 bg-brand-black/50 rounded-full p-2 hover:bg-brand-black"
         >
-          <X size={24} />
+          <X size={20} />
         </button>
 
-        <div className="p-6 md:p-10 text-center">
-          <h2 className="text-2xl md:text-4xl font-display font-black text-white mb-3 uppercase leading-tight">How Would You Like to Proceed?</h2>
-          <p className="text-brand-muted text-lg mb-10 font-light">Choose the option that works best for your business</p>
+        <div className="p-5 md:p-6">
+          {/* Header */}
+          <div className="text-center mb-5">
+            <h2 className="text-2xl md:text-3xl font-display font-black text-white mb-1">
+              How would you like to get started?
+            </h2>
+            <p className="text-brand-muted text-sm">
+              Choose the option that best suits where you're at.
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-6 text-left">
-            
-            {/* Express Build */}
-            <div className="bg-brand-black border-2 border-brand-accent rounded-xl p-6 md:p-8 relative flex flex-col">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-accent text-brand-black text-xs font-bold uppercase tracking-widest py-1.5 px-4 rounded-full whitespace-nowrap flex items-center gap-2">
-                 Most Popular
+          {/* Options */}
+          <div className="space-y-3">
+            {/* Option 1: Pay Now (Primary) */}
+            <div className="relative bg-brand-black border-2 border-brand-accent rounded-xl p-4">
+              <div className="absolute -top-2.5 left-4 bg-brand-accent text-brand-black text-[10px] font-bold uppercase tracking-wider py-0.5 px-2.5 rounded-full">
+                Fastest Option
               </div>
-              
-              <div className="mb-6 pt-2">
-                <h3 className="text-2xl font-display font-bold text-white mb-1">Express Build</h3>
-                <p className="text-brand-muted text-sm mb-4">Book a call, then get your website underway</p>
-                <div className="flex flex-col gap-0.5 mb-1">
-                   <span className="text-2xl font-bold text-white">$399 setup</span>
-                   <span className="text-brand-muted text-sm font-bold">+ $99/mo for 24 months</span>
+
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pt-1">
+                <div className="flex-1">
+                  <h3 className="text-lg font-display font-bold text-white mb-0.5">
+                    Start Express Build Now
+                  </h3>
+                  <p className="text-brand-muted text-sm mb-2">
+                    Best if you're ready to move forward and want your website live within 7 days.
+                  </p>
+                  <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-brand-muted">
+                    <span>Fixed-scope Express Build</span>
+                    <span>•</span>
+                    <span>7-day delivery</span>
+                    <span>•</span>
+                    <span className="text-white font-semibold">$399 + $99/mo</span>
+                  </div>
                 </div>
+
+                <button
+                  onClick={handleStartExpressBuild}
+                  disabled={isProcessing}
+                  className="group flex items-center justify-center gap-2 bg-brand-accent hover:bg-white text-brand-black font-bold py-2.5 px-5 rounded-lg transition-all text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isProcessing ? (
+                    'Processing...'
+                  ) : (
+                    <>
+                      Start Express Build
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
               </div>
-
-              <div className="mb-8 flex-grow">
-                <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-3">What you get upfront:</h4>
-                <ul className="space-y-2 mb-6">
-                  {[
-                    "5 pages (Home, Services, About, Gallery, Contact)",
-                    "Contact & Quote Request forms",
-                    "Mobile-optimised website",
-                    "Google-friendly structure",
-                    "Click-to-call buttons on every page",
-                    "Photo gallery for your completed jobs",
-                    "Service area mapping for local visibility"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
-                      <div className="bg-brand-accent/10 p-0.5 rounded-full mt-0.5">
-                        <Check size={12} className="text-brand-accent shrink-0" strokeWidth={3} />
-                      </div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <h4 className="text-xs font-bold text-brand-accent uppercase tracking-widest mb-3">Then, every month:</h4>
-                <ul className="space-y-2">
-                  {[
-                    "Hosting and security",
-                    "Unlimited updates and edits",
-                    "Mobile optimisation maintenance",
-                    "Monthly performance summary",
-                    "Priority support"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
-                      <div className="bg-brand-accent/10 p-0.5 rounded-full mt-0.5">
-                        <Check size={12} className="text-brand-accent shrink-0" strokeWidth={3} />
-                      </div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <button
-                className="w-full block text-center bg-brand-accent hover:bg-white text-brand-black font-bold py-4 px-6 rounded-lg transition-all uppercase tracking-wide hover:-translate-y-1 transform"
-                onClick={() => {
-                  trackCtaClick('express_build_start', 'start_project_modal');
-                  setIsExpressModalOpen(true);
-                }}
-              >
-                Start Now
-                <span className="block text-[10px] opacity-70 font-normal normal-case mt-0.5">No waiting, instant setup</span>
-              </button>
+              <p className="text-[11px] text-brand-muted/60 mt-2">
+                Secure checkout via Stripe • Intake form sent immediately after payment
+              </p>
             </div>
 
-            {/* Consultation First */}
-            <div className="bg-brand-black border border-brand-border rounded-xl p-6 md:p-8 flex flex-col hover:border-brand-muted/50 transition-colors">
-              <div className="mb-6 pt-2">
-                <h3 className="text-2xl font-display font-bold text-white mb-1">Consultation First</h3>
-                <p className="text-brand-muted text-sm mb-4">Free 15-min call, then pay</p>
-                <div className="flex items-baseline gap-1 mb-1">
-                   <span className="text-3xl font-bold text-white">Free</span>
-                   <span className="text-brand-muted text-sm font-bold ml-1">no obligation</span>
+            {/* Option 2: Book a Call (Secondary) */}
+            <div className="bg-brand-black border border-brand-border rounded-xl p-4 hover:border-brand-muted/50 transition-colors">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div className="flex-1">
+                  <h3 className="text-lg font-display font-bold text-white mb-0.5 flex items-center gap-2">
+                    <Calendar size={18} className="text-brand-muted" />
+                    Talk It Through First
+                  </h3>
+                  <p className="text-brand-muted text-sm mb-1">
+                    Best if you're not sure the Express Build is the right fit, or you have questions before committing.
+                  </p>
+                  <p className="text-xs text-brand-muted/70">
+                    15–20 minute call • We'll confirm fit • No obligation
+                  </p>
                 </div>
+
+                <button
+                  onClick={handleBookCall}
+                  className="flex items-center justify-center gap-2 bg-transparent border border-brand-border hover:border-brand-accent text-white hover:text-brand-accent font-bold py-2.5 px-5 rounded-lg transition-all text-sm whitespace-nowrap"
+                >
+                  Book a Free Call
+                </button>
               </div>
+            </div>
 
-              <ul className="space-y-3 mb-8 flex-grow">
-                {[
-                  "Discuss your specific needs",
-                  "Get custom recommendations",
-                  "Review portfolio examples",
-                  "Ask all your questions"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-brand-bone">
-                    <div className="bg-gray-800 p-0.5 rounded-full mt-0.5">
-                      <Check size={12} className="text-gray-400 shrink-0" strokeWidth={3} />
-                    </div>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            {/* Option 3: Just Have a Question (Safety Valve) */}
+            <div className="bg-brand-surface/50 border border-brand-border/50 rounded-lg p-3">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-white mb-0.5 flex items-center gap-2">
+                    <MessageCircle size={14} className="text-brand-muted" />
+                    Just Have a Question?
+                  </h3>
+                  <p className="text-brand-muted text-xs">
+                    Send us a quick question and we'll point you in the right direction.
+                  </p>
+                </div>
 
-              <div className="bg-brand-surface/50 rounded-lg p-4 mb-6 border border-brand-border">
-                 <p className="text-xs text-brand-muted leading-relaxed">
-                   <span className="text-white font-bold block mb-1 text-[10px] uppercase tracking-wider">✓ Perfect for:</span>
-                   Businesses who want to understand the full package or discuss the lead generation add-on.
-                 </p>
+                <button
+                  onClick={handleSendQuestion}
+                  className="text-brand-muted hover:text-brand-accent text-sm font-semibold transition-colors whitespace-nowrap"
+                >
+                  Send a Question →
+                </button>
               </div>
-
-              <button
-                onClick={() => {
-                  trackCtaClick('consultation_start', 'start_project_modal');
-                  setIsContactModalOpen(true);
-                }}
-                className="w-full block text-center bg-transparent border-2 border-brand-border hover:border-brand-accent text-white hover:text-brand-accent font-bold py-4 px-6 rounded-lg transition-all uppercase tracking-wide group"
-              >
-                GET IN TOUCH
-                <span className="block text-[10px] text-brand-muted group-hover:text-brand-accent font-normal normal-case mt-0.5 transition-colors">We'll respond within 24 hours</span>
-              </button>
             </div>
           </div>
 
-          <div className="mt-10 pt-6 border-t border-brand-border flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
-            <span className="flex items-center gap-2"><MapPin size={16} className="text-brand-accent"/> Australian Based Support</span>
-            <span className="flex items-center gap-2"><ShieldCheck size={16} className="text-brand-accent"/> 24 Month Agreement</span>
+          {/* Footer */}
+          <div className="mt-4 pt-4 border-t border-brand-border/50 text-center">
+            <p className="text-xs text-brand-muted/70 leading-relaxed">
+              Not sure which option to choose?<br />
+              <span className="text-brand-muted">If you're ready to move forward, start the Express Build.</span><br />
+              <span className="text-brand-muted">If you have questions or a more complex setup, book a call first.</span>
+            </p>
           </div>
         </div>
       </div>
 
-      <ExpressBuildModal isOpen={isExpressModalOpen} onClose={() => setIsExpressModalOpen(false)} />
       <ContactFormModal
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}
-        prefilledHelpWith="2026 New Year Special - Tradie Website"
+        prefilledHelpWith={contactModalPrefill}
+        preSelectPhone={true}
       />
     </div>
   );

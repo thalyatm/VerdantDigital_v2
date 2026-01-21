@@ -10,7 +10,7 @@ const pillars = [
   {
     icon: Cpu,
     title: "Engineering-Grade Code",
-    description: "Modern stacks—React, Next.js, Shopify—for zero technical debt and fast load times."
+    description: "Modern stacks like React, Next.js and Shopify for zero technical debt and fast load times."
   },
   {
     icon: Handshake,

@@ -26,29 +26,9 @@ export default async function handler(req, res) {
       },
     };
 
-    if (mode === 'payment') {
-      // DEPRECATED: Old one-time payment flow
-      // Use mode === 'subscription' for the new $399 + $99/mo pricing
-      sessionConfig.line_items = [
-        {
-          price_data: {
-            currency: 'aud',
-            product_data: {
-              name: 'Express Build - Setup Fee',
-              description: 'One-time setup fee for your tradie website',
-            },
-            unit_amount: 39900, // $399.00 in cents
-          },
-          quantity: 1,
-        },
-      ];
-      sessionConfig.payment_intent_data = {
-        receipt_email: 'thalya@verdantlabs.com.au',
-        metadata: metadata,
-      };
-    } else if (mode === 'subscription') {
-      // NEW PRICING: $399 upfront + $99/month for 24 months
-      // Customer pays $399 today, then $99/month starting next month for 24 months
+    if (mode === 'subscription') {
+      // Tradie Express Build: $399 upfront + $99/month
+      // Customer pays $399 today, then $99/month starting in 30 days
       sessionConfig.line_items = [
         {
           // One-time setup fee: $399
@@ -63,19 +43,16 @@ export default async function handler(req, res) {
       ];
       sessionConfig.subscription_data = {
         metadata: {
-          ...metadata,
+          build_type: 'tradie_express',
+          delivery_timeline: '7_days',
+          included_pages: '5',
+          managed_service: 'true',
+          plan_duration_months: '24',
           receipt_email: 'thalya@verdantlabs.com.au',
-          plan_duration_months: '24', // Track that this is a 24-month plan
+          ...metadata,
         },
         // Trial period delays the first $99 payment by 30 days
-        // Customer pays $399 today, then first $99 payment in 30 days
         trial_period_days: 30,
-      };
-      // Add invoice settings to ensure receipts are sent
-      sessionConfig.subscription_data.invoice_settings = {
-        issuer: {
-          type: 'self',
-        },
       };
     }
 

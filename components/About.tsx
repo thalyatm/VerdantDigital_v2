@@ -364,7 +364,7 @@ const About: React.FC = () => {
                 <ArrowRight size={16} />
               </a>
               <a
-                href="/#services"
+                href="/services"
                 className="inline-flex items-center gap-2 border border-brand-border hover:border-brand-accent text-white hover:text-brand-accent font-bold px-6 py-3 rounded-lg transition-all uppercase tracking-widest text-xs"
               >
                 Explore Our Services

@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Business Identity */}
-            <div className="text-xs md:text-sm -space-y-0.5 md:space-y-0 leading-tight">
+            <div className="text-xs md:text-sm space-y-0.5 md:space-y-0 leading-tight">
               <p className="text-brand-bone font-semibold">Verdant Labs Pty Ltd</p>
               <p className="text-gray-500">ABN: 62 690 480 516</p>
               <p className="text-gray-500">Brisbane, Queensland, Australia</p>
