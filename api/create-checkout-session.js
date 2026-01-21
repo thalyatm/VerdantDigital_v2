@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { mode, customerEmail, metadata } = req.body;
+    const { mode, customerEmail, metadata, embedded } = req.body;
 
     // Get the origin from request headers
     const origin = req.headers.origin || req.headers.referer?.replace(/\/$/, '') || 'http://localhost:3000';
@@ -17,14 +17,21 @@ export default async function handler(req, res) {
     let sessionConfig = {
       payment_method_types: ['card'],
       mode: mode,
-      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/tradie`,
       customer_email: customerEmail,
       metadata: {
         ...metadata,
         receipt_email: 'thalya@verdantlabs.com.au', // Always send receipts here
       },
     };
+
+    // Use embedded checkout if requested
+    if (embedded) {
+      sessionConfig.ui_mode = 'embedded';
+      sessionConfig.return_url = `${origin}/success?session_id={CHECKOUT_SESSION_ID}`;
+    } else {
+      sessionConfig.success_url = `${origin}/success?session_id={CHECKOUT_SESSION_ID}`;
+      sessionConfig.cancel_url = `${origin}/tradie`;
+    }
 
     if (mode === 'subscription') {
       // Tradie Express Build: $399 upfront + $99/month for 24 months
@@ -61,7 +68,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       sessionId: session.id,
-      url: session.url // Return the checkout URL for direct redirect
+      url: session.url, // Return the checkout URL for direct redirect
+      clientSecret: session.client_secret, // For embedded checkout
     });
   } catch (error) {
     console.error('Error creating checkout session:', error);

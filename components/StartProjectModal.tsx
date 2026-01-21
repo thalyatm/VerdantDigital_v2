@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, Calendar, MessageCircle } from 'lucide-react';
 import ContactFormModal from './ContactFormModal';
+import EmbeddedCheckout from './EmbeddedCheckout';
 import { trackModalOpen, trackCtaClick } from '../services/analytics';
-import { createCheckoutSession, redirectToCheckout } from '../services/stripeService';
 
 interface StartProjectModalProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface StartProjectModalProps {
 const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }) => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactModalPrefill, setContactModalPrefill] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -20,27 +20,9 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
     }
   }, [isOpen]);
 
-  const handleStartExpressBuild = async () => {
-    setIsProcessing(true);
+  const handleStartExpressBuild = () => {
     trackCtaClick('express_build_pay_now', 'start_project_modal');
-
-    try {
-      const checkoutUrl = await createCheckoutSession({
-        mode: 'subscription',
-        successUrl: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancelUrl: `${window.location.origin}/tradie`,
-        metadata: {
-          product: 'tradie_express_build',
-          source: 'start_project_modal'
-        }
-      });
-
-      await redirectToCheckout(checkoutUrl);
-    } catch (error) {
-      console.error('Checkout error:', error);
-      setIsProcessing(false);
-      alert('Something went wrong. Please try again or contact us directly.');
-    }
+    setIsCheckoutOpen(true);
   };
 
   const handleBookCall = () => {
@@ -110,17 +92,10 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
 
                 <button
                   onClick={handleStartExpressBuild}
-                  disabled={isProcessing}
-                  className="group flex items-center justify-center gap-2 bg-brand-accent hover:bg-white text-brand-black font-bold py-2.5 px-5 rounded-lg transition-all text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="group flex items-center justify-center gap-2 bg-brand-accent hover:bg-white text-brand-black font-bold py-2.5 px-5 rounded-lg transition-all text-sm whitespace-nowrap"
                 >
-                  {isProcessing ? (
-                    'Processing...'
-                  ) : (
-                    <>
-                      Start Express Build
-                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                    </>
-                  )}
+                  Start Express Build
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
               <p className="text-[11px] text-brand-muted/60 mt-2">
@@ -192,6 +167,15 @@ const StartProjectModal: React.FC<StartProjectModalProps> = ({ isOpen, onClose }
         onClose={() => setIsContactModalOpen(false)}
         prefilledHelpWith={contactModalPrefill}
         preSelectPhone={true}
+      />
+
+      <EmbeddedCheckout
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        metadata={{
+          product: 'tradie_express_build',
+          source: 'start_project_modal'
+        }}
       />
     </div>
   );
