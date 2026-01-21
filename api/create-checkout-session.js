@@ -27,8 +27,8 @@ export default async function handler(req, res) {
     };
 
     if (mode === 'subscription') {
-      // Tradie Express Build: $399 upfront + $99/month
-      // Customer pays $399 today, then $99/month starting in 30 days
+      // Tradie Express Build: $399 upfront + $99/month for 24 months
+      // Customer pays $399 today, then $99/month starting in 30 days (first month free)
       sessionConfig.line_items = [
         {
           // One-time setup fee: $399
@@ -36,12 +36,13 @@ export default async function handler(req, res) {
           quantity: 1,
         },
         {
-          // Recurring monthly fee: $99/month
+          // Recurring monthly fee: $99/month for 24 months
           price: process.env.STRIPE_RECURRING_PRICE_ID,
           quantity: 1,
         },
       ];
       sessionConfig.subscription_data = {
+        description: '24-month agreement • First month free',
         metadata: {
           build_type: 'tradie_express',
           delivery_timeline: '7_days',
@@ -51,7 +52,7 @@ export default async function handler(req, res) {
           receipt_email: 'thalya@verdantlabs.com.au',
           ...metadata,
         },
-        // Trial period delays the first $99 payment by 30 days
+        // Trial period delays the first $99 payment by 30 days (first month free)
         trial_period_days: 30,
       };
     }
